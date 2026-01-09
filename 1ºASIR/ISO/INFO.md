@@ -1,8 +1,8 @@
 # ISO - Implantación de Sistemas Operativos 
 
-Profesor:  Agustín Aguilera
-Horas totales: 245 horas
-Horas semanales: 7 horas
+- Profesor:  Agustín Aguilera
+- Horas totales: 245 horas
+- Horas semanales: 7 horas
 
 ## Contenidos
 
