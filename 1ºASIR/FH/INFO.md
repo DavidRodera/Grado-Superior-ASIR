@@ -6,5 +6,5 @@
 
 ## Contenidos
 
-1. Introducción a los Sistemas Informáticos, Placa Base, CPU, RAM, Periféricos, Almacenamiento, 
+1. Introducción a los Sistemas Informáticos, Placa Base, CPU, RAM, Periféricos, Almacenamiento 
 2. PRL: Protección Ambiental, Medidas y Equipos
