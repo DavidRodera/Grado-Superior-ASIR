@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuenti</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="contenedor-principal">
+        <img src="IMG/Logo_Tuenti_nuevo_(esquema_inverso).png">
+        
+        <div class="formulario">
+            <form>
+                <div class="campo1">
+                    <h1>Únete a Tuenti <span>Todos los campos son obligatorios</span></h1>
+                    <select>
+                        <option selected>Español</option>
+                        <option>Inglés</option>
+                    </select>
+                </div>
+
+                <div class="campo2">
+                    <label>Nombre</label>
+                    <div class="input-row">
+                        <input type="text" placeholder="Nombre" required>
+                        <input type="text" placeholder="Apellidos" required>
+                    </div>
+                </div>
+
+                <div class="campo3">
+                    <label>Email:</label>
+                    <input type="email" required>
+                </div>
+
+                <div class="campo4">
+                    <label>Sexo</label>
+                    <div class="radio-group" required>
+                        <label><input type="radio" name="sexo" value="h"> Hombre</label>
+                        <label><input type="radio" name="sexo" value="m"> Mujer</label>
+                    </div>
+                </div>
+
+                <div class="campo5">
+                    <label>Fecha de nacimiento</label>
+                    <div class="vertical-group">
+                        <div class="select-row">
+                            <select name="dia" required>
+                                <option value="" disabled selected>Día</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                                <option>11</option>
+                                <option>12</option>
+                                <option>13</option>
+                                <option>14</option>
+                                <option>15</option>
+                                <option>16</option>
+                                <option>17</option>
+                                <option>18</option>
+                                <option>19</option>
+                                <option>20</option>
+                                <option>21</option>
+                                <option>22</option>
+                                <option>23</option>
+                                <option>24</option>
+                                <option>25</option>
+                                <option>26</option>
+                                <option>27</option>
+                                <option>28</option>
+                                <option>29</option>
+                                <option>30</option>
+                                <option>31</option>
+                            </select>
+                            <select name="mes" required>
+                                <option value="" disabled selected>Mes</option>
+                                <option>Enero</option>
+                                <option>Febrero</option>
+                                <option>Marzo</option>
+                                <option>Abril</option>
+                                <option>Mayo</option>
+                                <option>Junio</option>
+                                <option>Julio</option>
+                                <option>Agosto</option>
+                                <option>Septiembre</option>
+                                <option>Octubre</option>
+                                <option>Noviembre</option>
+                                <option>Diciembre</option>
+                            </select>
+                            <select name="año" required>
+                                <option value="" disabled selected>Año</option>
+                                <option>2026</option>
+                                <option>2025</option>
+                                <option>2024</option>
+                                <option>2023</option>
+                            </select>
+                        </div>
+                        <p class="ayuda">La edad mínima permitida es 14.</p>
+                    </div>
+                </div>
+
+                <div class="campo6">
+                    <label>Contraseña</label>
+                    <div class="vertical-group">
+                        <input type="password" required>
+                        <a href="http://www.ticarte.com">Consejos para elegir una contraseña</a>
+                    </div>
+                </div>
+
+                <div class="campo7">
+                    <label>Número de móvil</label>
+                    <div class="mobile-row">
+                        <select><option>+34 E</option></select>
+                        <input type="tel" maxlength="9" pattern="[0-9]{9}" required>
+                    </div>
+                </div>
+
+                <div class="campo8">
+                    <div class="check-box">
+                        <input type="checkbox" required>
+                        <p>Aceptas las <a href="http://www.ticarte.com">Condiciones de uso</a> y la <a href="http://www.ticarte.com">Política de privacidad</a> de Tuenti y que Tuenti te envíe comunicaciones, incluso por vía electrónica. Lee un resumen en el <a href="http://www.ticarte.com">Decálogo de las Condiciones de uso</a></p>
+                    </div>
+                    <div class="btn-box">
+                        <button type="submit">¡Disfruta de Tuenti!</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
