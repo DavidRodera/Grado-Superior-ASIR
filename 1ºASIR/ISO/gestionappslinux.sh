@@ -42,7 +42,7 @@ function installapt(){
 			echo ''
 			if sudo apt show $app_ins 2>/dev/null | grep -q 'Package:'; 
 			then
-				echo 'La aplicación '$app_ins' está disponible'
+				echo 'La aplicación '$app_ins' está disponible ✓'
 				sudo apt show "$app_ins" | sed -n '1p;2p;4p;5p'
 				echo ''
 				read -p 'Deseas instalar esa aplicación? [S/N] ' si_no
@@ -51,8 +51,7 @@ function installapt(){
 						echo ''
 						sudo apt install $app_ins
 						echo ''
-						echo 'Aplicación instalada'
-						echo ''fdrv
+						echo 'Aplicación instalada con ÉXITO ✓'
 						sudo apt list --installed | grep -w $app_ins
 						echo ''
 						read -p 'Pulsa ENTER para volver al Menú Principal...' enter
@@ -70,7 +69,7 @@ function installapt(){
 					return
 				fi
 			else
-				echo 'La aplicación '$app_ins' no está disponible'
+				echo 'La aplicación '$app_ins' no está disponible X'
 				echo ''
 				read -p 'Pulsa ENTER para volver al Menú Principal...' enter
 				return
@@ -97,7 +96,7 @@ function uninstallapt(){
 						sudo apt purge $app_unins
 						sudo apt autoremove $app_unins
 						echo ''
-						echo 'Aplicación desinstalada'
+						echo 'Aplicación desinstalada con ÉXITO ✓'
 						echo ''
 						sudo apt list --installed | grep -w $app_unins
 						echo ''
@@ -117,7 +116,7 @@ function uninstallapt(){
 				fi
 			else
 				echo ''
-				echo 'La aplicación '$app_ins' no está disponible para desinstalarse'
+				echo 'La aplicación '$app_ins' no está disponible para desinstalarse X'
 				echo ''
 				read -p 'Pulsa ENTER para volver al Menú Principal...' enter
 				return
@@ -142,10 +141,9 @@ function uninstallapt(){
 			echo ''
 			sudo apt update
 			echo ''
-			echo 'UPDATE realizado'
+			echo 'UPDATE realizado con ÉXITO ✓'
 			sleep 0.7
 			read -p 'Pulsa ENTER para volver al Menú Principal...' enter
-			return
 			return
 		;;
 		2)
@@ -164,13 +162,116 @@ function dpkg(){
 	echo '=== INSTALAR ARCHIVOS .deb - dpkg ==='
 	echo ''
 	read -p 'Introduce la ruta de la carpeta donde se encuentran los archivos (Ejemplo: /home/tu_usuario/...): ' ruta
-	cd && cd $ruta
+	cd
+	cd $ruta
 	echo ''
-	echo 'Archivos .deb DISPONIBLES:'
+	echo '--------------------------------'	
+	echo '|  Archivos .deb DISPONIBLES:  |'
+	echo '--------------------------------'
 	ls -1 *.deb
+	echo ''
 	read -p 'Cuál archivo .deb deseas INSTALAR?: ' arch_deb
 	if [ -e $arch_deb ];
 	then
+		sudo dpkg -i $arch_deb
+		echo ''
+		echo 'Aplicación instalada con ÉXITO ✓'
+		echo ''
+		if [ ${#arch_deb} -le 10 ]
+		then	
+			long_deb=${arch_deb:0:7}
+			sudo dpkg -l | grep $long_deb
+			echo ''
+			read -p '¿Ya que estamos aquí? ¿Quieres DESINSTALAR un programa? [S/N]: ' si_no
+			if [ $si_no == 'S' ] || [ $si_no == 's' ]
+			then
+				echo ''
+				echo '=== DESINSTALAR PROGRAMAS - dpkg ==='
+				echo ''
+				read -p 'Introduce el nombre de la aplicación que deseas desinstalar: ' unins_dpkg
+				echo ''
+				sudo dpkg -l | grep $unins_dpkg
+			elif [ $si_no == 'N' ] || [ $si_no == 'n' ]
+			then
+				echo ''
+				
+			else
+				echo ''
+				echo 'No se que es '$si_no'debias elegir entre [S/N]'
+				echo ''
+				read -p 'Pulsa ENTER para volver al Menú Principal...' enter
+				return
+			fi
+			
+		elif [ ${#arch_deb} -gt 10 ] && [ ${#arch_deb} -le 16 ]
+		then	
+			long_deb=${arch_deb:0:8}
+			sudo dpkg -l | grep $long_deb
+			echo ''
+			read -p '¿Ya que estamos aquí? ¿Quieres DESINSTALAR un programa? [S/N]: ' si_no
+			if [ $si_no == 'S' ] || [ $si_no == 's' ]
+			then
+				echo ''
+				echo '=== DESINSTALAR PROGRAMAS - dpkg ==='
+				echo ''
+				read -p 'Introduce el nombre de la aplicación que deseas desinstalar: ' unins_dpkg
+				echo ''
+				sudo dpkg -l | grep $unins_dpkg
+			elif [ $si_no == 'N' ] || [ $si_no == 'n' ]
+			then
+				echo ''
+				
+			else
+				echo ''
+				echo 'No se que es '$si_no'debias elegir entre [S/N]'
+				echo ''
+				read -p 'Pulsa ENTER para volver al Menú Principal...' enter
+				return
+			fi
+		else
+			long_deb=${arch_deb:0:13}
+			sudo dpkg -l | grep $long_deb
+			echo ''
+			read -p '¿Ya que estamos aquí? ¿Quieres DESINSTALAR un programa? [S/N]: ' si_no
+			if [ $si_no == 'S' ] || [ $si_no == 's' ]
+			then
+				echo ''
+				echo '=== DESINSTALAR PROGRAMAS - dpkg ==='
+				echo ''
+				read -p 'Introduce como crees que se llama el programa que deseas desinstalar: ' unins_dpkg
+				echo ''
+				sudo dpkg -l | grep $unins_dpkg
+				read -p 'Introduce el nombre del programa que deseas desinstalar: ' unins_dpkg_1
+				echo ''
+				if sudo dpkg -r $unins_dpkg_1 2>/dev/null;
+				then
+					sudo dpkg -r $unins_dpkg_1
+					echo ''
+					echo 'Programa desinstalado con ÉXITO ✓'
+					echo ''
+					sudo dpkg -l | grep $unins_dpkg_1
+					echo ''
+					read -p 'Pulsa ENTER para volver al Menú Principal...' enter
+					return
+				else
+					echo 'NO se puede desinstalar el programa X'
+					echo ''
+					read -p 'Pulsa ENTER para volver al Menú Principal...' enter
+					return
+				fi
+			elif [ $si_no == 'N' ] || [ $si_no == 'n' ]
+			then
+				echo ''
+				
+			else
+				echo ''
+				echo 'No se que es '$si_no'debias elegir entre [S/N]'
+				echo ''
+				read -p 'Pulsa ENTER para volver al Menú Principal...' enter
+				return
+			fi
+		fi
+	fi
 		
 
 }
