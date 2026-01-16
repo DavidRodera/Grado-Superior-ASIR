@@ -161,7 +161,6 @@ function dpkg(){
 	echo '=== INSTALAR ARCHIVOS .deb - dpkg ==='
 	echo ''
 	read -p 'Introduce la ruta de la carpeta donde se encuentran los archivos (Ejemplo: /home/tu_usuario/...): ' ruta
-	cd
 	cd $ruta 2>/dev/null
 	if [ $? -eq 0 ]
 	then
@@ -184,7 +183,7 @@ function dpkg(){
 				prg_deb=$(echo "$arch_deb" | sed 's/[_.0-9].*//')
 				sudo dpkg -l | grep $prg_deb
 				echo ''
-				read -p '¿Ya que estamos aquí? ¿Quieres DESINSTALAR un programa? [S/N] ' si_no
+				read -p 'Ya que estamos aquí ¿Quieres DESINSTALAR un programa? [S/N] ' si_no
 				if [ $si_no == 'S' ] || [ $si_no == 's' ]
 				then
 					echo ''
@@ -255,6 +254,8 @@ function synaptic(){
 	echo ''
 	echo '=== GESTIONAR APLICACIONES DESDE LA INTERFAZ GRÁFICA - synaptic ==='
 	echo ''
+	echo '! Recuerda CERRAR SYNAPTIC para volver al SCRIPT'
+	echo ''
 	echo -n 'Abriendo SYNAPTIC'
 	for i in {1..3}; do
     	echo -n '.'
@@ -262,8 +263,23 @@ function synaptic(){
 	done
 	sleep 0.2
 	sudo synaptic
+	echo ''
+	read -p 'Pulsa ENTER para volver al Menú Principal...' enter
+	return	
 
 }
+
+function salir(){
+
+	echo -n 'SALIENDO del SCRIPT'
+	for i in {1..3}; do
+    	echo -n '.'
+    	sleep 0.5
+	done
+	exit
+
+}
+
 
 opcion=1
 while [ $opcion -ne 0 ]
@@ -272,6 +288,9 @@ while [ $opcion -ne 0 ]
 	read -p 'Selecciona una opción: ' opcion
 	echo ''
 	case $opcion in
+		0)
+			salir
+		;;
 		1)
 			apt
 		;;
@@ -280,6 +299,12 @@ while [ $opcion -ne 0 ]
 		;;
 		3)
 			synaptic
+		;;
+		*)
+			echo 'Debes ELEGIR una OPCIÓN del 0-4'
+			echo ''
+			read -p 'Pulsa ENTER para volver al Menú Principal...' enter
+		;;
 	esac
 done
 
