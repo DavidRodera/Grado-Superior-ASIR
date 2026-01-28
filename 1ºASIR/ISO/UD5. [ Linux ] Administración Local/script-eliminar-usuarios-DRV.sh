@@ -13,16 +13,16 @@ then
 			if [ $lineas -ne 0 ]
 			then
 				clear
-				echo '=== CREACIÓN DE USUARIOS ==='
+				echo '=== ELIMINACIÓN DE USUARIOS ==='
 				echo ''
-				echo 'Este es el listado de USUARIOS que se crearán'
+				echo 'Este es el listado de USUARIOS que se eliminarán'
 				sleep 1
 				echo ''
 				echo 'NOMBRE	   APELLIDO   CORREO                            USUARIO'
 				echo '========================================================================'
 				cut -d"," -f1,2,5,6 $1 | column -t -s ","
 				echo '========================================================================'
-				read -p 'Desea crear estos usuarios [S/N]: ' si_no
+				read -p 'Desea eliminar estos usuarios [S/N]: ' si_no
 				echo ''
 				if [ $si_no == 'S' ] || [ $si_no == 's' ]
 				then
@@ -30,24 +30,23 @@ then
                     contador=0
 					while IFS=, read -r nombre apellido dni telefono correo usuario
     					do  
-					sudo useradd $usuario -c "Usuario temporal Academia Sierra Nevada - [$nombre $apellido]" -d /home/aula3/$usuario -m -s /bin/bash -g alumnos_sn -e 2026-01-29 -f 0 2>/dev/null
+					sudo userdel -r $usuario 2>/dev/null
 					if [ $? -eq 0 ]
 					then
 						contador=$(( $contador + 1 ))
-                        			echo -e 'Usuario' $usuario 'CREADO correctamente' ${verde}'✓'${normal}
-                        			echo '$usuario:$apellidos$DNI' | sudo chpasswd
+                        			echo -e 'Usuario' $usuario 'ELIMINADO correctamente' ${verde}'✓'${normal}
 						echo ''
 						sleep 0.2
 					else
-						echo 'El usuario' $usuario 'YA EXISTIA'
+						echo 'El usuario' $usuario 'NO EXISTIA'
 						echo ''
 						sleep 0.2
 					fi
 
     					done < $1
-    		    	echo '=== RESUMEN DE LA CREACIÓN DE USUARIOS ==='
-                    	echo 'Se han creado' $contador 'usuarios CORRECTAMENTE.'
-                    	echo $(( $lineas - $contador )) 'usuarios ya estaban CREADOS'
+    		    	echo '=== RESUMEN DE LA ELIMINACIÓN DE USUARIOS ==='
+                    	echo 'Se han eliminado' $contador 'usuarios CORRECTAMENTE.'
+                    	echo $(( $lineas - $contador )) 'usuarios no estaban CREADOS'
                     	echo 'TOTAL:' $lineas
                     	echo ''
                     	read -p 'Pulsa ENTER para salir...' enter
