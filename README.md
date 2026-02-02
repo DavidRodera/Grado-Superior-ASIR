@@ -11,4 +11,4 @@ Este repositorio contiene:
 
 ## Objetivo
 
-Este repositorio sirve como recopilación de material de estudio del ciclo ASIR y como referencia para otros usuarios. TODO HECHO POR UN ESTUDIANTE PUEDE HABER FALLOS.
+Este repositorio sirve como recopilación de material de estudio del ciclo ASIR y como referencia para otros usuarios. TODO HECHO POR UN ESTUDIANTE, PUEDE HABER FALLOS.
