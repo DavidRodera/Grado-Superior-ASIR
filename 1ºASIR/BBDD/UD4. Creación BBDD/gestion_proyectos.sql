@@ -12,8 +12,8 @@ CREATE TABLE empleados (
 
 CREATE TABLE proyectos (
     id_proyecto INT UNSIGNED AUTO_INCREMENT,
-    nombre VARCHAR(40) NOT NULL,
-    id_departamento INT UNSIGNED,
+    nombre VARCHAR(40) UNIQUE NOT NULL,
+    id_departamento INT UNSIGNED NOT NULL,
     fecha_inicio DATE NOT NULL,
     fecha_fin DATE,
     CONSTRAINT pk_id_proyecto PRIMARY KEY (id_proyecto),
