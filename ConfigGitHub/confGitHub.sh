@@ -34,6 +34,163 @@ function salir(){
 
 }
 
+function config(){
+
+	read -p "🔗 Introduce el LINK del REPOSITORIO: " url 
+	read -p "👤 Introduce tu NOMBRE de USUARIO de GitHub: " nombreusuario
+	read -p "📧 Introduce el EMAIL de tu cuenta de GitHub: " email 
+	echo ''
+	repositorio=$(basename "$url" .git)
+	ruta=$(find ~ -type d -name "$repositorio" -print -quit)
+	cd "$ruta" 2>/dev/null
+	if [ $? -eq 0 ]
+	then
+		if [ $(git config --global user.name | wc -l) == 1 ]; 
+		then
+			echo -e "${VERDE}✅ Nombre ya configurado.${NC}"
+			if [ $(git config --global user.email | wc -l) == 1 ]; 
+			then
+				echo -e "${VERDE}✅ Email ya configurado.${NC}"
+				if [ $(git config --global credential.helper) == 'store' ] || [ $(git config --global credential.helper) == 'cache' ];
+				then
+					echo -e "${VERDE}✅ Helper ya configurado y llaves ya guardadas.${NC}"
+				else
+					git config --global credential.helper store
+					echo -e "${CYAN}👉 Para guardar las llaves, introduce tu usuario y Token una vez:${NC}"
+					git fetch origin >/dev/null 2>&1
+					if [ $? -eq 0 ]; then
+						echo -e "${VERDE}✅ Helper configurado y llaves guardadas.${NC}"
+						echo ''
+						read -p 'Pulsa ENTER para volver al Salir...' enter
+						echo ''
+						exit
+					else
+						echo -e "${ROJO}❌ Error al validar el Token.${NC}"
+						echo ''
+						read -p 'Pulsa ENTER para volver al Salir...' enter
+						echo ''
+						exit
+					fi
+				fi
+			else
+				git config --global user.email $email
+				if [ $? -eq 0 ]; 
+				then
+					echo -e "${VERDE}✅ Email configurado.${NC}"
+					if [ $(git config --global credential.helper) == 'store' ] || [ $(git config --global credential.helper) == 'cache' ];
+					then
+						echo -e "${VERDE}✅ Helper ya configurado y llaves ya guardadas.${NC}"
+					else
+						git config --global credential.helper store
+						echo -e "${CYAN}👉 Para guardar las llaves, introduce tu usuario y Token una vez:${NC}"
+						git fetch origin >/dev/null 2>&1
+						if [ $? -eq 0 ]
+						then
+							echo -e "${VERDE}✅ Helper configurado y llaves guardadas.${NC}"
+							echo ''
+							read -p 'Pulsa ENTER para volver al Salir...' enter
+							echo ''
+							exit
+						else
+							echo -e "${ROJO}❌ Error al validar el Token.${NC}"
+							echo ''
+							read -p 'Pulsa ENTER para volver al Salir...' enter
+							echo ''
+							exit
+						fi
+					fi
+				else
+					echo -e "${ROJO}❌ Error al configurar el email.${NC}"
+					echo ''
+					read -p 'Pulsa ENTER para volver al Salir...' enter
+					echo ''
+					exit
+				fi
+			fi
+		else
+			git config --global user.name $nombreusuario
+			if [ $? -eq 0 ]; 
+			then
+				echo -e "${VERDE}✅ Nombre configurado.${NC}"
+				if [ $(git config --global user.email | wc -l) == 1 ]; 
+				then
+					echo -e "${VERDE}✅ Email ya configurado.${NC}"
+					if [ $(git config --global credential.helper) == 'store' ] || [ $(git config --global credential.helper) == 'cache' ];
+					then
+						echo -e "${VERDE}✅ Helper ya configurado y llaves ya guardadas.${NC}"
+					else
+						git config --global credential.helper store
+						echo -e "${CYAN}👉 Para guardar las llaves, introduce tu usuario y Token una vez:${NC}"
+						git fetch origin >/dev/null 2>&1
+						if [ $? -eq 0 ]
+						then
+							echo -e "${VERDE}✅ Helper configurado y llaves guardadas.${NC}"
+							echo ''
+							read -p 'Pulsa ENTER para volver al Salir...' enter
+							echo ''
+							exit
+						else
+							echo -e "${ROJO}❌ Error al validar el Token.${NC}"
+							echo ''
+							read -p 'Pulsa ENTER para volver al Salir...' enter
+							echo ''
+							exit
+						fi
+					fi
+				else
+					git config --global user.email $email
+					if [ $? -eq 0 ]; 
+					then
+						echo -e "${VERDE}✅ Email configurado.${NC}"
+						if [ $(git config --global credential.helper) == 'store' ] || [ $(git config --global credential.helper) == 'cache' ];
+						then
+							echo -e "${VERDE}✅ Helper ya configurado y llaves ya guardadas.${NC}"
+						else
+							git config --global credential.helper store
+							echo -e "${CYAN}👉 Para guardar las llaves, introduce tu usuario y Token una vez:${NC}"
+							git fetch origin >/dev/null 2>&1
+							if [ $? -eq 0 ]
+							then
+								echo -e "${VERDE}✅ Helper configurado y llaves guardadas.${NC}"
+								echo ''
+								read -p 'Pulsa ENTER para volver al Salir...' enter
+								echo ''
+								exit
+							else
+								echo -e "${ROJO}❌ Error al validar el Token.${NC}"
+								echo ''
+								read -p 'Pulsa ENTER para volver al Salir...' enter
+								echo ''
+								exit
+							fi
+						fi
+						
+					else
+						echo -e "${ROJO}❌ Error al configurar el email.${NC}"
+						echo ''
+						read -p 'Pulsa ENTER para volver al Salir...' enter
+						echo ''
+						exit
+					fi
+				fi
+			else
+				echo -e "${ROJO}❌ Error al configurar el nombre.${NC}"
+				echo ''
+				read -p 'Pulsa ENTER para volver al Salir...' enter
+				echo ''
+				exit
+			fi
+		fi
+	else
+		echo -e "${ROJO}❌ No se encontró la carpeta $proyecto${NC}"
+		echo ''
+		read -p 'Pulsa ENTER para volver al Salir...' enter
+		echo ''
+	    exit
+	fi
+
+}
+
 function clonar(){
 
 	cd
@@ -126,111 +283,9 @@ function clonar(){
 			
 }
 
-function confif(){
-
-	read -p "🔗 Introduce el LINK del REPOSITORIO: " url 
-	repositorio=$(basename "$url" .git)
-	ruta=$(find ~ -type d -name "$repositorio" -print -quit)
-	cd "$ruta" 2>/dev/null
-	if [ $? -eq 0 ]
-	then
-		if [ $(git config --global user.name | wc -l) == 1 ]; 
-		then
-			echo 'Comprobad nombre'
-			if [ $(git config --global user.email | wc -l) == 1 ]; 
-			then
-				echo 'Comprobado email'
-				if [ $(git config --global credential.helper) == 'store' ] || [ $(git config --global credential.helper) == 'cache' ];
-				then
-					echo 'Comprobado credenciales'
-				else
-					echo 'No Comprobado credenciales'
-					git config --global credential.helper store
-					echo -e "${CYAN}👉 Para guardar las llaves, introduce tu usuario y Token una vez:${NC}"
-					git fetch origin
-					if [ $? -eq 0 ]; then
-						echo -e "${VERDE}✅ Helper configurado y llaves guardadas.${NC}"
-						echo ''
-						read -p 'Pulsa ENTER para volver al Salir...' enter
-						echo ''
-						exit
-					else
-						echo -e "${ROJO}❌ Error al validar el Token.${NC}"
-						echo ''
-						read -p 'Pulsa ENTER para volver al Salir...' enter
-						echo ''
-						exit
-					fi
-				fi
-			else
-				echo 'No Comprobado email'
-			fi	
-		else
-			echo 'No Comprobado nombre'
-			git config --global user.name "DavidRodera"
-			if [ $? -eq 0 ]; 
-			then
-				echo -e "${VERDE}✅ Nombre configurado.${NC}"
-				if [ $(git config --global user.email | wc -l) == 1 ]; 
-				then
-					echo 'Comprobado email'
-				else
-					echo 'No Comprobado email'
-					git config --global user.email "droderavaras@gmail.com"
-					if [ $? -eq 0 ]; 
-					then
-						echo -e "${VERDE}✅ Email configurado.${NC}"
-						if [ $(git config --global credential.helper) == 'store' ] || [ $(git config --global credential.helper) == 'cache' ];
-						then
-							echo 'Comprobado credenciales'
-						else
-							echo 'No Comprobado credenciales'
-							git config --global credential.helper store
-							echo -e "${CYAN}👉 Para guardar las llaves, introduce tu usuario y Token una vez:${NC}"
-							git fetch origin
-							if [ $? -eq 0 ]
-							then
-								echo -e "${VERDE}✅ Helper configurado y llaves guardadas.${NC}"
-								echo ''
-								read -p 'Pulsa ENTER para volver al Salir...' enter
-								echo ''
-								exit
-							else
-								echo -e "${ROJO}❌ Error al validar el Token.${NC}"
-								echo ''
-								read -p 'Pulsa ENTER para volver al Salir...' enter
-								echo ''
-								exit
-							fi
-						fi
-						
-					else
-						echo -e "${ROJO}❌ Error al configurar el email.${NC}"
-						echo ''
-						read -p 'Pulsa ENTER para volver al Salir...' enter
-						echo ''
-						exit
-					fi
-				fi
-			else
-				echo -e "${ROJO}❌ Error al configurar el nombre.${NC}"
-				echo ''
-				read -p 'Pulsa ENTER para volver al Salir...' enter
-				echo ''
-				exit
-			fi
-		fi
-	else
-		echo -e "${ROJO}❌ No se encontró la carpeta $proyecto${NC}"
-		echo ''
-		read -p 'Pulsa ENTER para volver al Salir...' enter
-		echo ''
-	    	exit
-	fi
-
-}
-
-
+opcion=1
+while [ $opcion -ne 0 ]
+do
 	mostrarMenu		
 	read -p "👉 Selecciona una opción [0-2]: " opcion
 	echo ''
@@ -242,7 +297,7 @@ function confif(){
 			clonar
 		;;
 		2)
-			dpkg
+			config
 		;;
 		*)
 			echo 'Debes ELEGIR una OPCIÓN del 0-2'
@@ -250,4 +305,4 @@ function confif(){
 			read -p 'Pulsa ENTER para volver al Menú Principal...' enter
 		;;
 	esac
-
+done
