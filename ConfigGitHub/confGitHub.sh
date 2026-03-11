@@ -35,160 +35,59 @@ function salir(){
 }
 
 function config(){
+    echo -e "${AZUL}--- Verificando configuración de GitHub ---${NC}"
 
-	read -p "🔗 Introduce el LINK del REPOSITORIO: " url 
-	read -p "👤 Introduce tu NOMBRE de USUARIO de GitHub: " nombreusuario
-	read -p "📧 Introduce el EMAIL de tu cuenta de GitHub: " email 
-	echo ''
-	repositorio=$(basename "$url" .git)
-	ruta=$(find ~ -type d -name "$repositorio" -print -quit)
-	cd "$ruta" 2>/dev/null
-	if [ $? -eq 0 ]
-	then
-		if [ $(git config --global user.name | wc -l) == 1 ]; 
-		then
-			echo -e "${VERDE}✅ Nombre ya configurado.${NC}"
-			if [ $(git config --global user.email | wc -l) == 1 ]; 
-			then
-				echo -e "${VERDE}✅ Email ya configurado.${NC}"
-				if [ $(git config --global credential.helper) == 'store' ] || [ $(git config --global credential.helper) == 'cache' ];
-				then
-					echo -e "${VERDE}✅ Helper ya configurado y llaves ya guardadas.${NC}"
-				else
-					git config --global credential.helper store
-					echo -e "${CYAN}👉 Para guardar las llaves, introduce tu usuario y Token una vez:${NC}"
-					git fetch origin >/dev/null 2>&1
-					if [ $? -eq 0 ]; then
-						echo -e "${VERDE}✅ Helper configurado y llaves guardadas.${NC}"
-						echo ''
-						read -p 'Pulsa ENTER para volver al Salir...' enter
-						echo ''
-						exit
-					else
-						echo -e "${ROJO}❌ Error al validar el Token.${NC}"
-						echo ''
-						read -p 'Pulsa ENTER para volver al Salir...' enter
-						echo ''
-						exit
-					fi
-				fi
-			else
-				git config --global user.email $email
-				if [ $? -eq 0 ]; 
-				then
-					echo -e "${VERDE}✅ Email configurado.${NC}"
-					if [ $(git config --global credential.helper) == 'store' ] || [ $(git config --global credential.helper) == 'cache' ];
-					then
-						echo -e "${VERDE}✅ Helper ya configurado y llaves ya guardadas.${NC}"
-					else
-						git config --global credential.helper store
-						echo -e "${CYAN}👉 Para guardar las llaves, introduce tu usuario y Token una vez:${NC}"
-						git fetch origin >/dev/null 2>&1
-						if [ $? -eq 0 ]
-						then
-							echo -e "${VERDE}✅ Helper configurado y llaves guardadas.${NC}"
-							echo ''
-							read -p 'Pulsa ENTER para volver al Salir...' enter
-							echo ''
-							exit
-						else
-							echo -e "${ROJO}❌ Error al validar el Token.${NC}"
-							echo ''
-							read -p 'Pulsa ENTER para volver al Salir...' enter
-							echo ''
-							exit
-						fi
-					fi
-				else
-					echo -e "${ROJO}❌ Error al configurar el email.${NC}"
-					echo ''
-					read -p 'Pulsa ENTER para volver al Salir...' enter
-					echo ''
-					exit
-				fi
-			fi
-		else
-			git config --global user.name $nombreusuario
-			if [ $? -eq 0 ]; 
-			then
-				echo -e "${VERDE}✅ Nombre configurado.${NC}"
-				if [ $(git config --global user.email | wc -l) == 1 ]; 
-				then
-					echo -e "${VERDE}✅ Email ya configurado.${NC}"
-					if [ $(git config --global credential.helper) == 'store' ] || [ $(git config --global credential.helper) == 'cache' ];
-					then
-						echo -e "${VERDE}✅ Helper ya configurado y llaves ya guardadas.${NC}"
-					else
-						git config --global credential.helper store
-						echo -e "${CYAN}👉 Para guardar las llaves, introduce tu usuario y Token una vez:${NC}"
-						git fetch origin >/dev/null 2>&1
-						if [ $? -eq 0 ]
-						then
-							echo -e "${VERDE}✅ Helper configurado y llaves guardadas.${NC}"
-							echo ''
-							read -p 'Pulsa ENTER para volver al Salir...' enter
-							echo ''
-							exit
-						else
-							echo -e "${ROJO}❌ Error al validar el Token.${NC}"
-							echo ''
-							read -p 'Pulsa ENTER para volver al Salir...' enter
-							echo ''
-							exit
-						fi
-					fi
-				else
-					git config --global user.email $email
-					if [ $? -eq 0 ]; 
-					then
-						echo -e "${VERDE}✅ Email configurado.${NC}"
-						if [ $(git config --global credential.helper) == 'store' ] || [ $(git config --global credential.helper) == 'cache' ];
-						then
-							echo -e "${VERDE}✅ Helper ya configurado y llaves ya guardadas.${NC}"
-						else
-							git config --global credential.helper store
-							echo -e "${CYAN}👉 Para guardar las llaves, introduce tu usuario y Token una vez:${NC}"
-							git fetch origin >/dev/null 2>&1
-							if [ $? -eq 0 ]
-							then
-								echo -e "${VERDE}✅ Helper configurado y llaves guardadas.${NC}"
-								echo ''
-								read -p 'Pulsa ENTER para volver al Salir...' enter
-								echo ''
-								exit
-							else
-								echo -e "${ROJO}❌ Error al validar el Token.${NC}"
-								echo ''
-								read -p 'Pulsa ENTER para volver al Salir...' enter
-								echo ''
-								exit
-							fi
-						fi
-						
-					else
-						echo -e "${ROJO}❌ Error al configurar el email.${NC}"
-						echo ''
-						read -p 'Pulsa ENTER para volver al Salir...' enter
-						echo ''
-						exit
-					fi
-				fi
-			else
-				echo -e "${ROJO}❌ Error al configurar el nombre.${NC}"
-				echo ''
-				read -p 'Pulsa ENTER para volver al Salir...' enter
-				echo ''
-				exit
-			fi
-		fi
-	else
-		echo -e "${ROJO}❌ No se encontró la carpeta $proyecto${NC}"
-		echo ''
-		read -p 'Pulsa ENTER para volver al Salir...' enter
-		echo ''
-	    exit
-	fi
+    # 1. Obtener datos actuales
+    actual_nombre=$(git config --global user.name)
+    actual_email=$(git config --global user.email)
+    actual_helper=$(git config --global credential.helper)
 
+    # 2. Validar Nombre
+    if [ -n "$actual_nombre" ]; then
+        echo -e "${VERDE}✅ Nombre configurado: $actual_nombre${NC}"
+    else
+        read -p "👤 Introduce tu NOMBRE de USUARIO de GitHub: " nuevo_nombre
+        git config --global user.name "$nuevo_nombre"
+    fi
+
+    # 3. Validar Email
+    if [ -n "$actual_email" ]; then
+        echo -e "${VERDE}✅ Email configurado: $actual_email${NC}"
+    else
+        read -p "📧 Introduce tu EMAIL de GitHub: " nuevo_email
+        git config --global user.email "$nuevo_email"
+    fi
+
+    # 4. Validar Credenciales y Forzar Guardado
+    if [[ "$actual_helper" == "store" || "$actual_helper" == "cache" ]]; then
+        echo -e "${VERDE}✅ El gestor de credenciales ya está activo ($actual_helper).${NC}"
+    else
+        echo -e "${AMARILLO}⚠️ Las credenciales no se están guardando.${NC}"
+        echo -e "${CYAN}🔧 Activando 'store' y solicitando validación...${NC}"
+        
+        # Configurar el helper
+        git config --global credential.helper store
+        
+        # Intentar localizar el repositorio para hacer el fetch
+        read -p "🔗 Introduce el LINK del REPOSITORIO para validar el Token: " url
+        repositorio=$(basename "$url" .git)
+        ruta=$(find ~ -maxdepth 3 -type d -name "$repositorio" -print -quit)
+
+        if [ -d "$ruta" ]; then
+            cd "$ruta"
+            echo -e "${AZUL}👉 Introduce tu usuario y TOKEN a continuación para guardarlos:${NC}"
+            if git fetch origin; then
+                echo -e "${VERDE}✅ Token validado y guardado correctamente.${NC}"
+            else
+                echo -e "${ROJO}❌ Error al validar el Token. Revisa si es correcto.${NC}"
+            fi
+        else
+            echo -e "${ROJO}❌ No se encontró la carpeta local de $repositorio para hacer el fetch.${NC}"
+        fi
+    fi
+
+    echo ''
+    read -p 'Presiona ENTER para volver al menú...' enter
 }
 
 function clonar(){
