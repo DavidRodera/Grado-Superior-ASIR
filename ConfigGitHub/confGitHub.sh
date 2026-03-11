@@ -76,13 +76,15 @@ function config(){
         if [ -d "$ruta" ]; then
             cd "$ruta"
             echo -e "${AZUL}👉 Introduce tu usuario y TOKEN a continuación para guardarlos:${NC}"
-            if git fetch origin; then
+            git add .
+            git commit -m "Instaurando Credenciales en $(hostname)."
+            if git push; then
                 echo -e "${VERDE}✅ Token validado y guardado correctamente.${NC}"
             else
                 echo -e "${ROJO}❌ Error al validar el Token. Revisa si es correcto.${NC}"
             fi
         else
-            echo -e "${ROJO}❌ No se encontró la carpeta local de $repositorio para hacer el fetch.${NC}"
+            echo -e "${ROJO}❌ No se encontró la carpeta local de $repositorio.${NC}"
         fi
     fi
 
