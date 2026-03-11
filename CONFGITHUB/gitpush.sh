@@ -6,6 +6,8 @@ ruta=$(find /home/$(whoami) -type d -name "$repositorio" -print -quit)
 cd $ruta
 if [ $? -eq 0 ]
 then
+	git push
+	echo ''
 	git add .
 	git commit -m '⬆️ ASIR: Subida de nuevos materiales y prácticas'
 	git push
