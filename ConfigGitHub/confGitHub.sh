@@ -75,6 +75,7 @@ function config(){
 
         if [ -d "$ruta" ]; then
             cd "$ruta"
+            git pull >/dev/null 2>&1
             echo -e "${AZUL}👉 Introduce tu usuario y TOKEN a continuación para guardarlos:${NC}"
             git add .
             git commit -m "Instaurando Credenciales en $(hostname)."
