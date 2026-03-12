@@ -2,57 +2,47 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Ejercicio 6 - ASIR</title>
+    <title>Ejercicio 6 - Adivina el Número</title>
     <link rel="stylesheet" href="ProyectoDOMEventos.css">
 </head>
 <body>
 
-    <div class="titulo">
-        <h2>ADIVINA EL NÚMERO</h2>
-    </div>
-    <div class="tabla1">
-        <div>
-            <div class="numero">
-                <p>
-                    <label>Numero:</label>
-                    <input type="number" id="numero">
-                </p>
-            </div>
-            <div class="jugar">
-                <button id="jugar">Jugar</button>
-            </div>
-            <div class="ayuda"></div>
+    <div class="contenedor">
+        <div class="titulo">
+            ADIVINA EL NÚMERO
         </div>
-        <div>
-            <h2>INTENTOS REALIZADOS</h2>
-        </div>
-    </div>
-    <div class="tabla2">
-        <div class="numeros">
-            <div>1</div>
-            <div>2</div>
-            <div>3</div>
-            <div>4</div>
-            <div>5</div>
-            <div>6</div>
-            <div>7</div>
-            <div>8</div>
-            <div>9</div>
-            <div>10</div>
-        </div>
-        <div class="x">
-            <div>X</div>
-            <div>X</div>
-            <div>X</div>
-            <div>X</div>
-            <div>X</div>
-            <div>X</div>
-            <div>X</div>
-            <div>X</div>
-            <div>X</div>
-            <div>X</div>
-            <div>X</div>
-        </div>
+
+        <table class="tabla">
+            <tr>
+                <td class="label-numero">Numero:</td>
+                <td class="numero">
+                    <input type="number" id="Numero" min="1" max="100">
+                </td>
+                <td class="boton">
+                    <button id="botonJugar">Jugar</button>
+                </td>
+                <td id="recuadroMensaje" class="celda-estado"></td>
+            </tr>
+            <tr>
+                <td colspan="4" class="intentos">INTENTOS REALIZADOS</td>
+            </tr>
+            <tr>
+                <td colspan="4" class="visor-historial" id="areaHistorial"></td>
+            </tr>
+        </table>
+
+        <table class="tabla-marcador">
+            <tr class="cabecera-numerica">
+                <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+                <td>6</td><td>7</td><td>8</td><td>9</td><td>10</td>
+            </tr>
+            <tr class="fila-x">
+                <td id="casilla-1"></td><td id="casilla-2"></td><td id="casilla-3"></td>
+                <td id="casilla-4"></td><td id="casilla-5"></td><td id="casilla-6"></td>
+                <td id="casilla-7"></td><td id="casilla-8"></td><td id="casilla-9"></td>
+                <td id="casilla-10"></td>
+            </tr>
+        </table>
     </div>
 
     <script src="ProyectoDOMEventos.js"></script>
