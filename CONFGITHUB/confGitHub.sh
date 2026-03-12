@@ -81,7 +81,6 @@ function config(){
             git commit -m "Instaurando Credenciales en $(hostname)."
             if git push; then
                 echo -e "${VERDE}✅ Token validado y guardado correctamente.${NC}"
-                sed -i "3s|.*|ruta='$ruta'|" gitpush.sh
             else
                 echo -e "${ROJO}❌ Error al validar el Token. Revisa si es correcto.${NC}"
             fi

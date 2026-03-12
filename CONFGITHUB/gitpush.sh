@@ -1,6 +1,10 @@
 #!/bin/bash
 
-url="https://github.com/DavidRodera/Grado-Superior-ASIR.git"
+ROJO='\033[0;31m'
+VERDE='\033[0;32m'
+NC='\033[0m'
+
+url=""
 repositorio=$(basename "$url" .git)
 ruta=$(find /home/$(whoami) -type d -name "$repositorio" -print -quit)
 cd $ruta
@@ -14,10 +18,10 @@ then
 	if [ $? -eq 0 ]
 	then
 		echo ''
-		echo 'Cambios publicados correctamente'
+		echo -e "${VERDE}✅ Cambios publicados correctamente.${NC}"
 	else
 		echo ''
-		echo 'ERROR al publicar los cambios'
+		echo -e "${ROJO}❌ Error al publicar los cambios del Repositorio.${NC}"
 	fi
 else
 	exit
