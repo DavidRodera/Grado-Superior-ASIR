@@ -1,73 +1,20 @@
-body {
-    font-family: 'Courier New', Courier, monospace;
-    background-color: #e0e0e0;
-    display: flex;
-    justify-content: center;
-    padding-top: 50px;
+body{
+    font-family: Arial;
 }
 
-.contenedor-principal {
-    background-color: #fff;
-    padding: 20px;
-    border: 2px solid #999;
-    width: 450px;
-    text-align: left;
+.titulo{
+    background-color: #945994;
+    border-radius: 25px;
+    text-align: center;
 }
 
-h1 {
-    font-size: 1.2rem;
-    text-decoration: underline;
-    margin-bottom: 20px;
+.tabla1{
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2fr 1fr 2fr;
 }
 
-.feedback {
-    height: 30px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-}
+.numero{
 
-/* Estilos de estado */
-.pista { color: #333; }
-.ganar { color: green; }
-.perder { color: red; }
-
-.input-area {
-    margin-bottom: 20px;
-}
-
-input {
-    width: 60px;
-    margin: 0 10px;
-}
-
-.stats {
-    border-top: 1px solid #ccc;
-    padding-top: 10px;
-}
-
-/* Diseño de la tabla de intentos */
-.cuadricula {
-    display: inline-block;
-    margin-top: 10px;
-    border: 1px solid #000;
-}
-
-.fila {
-    display: flex;
-}
-
-.fila span {
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #000;
-}
-
-/* Clase para cuando fallas el intento */
-.marcas span.activo {
-    color: #800080; /* Morado */
-    font-weight: bold;
 }
