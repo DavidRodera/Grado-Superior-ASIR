@@ -34,8 +34,6 @@ function salir(){
 
 }
 
-<<<<<<< HEAD:ConfigGitHub/confGitHub.sh
-=======
 function config(){
     echo -e "${AZUL}--- Verificando configuración de GitHub ---${NC}"
 
@@ -95,7 +93,6 @@ function config(){
     read -p 'Presiona ENTER para volver al menú...' enter
 }
 
->>>>>>> 3e3a1e5f15ac14c4826362aa5f0b86d2841cd7bd:CONFGITHUB/confGitHub.sh
 function clonar(){
 
 	cd
@@ -188,7 +185,6 @@ function clonar(){
 			
 }
 
-<<<<<<< HEAD:ConfigGitHub/confGitHub.sh
 function confif(){
 
 	read -p "🔗 Introduce el LINK del REPOSITORIO: " url 
@@ -294,11 +290,10 @@ function confif(){
 }
 
 
-=======
+
 opcion=1
 while [ $opcion -ne 0 ]
 do
->>>>>>> 3e3a1e5f15ac14c4826362aa5f0b86d2841cd7bd:CONFGITHUB/confGitHub.sh
 	mostrarMenu		
 	read -p "👉 Selecciona una opción [0-2]: " opcion
 	echo ''
@@ -310,11 +305,11 @@ do
 			clonar
 		;;
 		2)
-<<<<<<< HEAD:ConfigGitHub/confGitHub.sh
+
 			dpkg
-=======
+
 			config
->>>>>>> 3e3a1e5f15ac14c4826362aa5f0b86d2841cd7bd:CONFGITHUB/confGitHub.sh
+
 		;;
 		*)
 			echo 'Debes ELEGIR una OPCIÓN del 0-2'
@@ -322,8 +317,5 @@ do
 			read -p 'Pulsa ENTER para volver al Menú Principal...' enter
 		;;
 	esac
-<<<<<<< HEAD:ConfigGitHub/confGitHub.sh
-
-=======
 done
->>>>>>> 3e3a1e5f15ac14c4826362aa5f0b86d2841cd7bd:CONFGITHUB/confGitHub.sh
+
