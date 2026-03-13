@@ -34,6 +34,68 @@ function salir(){
 
 }
 
+<<<<<<< HEAD:ConfigGitHub/confGitHub.sh
+=======
+function config(){
+    echo -e "${AZUL}--- Verificando configuración de GitHub ---${NC}"
+
+    # 1. Obtener datos actuales
+    actual_nombre=$(git config --global user.name)
+    actual_email=$(git config --global user.email)
+    actual_helper=$(git config --global credential.helper)
+
+    # 2. Validar Nombre
+    if [ -n "$actual_nombre" ]; then
+        echo -e "${VERDE}✅ Nombre configurado: $actual_nombre${NC}"
+    else
+        read -p "👤 Introduce tu NOMBRE de USUARIO de GitHub: " nuevo_nombre
+        git config --global user.name "$nuevo_nombre"
+    fi
+
+    # 3. Validar Email
+    if [ -n "$actual_email" ]; then
+        echo -e "${VERDE}✅ Email configurado: $actual_email${NC}"
+    else
+        read -p "📧 Introduce tu EMAIL de GitHub: " nuevo_email
+        git config --global user.email "$nuevo_email"
+    fi
+
+    # 4. Validar Credenciales y Forzar Guardado
+    if [[ "$actual_helper" == "store" || "$actual_helper" == "cache" ]]; then
+        echo -e "${VERDE}✅ El gestor de credenciales ya está activo ($actual_helper).${NC}"
+    else
+        echo -e "${AMARILLO}⚠️ Las credenciales no se están guardando.${NC}"
+        echo -e "${CYAN}🔧 Activando 'store' y solicitando validación...${NC}"
+        
+        # Configurar el helper
+        git config --global credential.helper store
+        
+        # Intentar localizar el repositorio para hacer el fetch
+        read -p "🔗 Introduce el LINK del REPOSITORIO para validar el Token: " url
+        repositorio=$(basename "$url" .git)
+        ruta=$(find ~ -maxdepth 3 -type d -name "$repositorio" -print -quit)
+
+        if [ -d "$ruta" ]; then
+            cd "$ruta"
+            git pull >/dev/null 2>&1
+            echo -e "${AZUL}👉 Introduce tu usuario y TOKEN a continuación para guardarlos:${NC}"
+            git add .
+            git commit -m "Instaurando Credenciales en $(hostname)."
+            if git push; then
+                echo -e "${VERDE}✅ Token validado y guardado correctamente.${NC}"
+            else
+                echo -e "${ROJO}❌ Error al validar el Token. Revisa si es correcto.${NC}"
+            fi
+        else
+            echo -e "${ROJO}❌ No se encontró la carpeta local de $repositorio.${NC}"
+        fi
+    fi
+
+    echo ''
+    read -p 'Presiona ENTER para volver al menú...' enter
+}
+
+>>>>>>> 3e3a1e5f15ac14c4826362aa5f0b86d2841cd7bd:CONFGITHUB/confGitHub.sh
 function clonar(){
 
 	cd
@@ -126,6 +188,7 @@ function clonar(){
 			
 }
 
+<<<<<<< HEAD:ConfigGitHub/confGitHub.sh
 function confif(){
 
 	read -p "🔗 Introduce el LINK del REPOSITORIO: " url 
@@ -231,6 +294,11 @@ function confif(){
 }
 
 
+=======
+opcion=1
+while [ $opcion -ne 0 ]
+do
+>>>>>>> 3e3a1e5f15ac14c4826362aa5f0b86d2841cd7bd:CONFGITHUB/confGitHub.sh
 	mostrarMenu		
 	read -p "👉 Selecciona una opción [0-2]: " opcion
 	echo ''
@@ -242,7 +310,11 @@ function confif(){
 			clonar
 		;;
 		2)
+<<<<<<< HEAD:ConfigGitHub/confGitHub.sh
 			dpkg
+=======
+			config
+>>>>>>> 3e3a1e5f15ac14c4826362aa5f0b86d2841cd7bd:CONFGITHUB/confGitHub.sh
 		;;
 		*)
 			echo 'Debes ELEGIR una OPCIÓN del 0-2'
@@ -250,4 +322,8 @@ function confif(){
 			read -p 'Pulsa ENTER para volver al Menú Principal...' enter
 		;;
 	esac
+<<<<<<< HEAD:ConfigGitHub/confGitHub.sh
 
+=======
+done
+>>>>>>> 3e3a1e5f15ac14c4826362aa5f0b86d2841cd7bd:CONFGITHUB/confGitHub.sh
