@@ -1,7 +1,6 @@
 use gha_analytics;
 
 -- 1. Normalización de Identidad (Pacientes)
-START TRANSACTION;
 SELECT * FROM pacientes;
 SET SQL_SAFE_UPDATES = 0;
 SELECT nif FROM pacientes GROUP BY nif HAVING COUNT(nif) > 1; -- Comprobar los NIFs duplicados
@@ -12,10 +11,8 @@ UPDATE pacientes SET nif = TRIM(nif); -- Quitar espacios sobrantes de los NIFs
 DELETE p1 FROM pacientes p1 WHERE NOT (CHAR_LENGTH(nif) = 9 AND nif REGEXP '^[0-9]{8}[A-Z]{1}$'); -- Borrar aquellos pacientes cuyos NIFs no cumplan los requisitos y no se puedan arreglar
 ALTER TABLE pacientes MODIFY COLUMN nif CHAR(9) UNIQUE NOT NULL; -- Hacer que la columna nif sea única, no este vacía y que su formato sea  una cadena de exactamente 9 caracteres 
 SET SQL_SAFE_UPDATES = 1;
-ROLLBACK;
 
 -- 2. Consistencia de Colegiados (Médicos)
-START TRANSACTION;
 SELECT * FROM medicos;
 SET SQL_SAFE_UPDATES = 0;
 SELECT * FROM medicos WHERE NOT (CHAR_LENGTH(num_colegiado) = 11 AND num_colegiado REGEXP '^COL-[0-9]{2}-[0-9]{4}$'); -- Comprobar los formatos erroneos de num_colegiado
@@ -25,11 +22,9 @@ UPDATE medicos SET num_colegiado = INSERT(num_colegiado, 4, 0, '-') WHERE num_co
 UPDATE medicos SET num_colegiado = REPLACE(num_colegiado,'INV','99') WHERE num_colegiado LIKE '%INV%';
 UPDATE medicos SET num_colegiado = INSERT(num_colegiado, 7, 0, '-') WHERE num_colegiado NOT LIKE ('___-__-%'); -- Añadir el '-' después del número de provincia si no hay uno
 UPDATE medicos SET num_colegiado = INSERT(num_colegiado, 8, 0, '0') WHERE NOT num_colegiado REGEXP('^COL-[0-9]{2}-[0-9]{4}$'); -- Añadir un número al principio de los número que no poseen 4 carácteres
-SET SQL_SAFE_UPDATES = 1;
-ROLLBACK; 
+SET SQL_SAFE_UPDATES = 1; 
 
 -- 3. Integridad Referencial  
-START TRANSACTION;
 SELECT * FROM medicos;
 SELECT * FROM visitas;
 SELECT * FROM pacientes;
@@ -46,19 +41,41 @@ DELETE visitas from visitas LEFT JOIN pacientes ON visitas.paciente_id = pacient
 ALTER TABLE visitas ADD CONSTRAINT fk_paciente_id FOREIGN KEY (paciente_id) REFERENCES pacientes (id) ON UPDATE CASCADE ON DELETE CASCADE; -- Añadir la FK correspondiente
 ALTER TABLE visitas ADD CONSTRAINT fk_medico_id FOREIGN KEY (medico_id) REFERENCES medicos (id) ON UPDATE CASCADE ON DELETE CASCADE; -- Añadir la FK correspondiente
 SET SQL_SAFE_UPDATES = 1;
-ROLLBACK;
 
 -- 4. Normalización y División de Tablas
 START TRANSACTION;
 SELECT * FROM pacientes;
 SET SQL_SAFE_UPDATES = 0;
 CREATE TABLE seguros_pacientes (
-paciente_id INT UNSIGNED AUTO_INCREMENT,
+paciente_id INT,
 num_poliza VARCHAR(50),
 estado_poliza ENUM('ACTIVA','INACTIVA') DEFAULT 'ACTIVA',
 CONSTRAINT pk_paciente_id PRIMARY KEY (paciente_id),
-CONSTRAINT fk_paciente_id FOREIGN KEY (paciente_id) REFERENCES pacientes (id) ON UPDATE CASCADE ON DELETE CASCADE
+CONSTRAINT fk2_paciente_id FOREIGN KEY (paciente_id) REFERENCES pacientes (id) ON UPDATE CASCADE ON DELETE CASCADE
 ); -- Crear la nueva tabla
+INSERT INTO seguros_pacientes (paciente_id, num_poliza) SELECT id, num_poliza FROM pacientes WHERE num_poliza IS NOT NULL; -- Instaurar los datos de num_poliza a la tabla nueva creada
+ALTER TABLE pacientes DROP COLUMN num_poliza;
+SELECT * FROM seguros_pacientes;
+SET SQL_SAFE_UPDATES = 1;
+
+-- 5. Columnas Calculadas y Blindaje
+SELECT * FROM visitas;
+SET SQL_SAFE_UPDATES = 0;
+UPDATE visitas SET importe_sucio = TRIM(REPLACE(importe_sucio,',','.')); -- Cambios en el formato (quitar espacios sobrantes y cambiar , por .)
+UPDATE visitas SET importe_sucio = REPLACE(importe_sucio,'$','') WHERE importe_sucio LIKE ('%$%'); -- Cambios en el formato (quitar €)
+UPDATE visitas SET importe_sucio = REPLACE(importe_sucio,'€','') WHERE importe_sucio LIKE ('%€%'); -- Cambios en el formato (quitar $)
+UPDATE visitas SET importe_sucio = REPLACE(importe_sucio,'EUR','') WHERE importe_sucio LIKE ('%EUR%'); -- Cambios en el formato (quitar EUR)
+UPDATE visitas SET importe_sucio = REPLACE(importe_sucio,'Gratis','0.00') WHERE importe_sucio LIKE ('%Gratis%'); -- Cambios en el formato (cambiar la palabra 'Gratis' por 0.00)
+ALTER TABLE visitas MODIFY COLUMN importe_sucio DECIMAL(10,2); -- Cambiar el tipo de dato de la columna importe_sucio
+ALTER TABLE visitas ADD COLUMN copago_estimado DECIMAL(10,2); -- Añadiendo la nueva columna a la tabla con el formato indicado
+UPDATE visitas SET copago_estimado = 0.2 * importe_sucio; -- Instaurando como se calculan los datos de la nueva columna tras haber saneado la columna importe_sucio
+ALTER TABLE seguros_pacientes MODIFY COLUMN num_poliza VARCHAR(50) NOT NULL; -- Establecer como obligatorios los datos
+ALTER TABLE visitas MODIFY COLUMN copago_estimado DECIMAL(10,2) NOT NULL; -- Establecer como obligatorios los datos
+SET SQL_SAFE_UPDATES = 1;
+
+-- 6. Ingesta de Datos Externos
+SELECT * FROM raw_import_visitas;
+
 
 drop database gha_analytics;
 
