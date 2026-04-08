@@ -32,12 +32,33 @@ ROLLBACK;
 START TRANSACTION;
 SELECT * FROM medicos;
 SELECT * FROM visitas;
+SELECT * FROM pacientes;
 SET SQL_SAFE_UPDATES = 0;
 SELECT * FROM medicos LEFT JOIN especialidades ON medicos.especialidad_id = especialidades.id WHERE especialidades.id IS NULL; -- Comprobar médicos sin especialidades
 UPDATE medicos LEFT JOIN especialidades ON medicos.especialidad_id = especialidades.id SET medicos.especialidad_id = (SELECT id FROM especialidades WHERE nombre = 'Medicina General') WHERE especialidades.id IS NULL; -- Cambiamos los ids huérfanos en especialidades por el id de 'Medicina General'
 DESCRIBE medicos; -- Comprobar si hay FKs
 ALTER TABLE medicos ADD CONSTRAINT fk_especialidad_id FOREIGN KEY (especialidad_id) REFERENCES especialidades (id) ON UPDATE CASCADE ON DELETE CASCADE; -- Añadir la FK correspondiente en medicos	
+DESCRIBE pacientes; -- Comprobar si hay FKs
+-- Como hay ids huerfanos en la tabla visitas no se podrán instaurar  las FKs correspondientes, por lo que hay que realizar un saneamiento anteriormente
+DESCRIBE visitas; -- Comprobar si hay FKs
+SELECT * FROM visitas LEFT JOIN pacientes ON visitas.paciente_id = pacientes.id WHERE pacientes.id IS NULL; -- Comprobar visitas con pacientes no registrados (como antes había un paciente duplicado que ha sido borrado aparece también como que es NULL, además hay ese mismo paciente ha sido atendido por un médico inexistente)
+DELETE visitas from visitas LEFT JOIN pacientes ON visitas.paciente_id = pacientes.id WHERE pacientes.id IS NULL; -- Borrar visitas con pacientes inexistentes (solo basta con eso)
+ALTER TABLE visitas ADD CONSTRAINT fk_paciente_id FOREIGN KEY (paciente_id) REFERENCES pacientes (id) ON UPDATE CASCADE ON DELETE CASCADE; -- Añadir la FK correspondiente
+ALTER TABLE visitas ADD CONSTRAINT fk_medico_id FOREIGN KEY (medico_id) REFERENCES medicos (id) ON UPDATE CASCADE ON DELETE CASCADE; -- Añadir la FK correspondiente
+SET SQL_SAFE_UPDATES = 1;
+ROLLBACK;
 
+-- 4. Normalización y División de Tablas
+START TRANSACTION;
+SELECT * FROM pacientes;
+SET SQL_SAFE_UPDATES = 0;
+CREATE TABLE seguros_pacientes (
+paciente_id INT UNSIGNED AUTO_INCREMENT,
+num_poliza VARCHAR(50),
+estado_poliza ENUM('ACTIVA','INACTIVA') DEFAULT 'ACTIVA',
+CONSTRAINT pk_paciente_id PRIMARY KEY (paciente_id),
+CONSTRAINT fk_paciente_id FOREIGN KEY (paciente_id) REFERENCES pacientes (id) ON UPDATE CASCADE ON DELETE CASCADE
+); -- Crear la nueva tabla
 
 drop database gha_analytics;
 
