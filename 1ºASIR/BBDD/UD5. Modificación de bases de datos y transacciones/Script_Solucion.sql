@@ -101,11 +101,13 @@ SET SQL_SAFE_UPDATES = 1;
 -- EXTRA: Saneamiento profundo
 -- En este apartado se realizarán los cambios que considero necesarios
 SELECT * FROM pacientes;
+DESCRIBE pacientes;
 SET SQL_SAFE_UPDATES = 0;
 /* Tabla pacientes
 Solucionar formato nombres
 Solucionar formato correos
 Estandarizar las fechas
+Poner condiciones y cambiar tipo de dato a las columnas
 */
 UPDATE pacientes SET nombre_completo = TRIM(REPLACE(nombre_completo,'  ',' ')); -- Quitar espacios sobrantes y remplazar espacios dobles entre nombre y apellido
 UPDATE pacientes SET nombre_completo = UPPER(nombre_completo); -- Poner nombres en mayúsculas
@@ -118,5 +120,8 @@ UPDATE pacientes  SET f_nacimiento = CASE
     WHEN f_nacimiento LIKE ('____-__-__') THEN STR_TO_DATE(f_nacimiento, '%Y-%m-%d')
 END; -- Estandarizar todos los formatos de fecha que se encuentran en la tabla
 ALTER TABLE pacientes MODIFY COLUMN f_nacimiento DATE; -- Cambiar el tipo de dato de f_nacimiento a fecha
+-- Para poder cambiar el dato de tel_contacto hay que sanear los datos
+DELETE FROM pacientes WHERE nombre_completo = UPPER('Paciente de borrado'); -- Borrar a los 'Paciente de borrado'
+ALTER TABLE pacientes MODIFY COLUMN tel_contacto CHAR(9); -- Poner tamaño de exactamente 9 caracteres y que sea obligatorio
  
 SET SQL_SAFE_UPDATES = 1;
