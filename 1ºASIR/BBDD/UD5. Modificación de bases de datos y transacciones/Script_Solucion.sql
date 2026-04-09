@@ -107,5 +107,9 @@ Solucionar formato nombres
 Solucionar formato correos
 Estandarizar las fechas
 */
-
+UPDATE pacientes SET nombre_completo = TRIM(REPLACE(nombre_completo,'  ',' ')); -- Quitar espacios sobrantes y remplazar espacios dobles entre nombre y apellido
+UPDATE pacientes SET nombre_completo = UPPER(nombre_completo); -- Poner nombres en mayúsculas
+UPDATE pacientes SET email = REPLACE(REPLACE(email,',','.'),'con','com'); -- Reemplazar ',' por '.' y 'con' por 'com'
+UPDATE pacientes SET email = CONCAT(SUBSTRING_INDEX(email, '@', 2),REPLACE(CONCAT('@',SUBSTRING_INDEX(email, '@', -1)), '@', '.')) WHERE email LIKE ('%@%@%');
 SET SQL_SAFE_UPDATES = 1;
+
