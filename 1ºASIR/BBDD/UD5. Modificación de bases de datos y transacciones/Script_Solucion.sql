@@ -75,9 +75,21 @@ SET SQL_SAFE_UPDATES = 1;
 
 -- 6. Ingesta de Datos Externos
 SELECT * FROM raw_import_visitas;
-
-
-drop database gha_analytics;
+SELECT * FROM visitas;
+SELECT * FROM pacientes;
+INSERT INTO pacientes (nif, nombre_completo, f_nacimiento, tel_contacto, email)
+SELECT 
+    SUBSTRING_INDEX(raw_data, '|', 1) AS nif,
+    SUBSTRING_INDEX(SUBSTRING_INDEX(raw_data, '|', 2), '|', -1) AS nombre,
+    SUBSTRING_INDEX(SUBSTRING_INDEX(raw_data, '|', 3), '|', -1) AS fecha
+FROM raw_import_visitas
+ON DUPLICATE KEY UPDATE 
+    nombre_completo = COALESCE(pacientes.nombre_completo, VALUES(nombre_completo)),
+    f_nacimiento    = COALESCE(pacientes.f_nacimiento, VALUES(f_nacimiento)),
+    tel_contacto    = COALESCE(pacientes.tel_contacto, VALUES(tel_contacto)),
+    email           = COALESCE(pacientes.email, VALUES(email)); -- Insertar los datos de raw_data extrayendo por '|' a su tabla correspondiente
+-- Para poder insertar los números de teléfono primero habrá que sanear los datos de la tabla 
+UPDATE pacientes SET tel_contacto = TRIM(REPLACE(tel_contacto,'+34','')) WHERE tel_contacto LIKE ('%+34%');
 
 
 
