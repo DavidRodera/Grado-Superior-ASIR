@@ -77,19 +77,35 @@ SET SQL_SAFE_UPDATES = 1;
 SELECT * FROM raw_import_visitas;
 SELECT * FROM visitas;
 SELECT * FROM pacientes;
-INSERT INTO pacientes (nif, nombre_completo, f_nacimiento, tel_contacto, email)
+SET SQL_SAFE_UPDATES = 0;
+INSERT IGNORE INTO pacientes (nif, nombre_completo, f_nacimiento)
 SELECT 
-    SUBSTRING_INDEX(raw_data, '|', 1) AS nif,
-    SUBSTRING_INDEX(SUBSTRING_INDEX(raw_data, '|', 2), '|', -1) AS nombre,
-    SUBSTRING_INDEX(SUBSTRING_INDEX(raw_data, '|', 3), '|', -1) AS fecha
-FROM raw_import_visitas
-ON DUPLICATE KEY UPDATE 
-    nombre_completo = COALESCE(pacientes.nombre_completo, VALUES(nombre_completo)),
-    f_nacimiento    = COALESCE(pacientes.f_nacimiento, VALUES(f_nacimiento)),
-    tel_contacto    = COALESCE(pacientes.tel_contacto, VALUES(tel_contacto)),
-    email           = COALESCE(pacientes.email, VALUES(email)); -- Insertar los datos de raw_data extrayendo por '|' a su tabla correspondiente
+    SUBSTRING_INDEX(raw_data, '|', 1),
+    SUBSTRING_INDEX(SUBSTRING_INDEX(raw_data, '|', 2), '|', -1),
+    SUBSTRING_INDEX(SUBSTRING_INDEX(raw_data, '|', 3), '|', -1)
+FROM raw_import_visitas; -- Insertar los datos de raw_data extrayendo por '|' a su tabla correspondiente
 -- Para poder insertar los números de teléfono primero habrá que sanear los datos de la tabla 
-UPDATE pacientes SET tel_contacto = TRIM(REPLACE(tel_contacto,'+34','')) WHERE tel_contacto LIKE ('%+34%');
+UPDATE pacientes SET tel_contacto = TRIM(REPLACE(tel_contacto,'+34','')) WHERE tel_contacto LIKE ('%+34%'); -- Cambios en el formato (quitar prefijo de país '+34')
+UPDATE pacientes SET tel_contacto = REPLACE(REPLACE(tel_contacto,'-',''),' ',''); -- Cambios en el formato (quitar '-' y ' ')
+UPDATE pacientes SET tel_contacto = REPLACE(tel_contacto,'0034','') WHERE tel_contacto LIKE ('0034%'); -- Cambios en el formato (quitar prefijo de país '0034')
+UPDATE pacientes JOIN raw_import_visitas ON pacientes.nif = SUBSTRING_INDEX(raw_import_visitas.raw_data, '|', 1) SET pacientes.tel_contacto = raw_import_visitas.raw_phone WHERE pacientes.tel_contacto IS NULL; -- Insertamos los teléfonos que no se encuentren en pacientes
+-- Para poder insertar los datos del importe_sucio debemos sanearlos, ya que los de la tabla visitas fueron saneados previamente
+UPDATE raw_import_visitas SET raw_data = REPLACE(raw_data,'GRATIS','0.00') WHERE raw_data LIKE ('%GRATIS%');  -- Cambios en el formato (quitar 'GRATIS' por 0.00)
+UPDATE raw_import_visitas SET raw_data = REPLACE(raw_data,'$','') WHERE raw_data LIKE ('%$%');  -- Cambios en el formato (quitar $)
+UPDATE raw_import_visitas SET raw_data = REPLACE(raw_data,'EUR','') WHERE raw_data LIKE ('%EUR%');  -- Cambios en el formato (quitar 'EUR')
+UPDATE raw_import_visitas SET raw_data = REPLACE(raw_data,',','.') WHERE raw_data LIKE ('%,%');  -- Cambios en el formato (cambiar ',' por '.')
+-- Los espacios sobrantes se quitarán a la hora de importar los datos
+UPDATE visitas JOIN raw_import_visitas ON visitas.paciente_id = SUBSTRING_INDEX(SUBSTRING_INDEX(raw_data, '|', 4), '|', -1) SET importe_sucio = TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(raw_data, '|', 4), '|', -1)); -- Importar los datos de importes quitando los espacios sobrantes
+SET SQL_SAFE_UPDATES = 1;
 
+-- EXTRA: Saneamiento profundo
+-- En este apartado se realizarán los cambios que considero necesarios
+SELECT * FROM pacientes;
+SET SQL_SAFE_UPDATES = 0;
+/* Tabla pacientes
+Solucionar formato nombres
+Solucionar formato correos
+Estandarizar las fechas
+*/
 
-
+SET SQL_SAFE_UPDATES = 1;
