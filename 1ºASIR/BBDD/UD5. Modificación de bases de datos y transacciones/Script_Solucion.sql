@@ -110,6 +110,13 @@ Estandarizar las fechas
 UPDATE pacientes SET nombre_completo = TRIM(REPLACE(nombre_completo,'  ',' ')); -- Quitar espacios sobrantes y remplazar espacios dobles entre nombre y apellido
 UPDATE pacientes SET nombre_completo = UPPER(nombre_completo); -- Poner nombres en mayúsculas
 UPDATE pacientes SET email = REPLACE(REPLACE(email,',','.'),'con','com'); -- Reemplazar ',' por '.' y 'con' por 'com'
-UPDATE pacientes SET email = CONCAT(SUBSTRING_INDEX(email, '@', 2),REPLACE(CONCAT('@',SUBSTRING_INDEX(email, '@', -1)), '@', '.')) WHERE email LIKE ('%@%@%');
+UPDATE pacientes SET email = CONCAT(SUBSTRING_INDEX(email, '@', 2),REPLACE(CONCAT('@',SUBSTRING_INDEX(email, '@', -1)), '@', '.')) WHERE email LIKE ('%@%@%'); -- Realizar la conversión del 2º '@' a '.'
+UPDATE pacientes  SET f_nacimiento = CASE
+	WHEN f_nacimiento LIKE ('%/%/%') THEN STR_TO_DATE(f_nacimiento, '%d/%m/%Y') 
+    WHEN f_nacimiento LIKE ('%.%.%') THEN STR_TO_DATE(f_nacimiento, '%Y.%m.%d')
+    WHEN f_nacimiento LIKE ('__-__-____') THEN STR_TO_DATE(f_nacimiento, '%d-%m-%Y')
+    WHEN f_nacimiento LIKE ('____-__-__') THEN STR_TO_DATE(f_nacimiento, '%Y-%m-%d')
+END; -- Estandarizar todos los formatos de fecha que se encuentran en la tabla
+ALTER TABLE pacientes MODIFY COLUMN f_nacimiento DATE; -- Cambiar el tipo de dato de f_nacimiento a fecha
+ 
 SET SQL_SAFE_UPDATES = 1;
-
