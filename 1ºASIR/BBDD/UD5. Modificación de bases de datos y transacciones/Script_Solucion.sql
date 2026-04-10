@@ -22,6 +22,7 @@ UPDATE medicos SET num_colegiado = INSERT(num_colegiado, 4, 0, '-') WHERE num_co
 UPDATE medicos SET num_colegiado = REPLACE(num_colegiado,'INV','99') WHERE num_colegiado LIKE '%INV%';
 UPDATE medicos SET num_colegiado = INSERT(num_colegiado, 7, 0, '-') WHERE num_colegiado NOT LIKE ('___-__-%'); -- Añadir el '-' después del número de provincia si no hay uno
 UPDATE medicos SET num_colegiado = INSERT(num_colegiado, 8, 0, '0') WHERE NOT num_colegiado REGEXP('^COL-[0-9]{2}-[0-9]{4}$'); -- Añadir un número al principio de los número que no poseen 4 carácteres
+ALTER TABLE medicos ADD CONSTRAINT chk_medicos_num_colegiado CHECK (num_colegiado REGEXP '^COL-[0-9]{2}-[0-9]{4}$'); -- Aplicar la restricción CHECK para el formato de num_colegiado
 SET SQL_SAFE_UPDATES = 1; 
 
 -- 3. Integridad Referencial  
@@ -102,6 +103,8 @@ SET SQL_SAFE_UPDATES = 1;
 -- En este apartado se realizarán los cambios que considero necesarios
 SELECT * FROM pacientes;
 DESCRIBE pacientes;
+SELECT * FROM visitas;
+DESCRIBE visitas;
 SET SQL_SAFE_UPDATES = 0;
 /* Tabla pacientes
 Solucionar formato nombres
@@ -118,10 +121,21 @@ UPDATE pacientes  SET f_nacimiento = CASE
     WHEN f_nacimiento LIKE ('%.%.%') THEN STR_TO_DATE(f_nacimiento, '%Y.%m.%d')
     WHEN f_nacimiento LIKE ('__-__-____') THEN STR_TO_DATE(f_nacimiento, '%d-%m-%Y')
     WHEN f_nacimiento LIKE ('____-__-__') THEN STR_TO_DATE(f_nacimiento, '%Y-%m-%d')
-END; -- Estandarizar todos los formatos de fecha que se encuentran en la tabla
-ALTER TABLE pacientes MODIFY COLUMN f_nacimiento DATE; -- Cambiar el tipo de dato de f_nacimiento a fecha
+END; -- Estandarizar todos los formatos de fecha que se encuentran en la tabla pacientes
+ALTER TABLE pacientes MODIFY COLUMN f_nacimiento DATETIME; -- Cambiar el tipo de dato de f_nacimiento a fecha real
 -- Para poder cambiar el dato de tel_contacto hay que sanear los datos
-DELETE FROM pacientes WHERE nombre_completo = UPPER('Paciente de borrado'); -- Borrar a los 'Paciente de borrado'
-ALTER TABLE pacientes MODIFY COLUMN tel_contacto CHAR(9); -- Poner tamaño de exactamente 9 caracteres y que sea obligatorio
- 
+DELETE FROM pacientes WHERE tel_contacto IS NULL; -- Borrar a los clientes sin tel_contacto
+ALTER TABLE pacientes MODIFY COLUMN tel_contacto CHAR(9) NOT NULL; -- Poner tamaño de exactamente 9 caracteres y que sea obligatorio
+ /* Tabla visitas
+Estandarizar las fechas
+Poner condiciones y cambiar tipo de dato a las columnas
+*/
+UPDATE visitas  SET fecha_visita = CASE
+	WHEN fecha_visita LIKE ('%/%/%') THEN STR_TO_DATE(fecha_visita, '%d/%m/%Y %H:%i') 
+    WHEN fecha_visita LIKE ('%.%.%') THEN STR_TO_DATE(fecha_visita, '%Y.%m.%d %H:%i')
+    WHEN fecha_visita LIKE ('__-__-____%') THEN STR_TO_DATE(fecha_visita, '%d-%m-%Y %H:%i')
+END; -- Estandarizar todos los formatos de fecha que se encuentran en la tabla visitas
+ALTER TABLE visitas MODIFY COLUMN fecha_visita DATETIME; -- Cambiar el tipo de dato de fecha_visita a fecha real
+ALTER TABLE visitas MODIFY COLUMN paciente_id INT NOT NULL; -- Hacer que la columna paciente_id sea obligatoria
+ALTER TABLE visitas MODIFY COLUMN medico_id INT NOT NULL; -- Hacer que la columna medico_id sea obligatoria
 SET SQL_SAFE_UPDATES = 1;
