@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS discosEjercicio5Relacional;
 CREATE DATABASE discosEjercicio5Relacional;
 USE discosEjercicio5Relacional;
 
