@@ -124,7 +124,7 @@ UPDATE pacientes SET f_nacimiento = CASE
     WHEN f_nacimiento LIKE ('__-__-____') THEN STR_TO_DATE(f_nacimiento, '%d-%m-%Y')
     WHEN f_nacimiento LIKE ('____-__-__') THEN STR_TO_DATE(f_nacimiento, '%Y-%m-%d')
 END; -- Estandarizar todos los formatos de fecha que se encuentran en la tabla pacientes
-ALTER TABLE pacientes MODIFY COLUMN f_nacimiento DATE; -- Cambiar el tipo de dato de f_nacimiento a fecha real
+ALTER TABLE pacientes MODIFY COLUMN f_nacimiento DATE; -- Cambiar el tipo de dato de f_nacimiento a fecha
 -- Para poder cambiar el dato de tel_contacto hay que sanear los datos
 DELETE FROM pacientes WHERE tel_contacto IS NULL OR LENGTH(tel_contacto) != 9; -- Borrar a los clientes sin tel_contacto o un formato incorrecto
 ALTER TABLE pacientes MODIFY COLUMN tel_contacto CHAR(9) NOT NULL; -- Poner tamaño de exactamente 9 caracteres y que sea obligatorio
