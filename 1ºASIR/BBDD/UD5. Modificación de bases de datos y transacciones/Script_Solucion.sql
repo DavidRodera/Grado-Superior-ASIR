@@ -5,7 +5,7 @@ SELECT * FROM pacientes;
 SET SQL_SAFE_UPDATES = 0;
 SELECT nif FROM pacientes GROUP BY nif HAVING COUNT(nif) > 1; -- Comprobar los NIFs duplicados
 DELETE p1 FROM pacientes p1 INNER JOIN pacientes p2 ON p1.nif = p2.nif WHERE p1.id > p2.id; -- Eliminar los NIFs duplicados
-SELECT * FROM pacientes WHERE NOT (CHAR_LENGTH(nif) = 9 AND nif REGEXP '^[0-9]{8}[A-Z]{1}$'); -- Comprobar los formatos erroneos de NIFs
+SELECT * FROM pacientes WHERE NOT (CHAR_LENGTH(nif) = 9 AND nif REGEXP '^[0-9]{8}[ABCDEFGHJKLMNPQRSTVWXYZ]{1}$'); -- Comprobar los formatos erroneos de NIFs
 UPDATE pacientes SET nif = REPLACE(nif,'-',''); -- Quitar '-' de los NIFs
 UPDATE pacientes SET nif = TRIM(nif); -- Quitar espacios sobrantes de los NIFs
 DELETE p1 FROM pacientes p1 WHERE NOT (CHAR_LENGTH(nif) = 9 AND nif REGEXP '^[0-9]{8}[A-Z]{1}$'); -- Borrar aquellos pacientes cuyos NIFs no cumplan los requisitos y no se puedan arreglar
@@ -112,19 +112,21 @@ Solucionar formato correos
 Estandarizar las fechas
 Poner condiciones y cambiar tipo de dato a las columnas
 */
+ALTER TABLE pacientes ADD CONSTRAINT chk_pacientes_nif CHECK (nif REGEXP '^[0-9]{8}[ABCDEFGHJKLMNPQRSTVWXYZ]{1}$'); -- Añadir restricción de formato de nif
 UPDATE pacientes SET nombre_completo = TRIM(REPLACE(nombre_completo,'  ',' ')); -- Quitar espacios sobrantes y remplazar espacios dobles entre nombre y apellido
 UPDATE pacientes SET nombre_completo = UPPER(nombre_completo); -- Poner nombres en mayúsculas
 UPDATE pacientes SET email = REPLACE(REPLACE(email,',','.'),'con','com'); -- Reemplazar ',' por '.' y 'con' por 'com'
 UPDATE pacientes SET email = CONCAT(SUBSTRING_INDEX(email, '@', 2),REPLACE(CONCAT('@',SUBSTRING_INDEX(email, '@', -1)), '@', '.')) WHERE email LIKE ('%@%@%'); -- Realizar la conversión del 2º '@' a '.'
-UPDATE pacientes  SET f_nacimiento = CASE
+ALTER TABLE pacientes ADD CONSTRAINT chk_pacientes_email CHECK (email LIKE '%@%.%');
+UPDATE pacientes SET f_nacimiento = CASE
 	WHEN f_nacimiento LIKE ('%/%/%') THEN STR_TO_DATE(f_nacimiento, '%d/%m/%Y') 
     WHEN f_nacimiento LIKE ('%.%.%') THEN STR_TO_DATE(f_nacimiento, '%Y.%m.%d')
     WHEN f_nacimiento LIKE ('__-__-____') THEN STR_TO_DATE(f_nacimiento, '%d-%m-%Y')
     WHEN f_nacimiento LIKE ('____-__-__') THEN STR_TO_DATE(f_nacimiento, '%Y-%m-%d')
 END; -- Estandarizar todos los formatos de fecha que se encuentran en la tabla pacientes
-ALTER TABLE pacientes MODIFY COLUMN f_nacimiento DATETIME; -- Cambiar el tipo de dato de f_nacimiento a fecha real
+ALTER TABLE pacientes MODIFY COLUMN f_nacimiento DATE; -- Cambiar el tipo de dato de f_nacimiento a fecha real
 -- Para poder cambiar el dato de tel_contacto hay que sanear los datos
-DELETE FROM pacientes WHERE tel_contacto IS NULL; -- Borrar a los clientes sin tel_contacto
+DELETE FROM pacientes WHERE tel_contacto IS NULL OR LENGTH(tel_contacto) != 9; -- Borrar a los clientes sin tel_contacto o un formato incorrecto
 ALTER TABLE pacientes MODIFY COLUMN tel_contacto CHAR(9) NOT NULL; -- Poner tamaño de exactamente 9 caracteres y que sea obligatorio
  /* Tabla visitas
 Estandarizar las fechas
