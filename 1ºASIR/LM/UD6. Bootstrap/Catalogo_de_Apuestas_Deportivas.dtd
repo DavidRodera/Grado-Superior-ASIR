@@ -1,0 +1,27 @@
+<!ELEMENT catalogo (apuesta+)>
+<!ATTLIST catalogo
+  nombre CDATA #REQUIRED
+  version CDATA #REQUIRED>
+
+<!ELEMENT apuesta (titulo, descripcion, casa_de_apuestas, condiciones)>
+<!ATTLIST apuesta
+  id ID #REQUIRED
+  deporte CDATA #REQUIRED>
+
+<!ELEMENT titulo (#PCDATA)>
+<!ELEMENT descripcion (#PCDATA)>
+
+<!ELEMENT casa_de_apuestas (nombre, pais, licencia?)>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT pais (#PCDATA)>
+<!ELEMENT licencia (#PCDATA)>
+
+<!ELEMENT condiciones (fecha_evento, mercado+)>
+<!ELEMENT fecha_evento (#PCDATA)>
+
+<!ELEMENT mercado (num_selecciones, descripcion_mercado)>
+<!ATTLIST mercado
+  nombre_mercado CDATA #REQUIRED>
+
+<!ELEMENT num_selecciones (#PCDATA)>
+<!ELEMENT descripcion_mercado (#PCDATA)>
