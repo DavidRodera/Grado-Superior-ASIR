@@ -1,0 +1,518 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="es">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>BetSport Pro — Catálogo de Apuestas
+        </title>
+    <style>
+          /* ── RESET Y BASE ── */
+          *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+          body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #0d0f1a;
+            color: #e0e6f0;
+            min-height: 100vh;
+          }
+
+          /* ── CABECERA ── */
+          header {
+            background: linear-gradient(135deg, #1a1d2e 0%, #0f3460 100%);
+            border-bottom: 3px solid #e94560;
+            padding: 2rem 1.5rem;
+            text-align: center;
+          }
+          header h1 {
+            font-size: 2.2rem;
+            color: #ffffff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+          }
+          header h1 span { color: #e94560; }
+          .version-badge {
+            display: inline-block;
+            background: #e94560;
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-left: 0.6rem;
+            vertical-align: middle;
+          }
+          header p {
+            color: #8892a4;
+            margin-top: 0.4rem;
+            font-size: 0.95rem;
+          }
+
+          /* ── CONTENEDOR PRINCIPAL ── */
+          main {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+          }
+
+          /* ── TARJETA DE APUESTA ── */
+          .apuesta-card {
+            background: #161929;
+            border: 1px solid #252840;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+          }
+          .apuesta-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(233,69,96,0.25);
+          }
+
+          /* ── CABECERA DE TARJETA ── */
+          .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 1.5rem;
+            background: #1a1d2e;
+            border-bottom: 1px solid #252840;
+          }
+          .card-header h2 {
+            font-size: 1.15rem;
+            color: #ffffff;
+            flex: 1;
+          }
+
+          /* ── BADGE DE DEPORTE ── */
+          .sport-badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            white-space: nowrap;
+          }
+          /* Colores por deporte – lógica condicional XSLT */
+          .sport-futbol    { background: #145a32; color: #58d68d; border: 1px solid #27ae60; }
+          .sport-tenis     { background: #7b6d00; color: #f4d03f; border: 1px solid #d4ac0d; }
+          .sport-baloncesto{ background: #6e2d00; color: #f0a500; border: 1px solid #d35400; }
+          .sport-formula1  { background: #4a0000; color: #e74c3c; border: 1px solid #c0392b; }
+          .sport-ciclismo  { background: #003865; color: #5dade2; border: 1px solid #2e86c1; }
+          .sport-default   { background: #2c2f3e; color: #bdc3c7; border: 1px solid #7f8c8d; }
+
+          /* ── CUERPO DE TARJETA ── */
+          .card-body {
+            padding: 1.2rem 1.5rem;
+          }
+          .descripcion {
+            color: #8892a4;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+          }
+
+          /* ── INFO CASA DE APUESTAS ── */
+          .casa-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1.2rem;
+            font-size: 0.82rem;
+          }
+          .casa-info span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: #1e2235;
+            border: 1px solid #2d3250;
+            border-radius: 6px;
+            padding: 0.3rem 0.7rem;
+            color: #a0aec0;
+          }
+          .casa-info .icon { font-size: 1rem; }
+          .licencia-tag {
+            background: #1a2e1a !important;
+            border-color: #27ae60 !important;
+            color: #58d68d !important;
+          }
+          .sin-licencia {
+            background: #2e1a1a !important;
+            border-color: #c0392b !important;
+            color: #e74c3c !important;
+            font-style: italic;
+          }
+          .fecha-tag {
+            background: #0f2b3d !important;
+            border-color: #2e86c1 !important;
+            color: #5dade2 !important;
+          }
+
+          /* ── TABLA DE MERCADOS ── */
+          .mercados-titulo {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #e94560;
+            margin-bottom: 0.6rem;
+            font-weight: 700;
+          }
+          table.mercados {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+          }
+          table.mercados thead tr {
+            background: #0f3460;
+          }
+          table.mercados thead th {
+            padding: 0.6rem 0.8rem;
+            text-align: left;
+            color: #a0c4ff;
+            font-weight: 600;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+          }
+          table.mercados tbody tr:nth-child(odd)  { background: #1a1d2e; }
+          table.mercados tbody tr:nth-child(even) { background: #161929; }
+          table.mercados tbody tr:hover           { background: #1e2540; }
+          table.mercados td {
+            padding: 0.55rem 0.8rem;
+            color: #c8d0e0;
+            vertical-align: top;
+          }
+          .sel-badge {
+            display: inline-block;
+            background: #e94560;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+          }
+          /* Alerta: muchas selecciones */
+          .sel-alta { background: #c0392b !important; }
+
+          /* ── FOOTER ── */
+          footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: #444c60;
+            font-size: 0.8rem;
+            border-top: 1px solid #1e2235;
+            margin-top: 2rem;
+          }
+        </style>
+  </head>
+  <body>
+    <header>
+      <h1><span>⚽</span> BetSport Pro<span class="version-badge">v2.0</span></h1>
+      <p>Catálogo de Apuestas Deportivas — 6 eventos disponibles</p>
+    </header>
+    <main>
+      <article class="apuesta-card">
+        <div class="card-header">
+          <h2>NBA Finals 2025 — Boston Celtics vs Golden State Warriors</h2>
+          <span class="sport-badge sport-baloncesto">🏀 Baloncesto</span>
+        </div>
+        <div class="card-body">
+          <p class="descripcion">La gran final de la NBA enfrenta a los Celtics, vigentes campeones del Este, contra los Warriors, histórica franquicia del Oeste. Serie al mejor de siete partidos.</p>
+          <div class="casa-info">
+            <span><span class="icon">🏠</span>Betway</span>
+            <span><span class="icon">🌍</span>Malta</span>
+            <span class="licencia-tag"><span class="icon">✅</span> Licencia: MGA-CRP-2021-00148</span>
+            <span class="fecha-tag"><span class="icon">📅</span>2025-06-05</span>
+          </div>
+          <p class="mercados-titulo">📈 Mercados disponibles</p>
+          <table class="mercados">
+            <thead>
+              <tr>
+                <th>Mercado</th>
+                <th>Selecciones</th>
+                <th>Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Ganador de la Serie</strong>
+                </td>
+                <td>
+                  <span class="sel-badge">2</span>
+                </td>
+                <td>Apuesta al equipo que ganará el anillo de campeón de la NBA 2025.</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Resultado del Partido 1</strong>
+                </td>
+                <td>
+                  <span class="sel-badge">2</span>
+                </td>
+                <td>Predice quién ganará el primer partido de la serie final.</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>MVP de las Finales</strong>
+                </td>
+                <td>
+                  <span class="sel-badge">10</span>
+                </td>
+                <td>Selecciona qué jugador será elegido Jugador Más Valioso de las NBA Finals 2025.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+      <article class="apuesta-card">
+        <div class="card-header">
+          <h2>Tour de Francia 2025 — Clasificación General</h2>
+          <span class="sport-badge sport-ciclismo">🚲 Ciclismo</span>
+        </div>
+        <div class="card-body">
+          <p class="descripcion">La Grande Boucle celebra su 112.ª edición recorriendo los paisajes más espectaculares de Francia y los Alpes. 21 etapas y más de 3.500 km de competición elite.</p>
+          <div class="casa-info">
+            <span><span class="icon">🏠</span>Bwin</span>
+            <span><span class="icon">🌍</span>Austria</span>
+            <span class="licencia-tag"><span class="icon">✅</span> Licencia: AT-GGL-2023-00056</span>
+            <span class="fecha-tag"><span class="icon">📅</span>2025-07-05</span>
+          </div>
+          <p class="mercados-titulo">📈 Mercados disponibles</p>
+          <table class="mercados">
+            <thead>
+              <tr>
+                <th>Mercado</th>
+                <th>Selecciones</th>
+                <th>Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Ganador de la Clasificación General</strong>
+                </td>
+                <td>
+                  <span class="sel-badge sel-alta">25</span>
+                </td>
+                <td>Apuesta al ciclista que vestirá el maillot amarillo en los Campos Elíseos al finalizar el Tour.</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Ganador de la Etapa 1</strong>
+                </td>
+                <td>
+                  <span class="sel-badge sel-alta">20</span>
+                </td>
+                <td>Predice qué corredor se impondrá en la etapa de apertura del Tour de Francia 2025.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+      <article class="apuesta-card">
+        <div class="card-header">
+          <h2>Gran Premio de Mónaco 2025 — Circuito de Montecarlo</h2>
+          <span class="sport-badge sport-formula1">🏎 Fórmula 1</span>
+        </div>
+        <div class="card-body">
+          <p class="descripcion">La joya de la corona del automovilismo mundial. El Gran Premio de Mónaco recorre las calles del Principado en una carrera histórica donde el pilotaje técnico es clave.</p>
+          <div class="casa-info">
+            <span><span class="icon">🏠</span>Codere</span>
+            <span><span class="icon">🌍</span>España</span>
+            <span class="sin-licencia"><span class="icon">⚠️</span> Sin licencia publicada
+                    </span>
+            <span class="fecha-tag"><span class="icon">📅</span>2025-05-25</span>
+          </div>
+          <p class="mercados-titulo">📈 Mercados disponibles</p>
+          <table class="mercados">
+            <thead>
+              <tr>
+                <th>Mercado</th>
+                <th>Selecciones</th>
+                <th>Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Ganador de la Carrera</strong>
+                </td>
+                <td>
+                  <span class="sel-badge sel-alta">20</span>
+                </td>
+                <td>Apuesta al piloto que cruzará primero la línea de meta en el GP de Mónaco.</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Pole Position</strong>
+                </td>
+                <td>
+                  <span class="sel-badge sel-alta">20</span>
+                </td>
+                <td>Predice qué piloto marcará el mejor tiempo en la sesión de clasificación.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+      <article class="apuesta-card">
+        <div class="card-header">
+          <h2>El Clásico — FC Barcelona vs Real Madrid (LaLiga 2025)</h2>
+          <span class="sport-badge sport-futbol">⚽ Fútbol</span>
+        </div>
+        <div class="card-body">
+          <p class="descripcion">El partido más seguido del mundo enfrenta a los dos grandes del fútbol español en el Camp Nou en una jornada decisiva para el título de LaLiga EA Sports.</p>
+          <div class="casa-info">
+            <span><span class="icon">🏠</span>Sportium</span>
+            <span><span class="icon">🌍</span>España</span>
+            <span class="licencia-tag"><span class="icon">✅</span> Licencia: DGOJ-APJ-2022-0078</span>
+            <span class="fecha-tag"><span class="icon">📅</span>2025-04-26</span>
+          </div>
+          <p class="mercados-titulo">📈 Mercados disponibles</p>
+          <table class="mercados">
+            <thead>
+              <tr>
+                <th>Mercado</th>
+                <th>Selecciones</th>
+                <th>Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Resultado Final 1X2</strong>
+                </td>
+                <td>
+                  <span class="sel-badge">3</span>
+                </td>
+                <td>Apuesta al resultado al final de los 90 minutos reglamentarios del Clásico.</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Primer Goleador</strong>
+                </td>
+                <td>
+                  <span class="sel-badge sel-alta">22</span>
+                </td>
+                <td>Predice qué jugador marcará el primer gol del encuentro.</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Hándicap Asiático</strong>
+                </td>
+                <td>
+                  <span class="sel-badge">2</span>
+                </td>
+                <td>Apuesta con ventaja o desventaja de goles para equilibrar las probabilidades entre ambos equipos.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+      <article class="apuesta-card">
+        <div class="card-header">
+          <h2>Final Champions League 2025 — Real Madrid vs Manchester City</h2>
+          <span class="sport-badge sport-futbol">⚽ Fútbol</span>
+        </div>
+        <div class="card-body">
+          <p class="descripcion">Gran final de la UEFA Champions League disputada en el Estadio de Wembley. Dos de los clubes más laureados de Europa se enfrentan en busca del título continental.</p>
+          <div class="casa-info">
+            <span><span class="icon">🏠</span>Bet365</span>
+            <span><span class="icon">🌍</span>Reino Unido</span>
+            <span class="licencia-tag"><span class="icon">✅</span> Licencia: UK-GC-2024-00312</span>
+            <span class="fecha-tag"><span class="icon">📅</span>2025-05-31</span>
+          </div>
+          <p class="mercados-titulo">📈 Mercados disponibles</p>
+          <table class="mercados">
+            <thead>
+              <tr>
+                <th>Mercado</th>
+                <th>Selecciones</th>
+                <th>Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Resultado Final 1X2</strong>
+                </td>
+                <td>
+                  <span class="sel-badge">3</span>
+                </td>
+                <td>Apuesta al resultado al final de los 90 minutos: victoria local (1), empate (X) o victoria visitante (2).</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Ambos Equipos Marcan</strong>
+                </td>
+                <td>
+                  <span class="sel-badge">2</span>
+                </td>
+                <td>Predice si ambos equipos anotarán al menos un gol durante el partido.</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Total de Goles Más/Menos 2.5</strong>
+                </td>
+                <td>
+                  <span class="sel-badge">2</span>
+                </td>
+                <td>Indica si el número total de goles será superior o inferior a 2.5 goles.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+      <article class="apuesta-card">
+        <div class="card-header">
+          <h2>Torneo de Wimbledon 2025 — Cuadro Masculino</h2>
+          <span class="sport-badge sport-tenis">🏓 Tenis</span>
+        </div>
+        <div class="card-body">
+          <p class="descripcion">El torneo de hierba más prestigioso del mundo celebra su 138.ª edición en el All England Club de Londres, con los mejores tenistas del circuito ATP compitiendo por el título.</p>
+          <div class="casa-info">
+            <span><span class="icon">🏠</span>William Hill</span>
+            <span><span class="icon">🌍</span>España</span>
+            <span class="licencia-tag"><span class="icon">✅</span> Licencia: DGOJ-APJ-2023-0041</span>
+            <span class="fecha-tag"><span class="icon">📅</span>2025-06-30</span>
+          </div>
+          <p class="mercados-titulo">📈 Mercados disponibles</p>
+          <table class="mercados">
+            <thead>
+              <tr>
+                <th>Mercado</th>
+                <th>Selecciones</th>
+                <th>Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Ganador del Torneo</strong>
+                </td>
+                <td>
+                  <span class="sel-badge sel-alta">32</span>
+                </td>
+                <td>Apuesta al jugador que se proclamará campeón de la edición de Wimbledon 2025.</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Ganador del Partido — Primera Ronda</strong>
+                </td>
+                <td>
+                  <span class="sel-badge">2</span>
+                </td>
+                <td>Selecciona qué jugador avanzará a la segunda ronda en cada enfrentamiento individual.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </main>
+    <footer>
+      <p>© 2025 BetSport Pro — Generado mediante transformación XSLT</p>
+      <p>El juego puede crear adicción. Juega con responsabilidad. +18.</p>
+    </footer>
+  </body>
+</html>
