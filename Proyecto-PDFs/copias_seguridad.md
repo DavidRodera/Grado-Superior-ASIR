@@ -15,7 +15,7 @@ Una copia de seguridad completa es el respaldo total de todos los archivos. Se u
 
 ### 1. Cargar o tener cargada la BBDD
 
-```sql
+```bash
 mysql -u admin -p < base_de_datos.sql
 ```
 
@@ -27,7 +27,7 @@ Asegúrate de que el usuario tenga los permisos necesarios (`GRANT ALL PRIVILEGE
 
 ### 2. Crear copia de seguridad
 
-```sql
+```bash
 mysqldump -u admin -p base_de_datos > copia_inicial.sql
 ```
 
@@ -35,11 +35,11 @@ mysqldump -u admin -p base_de_datos > copia_inicial.sql
 
 ### 3. Cargar copia de seguridad completa
 
-```sql
+```bash
 mysql -u admin -p base_de_datos < copia_inicial.sql
 ```
 
-# Copia de Seguridad Incremental
+## Copia de Seguridad Incremental
 
 Una copia de seguridad incremental es un respaldo que solo guarda los datos modificados desde la última copia realizada, ya sea completa o incremental. En MySQL, esto se logra extrayendo los cambios registrados en los **logs binarios**, lo que permite ahorrar mucho tiempo y espacio en disco.
 
@@ -77,7 +77,7 @@ mysqlbinlog --read-from-remote-server -u admin -p -h localhost binlog.número_an
 
 ### 5. Cargar copia de seguridad completa y después la incremental
 
-```sql
+```bash
 mysql -u admin -p base_de_datos < copia_inicial.sql
 mysql -u admin -p base_de_datos < copia_incremental_cambio.sql
 ```
@@ -86,7 +86,7 @@ mysql -u admin -p base_de_datos < copia_incremental_cambio.sql
 Si hay muchas copias de seguridad incrementales, debemos cargarlas sucesivamente en el orden exacto en que fueron creadas.
 :::
 
-# Copia de Seguridad Diferencial
+## Copia de Seguridad Diferencial
 
 Una copia de seguridad diferencial es un respaldo que almacena todos los cambios realizados desde el último backup **completo**. A diferencia de la incremental, esta copia es acumulativa, por lo que su tamaño crece cada día hasta que se realice un nuevo ciclo de respaldo total.
 
@@ -110,7 +110,7 @@ Este comando une los binlogs indicados en un único archivo de respaldo diferenc
 
 ### 2. Cargar copia de seguridad completa y después la diferencial
 
-```sql
+```bash
 mysql -u admin -p base_de_datos < copia_inicial.sql
 mysql -u admin -p base_de_datos < copia_diferencial.sql
 ```
