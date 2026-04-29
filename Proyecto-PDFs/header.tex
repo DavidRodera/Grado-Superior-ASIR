@@ -1,0 +1,322 @@
+% ═══════════════════════════════════════════════════════════════
+%  header.tex — Plantilla Premium David Rodera
+% ═══════════════════════════════════════════════════════════════
+
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{tikz}
+\usetikzlibrary{shadows,shadows.blur,patterns}
+\usepackage{eso-pic}
+\usepackage{setspace}
+\usepackage{microtype}
+\usepackage{rotating}
+\usepackage{calc}
+\usepackage{afterpage}
+\usepackage{adjustbox}
+\usepackage{multirow}
+\usepackage{needspace}
+\usepackage{newunicodechar}
+
+\tcbuselibrary{listings,skins,breakable}
+
+% ── Tipografías ──────────────────────────────────────────────────
+\newfontfamily\montserratfont[
+  Path=/usr/share/fonts/opentype/montserrat/,
+  Extension=.otf,
+  UprightFont=*-Regular,
+  BoldFont=*-ExtraBold,
+  ItalicFont=*-Italic,
+  BoldItalicFont=*-ExtraBoldItalic
+]{Montserrat}
+
+\newfontfamily\cabinfont[
+  Path=/usr/share/fonts/opentype/cabin/,
+  Extension=.otf,
+  UprightFont=*-Regular,
+  BoldFont=*-SemiBold,
+  ItalicFont=*-Italic,
+  BoldItalicFont=*-SemiBoldItalic
+]{Cabin}
+
+\newfontfamily\opensansfont[
+  Path=/usr/share/fonts/truetype/open-sans/,
+  Extension=.ttf,
+  UprightFont=OpenSans-Regular,
+  BoldFont=OpenSans-Semibold,
+  ItalicFont=OpenSans-Italic,
+  BoldItalicFont=OpenSans-SemiboldItalic
+]{OpenSans}
+
+\newfontfamily\dejavufont{DejaVu Sans}
+\newunicodechar{→}{{\dejavufont →}}
+
+% ── Paleta de colores ────────────────────────────────────────────
+\definecolor{portadaBG}{HTML}{252525}
+\definecolor{portadaStripe}{HTML}{333333}
+\definecolor{blancoPuro}{HTML}{FFFFFF}
+\definecolor{blancoSuave}{HTML}{CCCCCC}
+\definecolor{grisTexto}{HTML}{2D2D2D}
+\definecolor{grisCabecera}{HTML}{505050}
+\definecolor{grisClaro}{HTML}{F2F2F2}
+\definecolor{grisLinea}{HTML}{AAAAAA}
+\definecolor{grisLineaTOC}{HTML}{888888}
+\definecolor{accentLine}{HTML}{606060}
+\definecolor{azulProfundo}{HTML}{1E4E79}
+
+% Colores para Callouts
+\definecolor{colorNota}{HTML}{3498DB}
+\definecolor{bgNota}{HTML}{F2F9FF}
+\definecolor{colorTip}{HTML}{27AE60}
+\definecolor{bgTip}{HTML}{F2FFF7}
+\definecolor{colorWarning}{HTML}{E67E22}
+\definecolor{bgWarning}{HTML}{FFF8F2}
+
+% Colores Código
+\definecolor{sqlBG}{HTML}{F8F8F8}
+\definecolor{sqlKeyword}{HTML}{0000CC}
+\definecolor{sqlString}{HTML}{CC3300}
+\definecolor{sqlComment}{HTML}{999999}
+\definecolor{termBG}{HTML}{1C1C1C}
+\definecolor{termText}{HTML}{33FF33}
+
+% ── Márgenes ────────────────────────────────────────────────────
+\geometry{
+  a4paper,
+  top=2.6cm, bottom=2.8cm,
+  left=2.8cm, right=2.8cm,
+  headheight=1.3cm, headsep=0.5cm, footskip=1.5cm
+}
+
+% ── Cabecera y pie ───────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyhead[C]{}
+\fancyfoot[C]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \draw[color=accentLine,line width=0.4pt]
+      ([xshift=2.8cm,yshift=0.9cm]current page.south west)
+      -- ([xshift=-2.8cm,yshift=0.9cm]current page.south east);
+  \end{tikzpicture}%
+  \montserratfont\footnotesize\color{grisCabecera}\thepage}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyfoot[C]{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \draw[color=accentLine,line width=0.4pt]
+        ([xshift=2.8cm,yshift=0.9cm]current page.south west)
+        -- ([xshift=-2.8cm,yshift=0.9cm]current page.south east);
+    \end{tikzpicture}%
+    \montserratfont\footnotesize\color{grisCabecera}\thepage}}
+
+\fancypagestyle{portada}{%
+  \fancyhf{}
+  \fancyfoot[C]{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \draw[color=portadaStripe,line width=0.4pt]
+        ([xshift=2.8cm,yshift=0.9cm]current page.south west)
+        -- ([xshift=-2.8cm,yshift=0.9cm]current page.south east);
+    \end{tikzpicture}%
+    \montserratfont\footnotesize\color{blancoSuave}\thepage}}
+
+% ── H1 con número decorativo ────────────────────────────────────
+\titleformat{\section}[block]
+  {\needspace{6cm}\montserratfont\Large\bfseries\color{grisTexto}}
+  {\llap{\textcolor{grisClaro}{\fontsize{40}{40}\selectfont\thesection}\hspace{10pt}}}
+  {0pt}
+  {}
+  [{\vspace{2pt}\color{accentLine}\titlerule[0.5pt]}]
+\titlespacing{\section}{0pt}{2.5em}{1em}
+
+\titleformat{\subsection}
+  {\cabinfont\large\bfseries\color{azulProfundo}}{}
+  {0em}{}
+\titlespacing{\subsection}{0pt}{1.4em}{0.4em}
+
+% ── Índice ───────────────────────────────────────────────────────
+\renewcommand{\contentsname}{}
+\titlecontents{section}[0em]
+  {\vspace{0.45em}\montserratfont\small\bfseries\color{grisTexto}}
+  {}{}
+  {\hfill\montserratfont\small\color{grisCabecera}\thecontentspage}
+  [\vspace{0.05em}]
+\titlecontents{subsection}[1.4em]
+  {\vspace{0.05em}\opensansfont\small\color{grisLineaTOC}}
+  {}{}
+  {\hfill\opensansfont\small\color{grisLineaTOC}\thecontentspage}
+
+\titlecontents{subsubsection}[2.8em]
+  {\opensansfont\footnotesize\color{grisLineaTOC}}
+  {}{}
+  {\hfill\opensansfont\footnotesize\color{grisLineaTOC}\thecontentspage}
+
+% ── Bloques de Código con Etiquetas ──────────────────────────────
+\newtcblisting{sqlbox}{
+  arc=6pt, outer arc=6pt, colback=sqlBG, colframe=grisCabecera, boxrule=0.5pt,
+  listing only, listing engine=listings,
+  listing options={style=sqlstyle, language=mysql},
+  enhanced, drop fuzzy shadow,
+  attach boxed title to top right={yshift=-2mm, xshift=-5mm},
+  title=SQL,
+  boxed title style={colback=grisCabecera, size=small, arc=2pt, boxrule=0pt},
+  fonttitle=\montserratfont\tiny\bfseries
+}
+
+\newtcblisting{terminalbox}{
+  arc=6pt, outer arc=6pt, colback=termBG, colframe=termBG, boxrule=0pt,
+  listing only, listing engine=listings,
+  listing options={style=terminalstyle},
+  enhanced, drop fuzzy shadow,
+  attach boxed title to top right={yshift=-2mm, xshift=-5mm},
+  title=TERMINAL,
+  boxed title style={colback=accentLine, size=small, arc=2pt, boxrule=0pt},
+  fonttitle=\montserratfont\tiny\bfseries
+}
+
+\newtcblisting{defaultbox}[1]{
+  arc=6pt, outer arc=6pt, colback=grisClaro, colframe=grisLinea, boxrule=0.5pt,
+  listing only, listing engine=listings,
+  listing options={style=defaultcode, language={#1}},
+  enhanced, drop fuzzy shadow,
+  attach boxed title to top right={yshift=-2mm, xshift=-5mm},
+  title=\MakeUppercase{#1},
+  boxed title style={colback=grisLinea, size=small, arc=2pt, boxrule=0pt},
+  fonttitle=\montserratfont\tiny\bfseries
+}
+
+% ── Bloques de Notas (Callouts) ──────────────────────────────────
+\newtcolorbox{notabox}{
+  enhanced, breakable,
+  before skip=1em, after skip=1em,
+  colback=bgNota, colframe=colorNota,
+  boxrule=0pt, leftrule=4pt,
+  arc=2pt,
+  fonttitle=\montserratfont\small\bfseries,
+  title=NOTA,
+  coltitle=colorNota,
+  attach title to upper,
+  after title={\hspace{0.5em}}
+}
+
+\newtcolorbox{tipbox}{
+  enhanced, breakable,
+  before skip=1em, after skip=1em,
+  colback=bgTip, colframe=colorTip,
+  boxrule=0pt, leftrule=4pt,
+  arc=2pt,
+  fonttitle=\montserratfont\small\bfseries,
+  title=CONSEJO,
+  coltitle=colorTip,
+  attach title to upper,
+  after title={\hspace{0.5em}}
+}
+
+\newtcolorbox{warningbox}{
+  enhanced, breakable,
+  before skip=1em, after skip=1em,
+  colback=bgWarning, colframe=colorWarning,
+  boxrule=0pt, leftrule=4pt,
+  arc=2pt,
+  fonttitle=\montserratfont\small\bfseries,
+  title=ATENCIÓN,
+  coltitle=colorWarning,
+  attach title to upper,
+  after title={\hspace{0.5em}}
+}
+
+% ── Estilos de listings internos ────────────────────────────────
+\lstdefinelanguage{mysql}{
+  morekeywords={SELECT,FROM,WHERE,INSERT,INTO,VALUES,UPDATE,SET,
+    DELETE,CREATE,DROP,TABLE,DATABASE,USE,ALTER,ADD,PRIMARY,KEY,
+    FOREIGN,REFERENCES,INDEX,UNIQUE,NOT,NULL,DEFAULT,AUTO_INCREMENT,
+    INT,VARCHAR,TEXT,DATE,DATETIME,FLOAT,DOUBLE,BOOLEAN,IF,EXISTS,
+    JOIN,LEFT,RIGHT,INNER,OUTER,ON,AS,AND,OR,IN,LIKE,ORDER,BY,
+    GROUP,HAVING,LIMIT,OFFSET,DISTINCT,COUNT,SUM,AVG,MAX,MIN,
+    SHOW,DESCRIBE,GRANT,REVOKE,COMMIT,ROLLBACK,BEGIN,TRANSACTION,
+    CONSTRAINT,CHECK,CASCADE,TRUNCATE,REPLACE,PROCEDURE,FUNCTION,
+    TRIGGER,VIEW,UNION,ALL,CASE,WHEN,THEN,ELSE,END,BETWEEN,IS,
+    CHAR,BIGINT,TINYINT,SMALLINT,DECIMAL,ENUM,CALL,RETURNS,
+    RETURN,DECLARE,CURSOR,OPEN,FETCH,CLOSE},
+  sensitive=false,
+  morestring=[b]', morestring=[b]",
+  morecomment=[l]{--}, morecomment=[s]{/*}{*/}
+}
+
+\lstdefinestyle{sqlstyle}{
+  basicstyle=\ttfamily\small\color{grisTexto},
+  keywordstyle=\color{sqlKeyword}\bfseries,
+  stringstyle=\color{sqlString},
+  commentstyle=\color{sqlComment}\itshape,
+  breaklines=true, showstringspaces=false, tabsize=2,
+  literate={á}{{\'{a}}}1 {é}{{\'{e}}}1 {í}{{\'{i}}}1 {ó}{{\'{o}}}1 {ú}{{\'{u}}}1 {ñ}{{\~{n}}}1
+}
+
+\lstdefinestyle{terminalstyle}{
+  basicstyle=\ttfamily\small\color{termText},
+  breaklines=true, showstringspaces=false, tabsize=2,
+  literate={á}{{\'{a}}}1 {é}{{\'{e}}}1 {í}{{\'{i}}}1 {ó}{{\'{o}}}1 {ú}{{\'{u}}}1 {ñ}{{\~{n}}}1
+}
+
+\lstdefinestyle{defaultcode}{
+  basicstyle=\ttfamily\small\color{grisTexto},
+  keywordstyle=\color{grisCabecera}\bfseries,
+  stringstyle=\color{accentLine},
+  commentstyle=\color{grisLineaTOC}\itshape,
+  breaklines=true, showstringspaces=false, tabsize=2
+}
+
+% ── Imagen con bordes redondeados y sombra difuminada ──────────────
+\newcommand{\imagen}[2][width=\linewidth]{%
+  \begin{center}
+    \begin{tikzpicture}
+      \node[inner sep=0pt, rounded corners=10pt, clip,
+        blur shadow={shadow blur steps=10, shadow opacity=15, shadow xshift=3pt, shadow yshift=-3pt}]
+        {\includegraphics[#1]{#2}};
+    \end{tikzpicture}
+  \end{center}
+}
+
+% ── Portada Premium Sólida ─────────────────────────────────────────
+\newcommand{\portada}[3]{%
+  \newgeometry{margin=0pt}%
+  \thispagestyle{portada}%
+  \begin{tikzpicture}[remember picture,overlay]
+    % Fondo sólido
+    \fill[portadaBG]
+      (current page.south west) rectangle (current page.north east);
+
+    \fill[portadaStripe]
+      ([xshift=-2cm]current page.north east)
+      rectangle (current page.south east);
+    \node[rotate=90, anchor=center, text=blancoSuave, font=\cabinfont\small]
+      at ([xshift=-1cm]current page.east) {\MakeUppercase{#2}};
+    \node[anchor=north west, xshift=2.5cm, yshift=-9.5cm, text width=13cm, align=left]
+      at (current page.north west) {%
+        \color{blancoPuro}%
+        \montserratfont\fontsize{46}{64}\selectfont\bfseries
+        \MakeUppercase{#1}\par
+      };
+    \draw[color=blancoSuave, line width=0.4pt]
+      ([xshift=2.5cm, yshift=-15.5cm]current page.north west)
+      -- ([xshift=-2.5cm, yshift=-15.5cm]current page.north east);
+    \node[anchor=south west, xshift=2.5cm, yshift=1.8cm,
+      text=blancoSuave, font=\montserratfont\normalsize]
+      at (current page.south west) {#3};
+  \end{tikzpicture}%
+  \clearpage
+  \restoregeometry%
+  \pagecolor{white}%
+  \color{grisTexto}%
+}
