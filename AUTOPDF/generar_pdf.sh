@@ -19,12 +19,13 @@ ARCHIVO_MD="$1"
 NOMBRE="${ARCHIVO_MD%.md}"
 ARCHIVO_PDF="${NOMBRE}.pdf"
 DIR="$(cd "$(dirname "$0")" && pwd)"
+PLANTILLA_DIR="${DIR}/PLANTILLA"
 
-HEADER="${DIR}/header.tex"
-PLANTILLA="${DIR}/plantilla_custom.tex"
-FILTRO_COD="${DIR}/filtro_codigo.lua"
-FILTRO_PORT="${DIR}/filtro_portada.lua"
-FILTRO_NOTAS="${DIR}/filtro_notas.lua"
+HEADER="${PLANTILLA_DIR}/header.tex"
+PLANTILLA="${PLANTILLA_DIR}/plantilla_custom.tex"
+FILTRO_COD="${PLANTILLA_DIR}/filtro_codigo.lua"
+FILTRO_PORT="${PLANTILLA_DIR}/filtro_portada.lua"
+FILTRO_NOTAS="${PLANTILLA_DIR}/filtro_notas.lua"
 
 if [ ! -f "$ARCHIVO_MD" ]; then
   echo -e "${ROJO}Error: no se encuentra '$ARCHIVO_MD'${NC}"; exit 1
