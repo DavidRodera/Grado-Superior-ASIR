@@ -22,7 +22,7 @@
 \usepackage{rotating}
 \usepackage{calc}
 \usepackage{afterpage}
-\usepackage{adjustbox}
+\usepackage[export]{adjustbox}
 \usepackage{multirow}
 \usepackage{needspace}
 \usepackage{newunicodechar}
@@ -97,6 +97,10 @@
   headheight=1.3cm, headsep=0.5cm, footskip=1.5cm
 }
 
+% Espaciado entre párrafos
+\setlength{\parskip}{1.2em plus 2pt minus 1pt}
+\setstretch{1.1} % Aumentar ligeramente el interlineado
+
 % ── Cabecera y pie ───────────────────────────────────────────────
 \pagestyle{fancy}
 \fancyhf{}
@@ -138,22 +142,27 @@
   {0pt}
   {}
   [{\vspace{2pt}\color{accentLine}\titlerule[0.5pt]}]
-\titlespacing{\section}{0pt}{2.5em}{1em}
+\titlespacing{\section}{0pt}{3.5em}{1.5em}
 
 \titleformat{\subsection}
   {\cabinfont\large\bfseries\color{azulProfundo}}{}
   {0em}{}
-\titlespacing{\subsection}{0pt}{1.4em}{0.4em}
+\titlespacing{\subsection}{0pt}{2.5em}{1.2em}
+
+\titleformat{\subsubsection}
+  {\cabinfont\normalsize\bfseries\color{grisCabecera}}{}
+  {0em}{}
+\titlespacing{\subsubsection}{0pt}{2.0em}{1.0em}
 
 % ── Índice ───────────────────────────────────────────────────────
 \renewcommand{\contentsname}{}
 \titlecontents{section}[0em]
-  {\vspace{0.45em}\montserratfont\small\bfseries\color{grisTexto}}
+  {\vspace{0.6em}\montserratfont\small\bfseries\color{grisTexto}}
   {}{}
   {\hfill\montserratfont\small\color{grisCabecera}\thecontentspage}
-  [\vspace{0.05em}]
+  [\vspace{0.1em}]
 \titlecontents{subsection}[1.4em]
-  {\vspace{0.05em}\opensansfont\small\color{grisLineaTOC}}
+  {\vspace{0.1em}\opensansfont\small\color{grisLineaTOC}}
   {}{}
   {\hfill\opensansfont\small\color{grisLineaTOC}\thecontentspage}
 
@@ -167,7 +176,8 @@
   arc=6pt, outer arc=6pt, colback=sqlBG, colframe=grisCabecera, boxrule=0.5pt,
   listing only, listing engine=listings,
   listing options={style=sqlstyle, language=mysql},
-  enhanced,
+  enhanced, breakable,
+  before skip=1.5em, after skip=1.5em,
   attach boxed title to top right={yshift=-2mm, xshift=-5mm},
   title=SQL,
   boxed title style={colback=grisCabecera, size=small, arc=2pt, boxrule=0pt},
@@ -178,7 +188,8 @@
   arc=6pt, outer arc=6pt, colback=termBG, colframe=termBG, boxrule=0pt,
   listing only, listing engine=listings,
   listing options={style=terminalstyle},
-  enhanced,
+  enhanced, breakable,
+  before skip=1.5em, after skip=1.5em,
   attach boxed title to top right={yshift=-2mm, xshift=-5mm},
   title=TERMINAL,
   boxed title style={colback=accentLine, size=small, arc=2pt, boxrule=0pt},
@@ -189,7 +200,8 @@
   arc=6pt, outer arc=6pt, colback=grisClaro, colframe=grisLinea, boxrule=0.5pt,
   listing only, listing engine=listings,
   listing options={style=defaultcode, language={#1}},
-  enhanced,
+  enhanced, breakable,
+  before skip=1.5em, after skip=1.5em,
   attach boxed title to top right={yshift=-2mm, xshift=-5mm},
   title=\MakeUppercase{#1},
   boxed title style={colback=grisLinea, size=small, arc=2pt, boxrule=0pt},
@@ -199,7 +211,7 @@
 % ── Bloques de Notas (Callouts) ──────────────────────────────────
 \newtcolorbox{notabox}{
   enhanced, breakable,
-  before skip=1em, after skip=1em,
+  before skip=1.5em, after skip=1.5em,
   colback=bgNota, colframe=colorNota,
   boxrule=0pt, leftrule=4pt,
   arc=2pt,
@@ -212,7 +224,7 @@
 
 \newtcolorbox{tipbox}{
   enhanced, breakable,
-  before skip=1em, after skip=1em,
+  before skip=1.5em, after skip=1.5em,
   colback=bgTip, colframe=colorTip,
   boxrule=0pt, leftrule=4pt,
   arc=2pt,
@@ -225,7 +237,7 @@
 
 \newtcolorbox{warningbox}{
   enhanced, breakable,
-  before skip=1em, after skip=1em,
+  before skip=1.5em, after skip=1.5em,
   colback=bgWarning, colframe=colorWarning,
   boxrule=0pt, leftrule=4pt,
   arc=2pt,
@@ -277,14 +289,16 @@
   breaklines=true, showstringspaces=false, tabsize=2
 }
 
-% ── Imagen con bordes redondeados ──────────────────────────────────
+% ── Imagen con bordes redondeados y borde fino ─────────────────────
 \newcommand{\imagen}[2][width=\linewidth]{%
+  \par\vspace{1.5em}
   \begin{center}
     \begin{tikzpicture}
-      \node[inner sep=0pt, rounded corners=4pt, clip]
-        {\includegraphics[#1]{#2}};
+      \node[inner sep=0pt, rounded corners=4pt, clip] (img) {\includegraphics[#1, frame=0pt]{#2}};
+      \draw[grisLinea, line width=0.5pt, rounded corners=4pt] (img.south west) rectangle (img.north east);
     \end{tikzpicture}
   \end{center}
+  \par\vspace{1.5em}
 }
 
 % ── Portada Premium Sólida ─────────────────────────────────────────
