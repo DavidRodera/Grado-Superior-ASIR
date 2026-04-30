@@ -167,7 +167,7 @@
   arc=6pt, outer arc=6pt, colback=sqlBG, colframe=grisCabecera, boxrule=0.5pt,
   listing only, listing engine=listings,
   listing options={style=sqlstyle, language=mysql},
-  enhanced, drop fuzzy shadow,
+  enhanced,
   attach boxed title to top right={yshift=-2mm, xshift=-5mm},
   title=SQL,
   boxed title style={colback=grisCabecera, size=small, arc=2pt, boxrule=0pt},
@@ -178,7 +178,7 @@
   arc=6pt, outer arc=6pt, colback=termBG, colframe=termBG, boxrule=0pt,
   listing only, listing engine=listings,
   listing options={style=terminalstyle},
-  enhanced, drop fuzzy shadow,
+  enhanced,
   attach boxed title to top right={yshift=-2mm, xshift=-5mm},
   title=TERMINAL,
   boxed title style={colback=accentLine, size=small, arc=2pt, boxrule=0pt},
@@ -189,7 +189,7 @@
   arc=6pt, outer arc=6pt, colback=grisClaro, colframe=grisLinea, boxrule=0.5pt,
   listing only, listing engine=listings,
   listing options={style=defaultcode, language={#1}},
-  enhanced, drop fuzzy shadow,
+  enhanced,
   attach boxed title to top right={yshift=-2mm, xshift=-5mm},
   title=\MakeUppercase{#1},
   boxed title style={colback=grisLinea, size=small, arc=2pt, boxrule=0pt},
@@ -277,12 +277,11 @@
   breaklines=true, showstringspaces=false, tabsize=2
 }
 
-% ── Imagen con bordes redondeados y sombra difuminada ──────────────
+% ── Imagen con bordes redondeados ──────────────────────────────────
 \newcommand{\imagen}[2][width=\linewidth]{%
   \begin{center}
     \begin{tikzpicture}
-      \node[inner sep=0pt, rounded corners=10pt, clip,
-        blur shadow={shadow blur steps=10, shadow opacity=15, shadow xshift=3pt, shadow yshift=-3pt}]
+      \node[inner sep=0pt, rounded corners=4pt, clip]
         {\includegraphics[#1]{#2}};
     \end{tikzpicture}
   \end{center}
