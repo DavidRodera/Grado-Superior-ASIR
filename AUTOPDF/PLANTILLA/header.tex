@@ -315,15 +315,15 @@
       rectangle (current page.south east);
     \node[rotate=90, anchor=center, text=blancoSuave, font=\cabinfont\small]
       at ([xshift=-1cm]current page.east) {\MakeUppercase{#2}};
-    \node[anchor=north west, xshift=2.5cm, yshift=-9.5cm, text width=13cm, align=left]
+    \node (titulo) [anchor=north west, xshift=2.5cm, yshift=-9.5cm, text width=13cm, align=left]
       at (current page.north west) {%
         \color{blancoPuro}%
         \montserratfont\fontsize{46}{64}\selectfont\bfseries
         \MakeUppercase{#1}\par
       };
     \draw[color=blancoSuave, line width=0.4pt]
-      ([xshift=2.5cm, yshift=-15.5cm]current page.north west)
-      -- ([xshift=-2.5cm, yshift=-15.5cm]current page.north east);
+      ([yshift=-0.8cm]titulo.south west)
+      -- ([yshift=-0.8cm]titulo.south west -| current page.north east) ++(-2.5cm,0);
     \node[anchor=south west, xshift=2.5cm, yshift=1.8cm,
       text=blancoSuave, font=\montserratfont\normalsize]
       at (current page.south west) {#3};
