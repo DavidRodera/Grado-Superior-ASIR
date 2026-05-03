@@ -132,6 +132,11 @@ Esta es una nota informativa estándar. Úsala para aclaraciones que no requiere
 Atención: Este bloque sirve para resaltar errores comunes o precauciones críticas.
 :::
 
+::: link
+[Visitar el sitio web](https://google.com)
+Este bloque se usa para enlaces destacados. Los enlaces son de color azul y clicables (se resaltan automáticamente en azul).
+:::
+
 ## Generar el PDF
 
 

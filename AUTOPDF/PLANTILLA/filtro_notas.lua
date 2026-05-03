@@ -9,6 +9,8 @@ function Div(el)
     env = "tipbox"
   elseif el.classes:includes("warning") then
     env = "warningbox"
+  elseif el.classes:includes("link") then
+    env = "linkbox"
   end
 
   if env then

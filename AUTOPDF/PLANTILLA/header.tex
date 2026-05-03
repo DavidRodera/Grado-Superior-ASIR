@@ -26,6 +26,7 @@
 \usepackage{multirow}
 \usepackage{needspace}
 \usepackage{newunicodechar}
+\usepackage{hyperref}
 
 \tcbuselibrary{listings,skins,breakable}
 
@@ -80,6 +81,16 @@
 \definecolor{bgTip}{HTML}{F2FFF7}
 \definecolor{colorWarning}{HTML}{E67E22}
 \definecolor{bgWarning}{HTML}{FFF8F2}
+\definecolor{colorLink}{HTML}{0077CC}
+\definecolor{bgLink}{HTML}{F0F7FF}
+
+% Configuración de enlaces azules
+\hypersetup{
+    colorlinks=true,
+    urlcolor=colorLink,
+    linkcolor=colorLink,
+    citecolor=colorLink,
+}
 
 % Colores Código
 \definecolor{sqlBG}{HTML}{F8F8F8}
@@ -244,6 +255,19 @@
   fonttitle=\montserratfont\small\bfseries,
   title=ATENCIÓN,
   coltitle=colorWarning,
+  attach title to upper,
+  after title={\hspace{0.5em}}
+}
+
+\newtcolorbox{linkbox}{
+  enhanced, breakable,
+  before skip=1.5em, after skip=1.5em,
+  colback=bgLink, colframe=colorLink,
+  boxrule=0pt, leftrule=4pt,
+  arc=2pt,
+  fonttitle=\montserratfont\small\bfseries,
+  title=ENLACE,
+  coltitle=colorLink,
   attach title to upper,
   after title={\hspace{0.5em}}
 }
