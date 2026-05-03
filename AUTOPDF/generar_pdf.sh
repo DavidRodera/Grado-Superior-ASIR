@@ -26,6 +26,7 @@ PLANTILLA="${PLANTILLA_DIR}/plantilla_custom.tex"
 FILTRO_COD="${PLANTILLA_DIR}/filtro_codigo.lua"
 FILTRO_PORT="${PLANTILLA_DIR}/filtro_portada.lua"
 FILTRO_NOTAS="${PLANTILLA_DIR}/filtro_notas.lua"
+FILTRO_TABLAS="${PLANTILLA_DIR}/filtro_tablas.lua"
 
 if [ ! -f "$ARCHIVO_MD" ]; then
   echo -e "${ROJO}Error: no se encuentra '$ARCHIVO_MD'${NC}"; exit 1
@@ -42,6 +43,7 @@ PANDOC_ARGS=(
   --lua-filter="$FILTRO_PORT"
   --lua-filter="$FILTRO_COD"
   --lua-filter="$FILTRO_NOTAS"
+  --lua-filter="$FILTRO_TABLAS"
   -V mainfont="Open Sans"
   -V sansfont="Open Sans"
   -V monofont="DejaVu Sans Mono"
