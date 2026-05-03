@@ -16,15 +16,22 @@ echo -e "${AZUL}🚀 Iniciando la instalación de dependencias para AUTOPDF...${
 echo -e "${AZUL}🔄 Actualizando lista de paquetes...${NC}"
 sudo apt update
 
-# 2. Instalar Pandoc
-echo -e "${AZUL}📦 Instalando Pandoc...${NC}"
-sudo apt install -y pandoc
+# 2. Instalar Pandoc y herramientas de PDF
+echo -e "${AZUL}📦 Instalando Pandoc y poppler-utils...${NC}"
+sudo apt install -y pandoc poppler-utils
 
 # 3. Instalar Motores LaTeX y paquetes necesarios
-# Se recomienda texlive-full para evitar errores de paquetes faltantes, 
-# pero es pesado (~5GB). Si prefieres algo ligero, usa el bloque comentado.
-echo -e "${AZUL}🎓 Instalando TexLive (esto puede tardar un rato)...${NC}"
-sudo apt install -y texlive-xetex texlive-fonts-recommended texlive-latex-extra texlive-lang-spanish texlive-science
+echo -e "${AZUL}🎓 Instalando TexLive y paquetes necesarios...${NC}"
+sudo apt install -y \
+  texlive-xetex \
+  texlive-fonts-recommended \
+  texlive-latex-extra \
+  texlive-lang-spanish \
+  texlive-science \
+  texlive-latex-recommended \
+  texlive-luatex \
+  texlive-purescript \
+  ghostscript
 
 # 4. Instalar Fuentes del Sistema
 echo -e "${AZUL}🔤 Instalando fuentes (Montserrat, Cabin, Open Sans, DejaVu)...${NC}"

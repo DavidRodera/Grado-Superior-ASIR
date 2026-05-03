@@ -153,14 +153,18 @@ números de página del índice sean correctos.
 
 # Archivos de la plantilla
 
-Estos cinco archivos deben estar siempre en el mismo directorio:
+La estructura del proyecto está organizada para separar los scripts de la lógica de la plantilla:
 
-```
-generar_pdf.sh       ← script principal (ejecutar esto)
-header.tex           ← estilos, tipografías, colores, portada
-plantilla_custom.tex ← plantilla base de Pandoc
-filtro_portada.lua   ← genera la portada y el índice
-filtro_codigo.lua    ← aplica estilos a los bloques de código
+```text
+/
+├── generar_pdf.sh       ← script principal (ejecutar esto)
+├── extraer_contenido.sh ← para pasar PDFs antiguos a Markdown
+└── PLANTILLA/           ← carpeta con los recursos de diseño
+    ├── header.tex           ← estilos, tipografías, colores
+    ├── plantilla_custom.tex ← plantilla base de Pandoc
+    ├── filtro_portada.lua   ← genera la portada y el índice
+    ├── filtro_codigo.lua    ← aplica estilos a bloques de código
+    └── filtro_notas.lua     ← procesa los callouts (notas, tips...)
 ```
 
 # Dependencias (instalar una vez)
@@ -168,10 +172,14 @@ filtro_codigo.lua    ← aplica estilos a los bloques de código
 ```bash
 sudo apt install \
   pandoc \
+  poppler-utils \
   texlive-xetex \
   texlive-latex-extra \
+  texlive-latex-recommended \
   texlive-fonts-recommended \
+  texlive-lang-spanish \
   fonts-open-sans \
   fonts-montserrat \
-  fonts-cabin
+  fonts-cabin \
+  fonts-dejavu
 ```

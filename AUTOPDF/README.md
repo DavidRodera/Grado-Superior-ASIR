@@ -3,7 +3,7 @@
 ## Generar pdf nuevo
 
 1. Escribir código en **.md** (seguir `guia_plantilla.md`)
-2. Usar script `generar_pdf.sh` (dentro de la carpeta `/PLANTILLA`)
+2. Usar script `generar_pdf.sh` (en la raíz del proyecto)
 
 ## Pasar pdf antiguo al de la plantilla
 
