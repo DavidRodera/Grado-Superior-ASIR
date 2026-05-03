@@ -39,7 +39,10 @@ Las subsecciones (`##`) aparecen indentadas en el índice.
 
 # Tablas
 
-Las tablas Markdown estándar se renderizan con cabecera oscura y filas alternas:
+Las tablas Markdown estándar se renderizan con cabecera oscura y filas alternas. La plantilla incluye un sistema de auto-ajuste:
+
+- **Ajuste de texto**: Si una celda tiene mucho texto, se ajustará automáticamente en varias líneas para no desbordar el margen.
+- **Escalado automático**: Si una tabla tiene más de 5 columnas, el tamaño de la fuente se reducirá ligeramente para asegurar que quepa en la página.
 
 ```
 | Columna A | Columna B | Columna C |
