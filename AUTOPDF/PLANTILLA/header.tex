@@ -28,7 +28,31 @@
 \usepackage{newunicodechar}
 \usepackage{hyperref}
 
-\tcbuselibrary{listings,skins,breakable}
+\tcbuselibrary{listings,skins,breakable,raster}
+
+% ── Rejilla de Imágenes Estilo Grid ──────────────────────────────
+\newenvironment{imggrid}[1]{%
+  \vspace{1.5em}
+  \begin{tcbraster}[
+    raster columns=#1,
+    raster gutter=4mm,
+    raster column skip=4mm,
+    raster row skip=4mm,
+    raster force size=false,
+    blankest
+  ]
+}{%
+  \end{tcbraster}
+  \vspace{1.5em}
+}
+
+\newcommand{\gridimg}[2][]{%
+  \tcbitem[#1]
+  \begin{tikzpicture}
+    \node[inner sep=0pt, rounded corners=4pt, clip] (img) {\includegraphics[width=\linewidth, frame=0pt]{#2}};
+    \draw[grisLinea, line width=0.5pt, rounded corners=4pt] (img.south west) rectangle (img.north east);
+  \end{tikzpicture}
+}
 
 % ── Tipografías ──────────────────────────────────────────────────
 \newfontfamily\montserratfont[
