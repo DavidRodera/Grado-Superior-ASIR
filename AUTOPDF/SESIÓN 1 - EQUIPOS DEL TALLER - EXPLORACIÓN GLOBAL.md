@@ -89,3 +89,74 @@ El diseño del circuito (PCB) corresponde a la revisión del año 2009 realizada
 \imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_3763.jpeg}
 
 \imagen[width=0.25\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_3753.jpeg}
+
+# Chipset
+
+## Marca
+
+Intel
+
+## Modelo
+
+Intel ICH10D, este chip es el southbridge
+
+### Northbridge
+
+El northbridge aunque no se vea porque está debajo del disipador de aluminio plateado, por el modelo de este equipo es el Intel Q45 Express
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/img-000.jpg}
+
+# BIOS / UEFI
+
+## Marca
+
+Hewlett-Packard (HP).
+
+El software está identificado como "System BIOS and Setup Utility" con derechos de autor de Hewlett-Packard Development Company L.P.
+
+## Versión
+
+786G7 v01.02, la versión de Firmware Complementario (ME) es 5.2.1.1001
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_3765.jpeg}
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_3766.jpeg}
+
+# CPU
+
+## Marca
+Intel
+
+## Modelo
+Core 2 Duo E8500
+
+## Arquitectura
+Basada en la microarquitectura Wolfdale (64 bits)
+
+## Velocidad de Reloj
+3.16 GHz
+
+## Velocidad del Bus (FSB)
+1333 MHz
+
+## Memoria Caché
+- L1: 64 KB x 2.
+
+- L2: 6144 KB (6 MB) compartida.
+
+## Stepping
+0001067A / 00000A07
+
+## Tecnologías Soportadas
+
+- vPro: El equipo cuenta con tecnología de administración empresarial Intel vPro
+
+- AMT: El modo de gestión está configurado como AMT (Active Management Technology)
+
+- Virtualización: Al ser un E8500, soporta Intel VT-x
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_3762.jpeg}
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_3765.jpeg}
+
+
