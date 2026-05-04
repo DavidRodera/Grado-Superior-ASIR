@@ -111,6 +111,44 @@ Usa el comando LaTeX directamente en el `.md`:
 
 La sombra es difuminada hacia la derecha e inferior, ligera (18% opacidad).
 
+## Rejilla de Imágenes (Grid)
+
+Para organizar varias imágenes en una rejilla flexible, utiliza un bloque `::: {.grid}`.
+
+### Uso Básico
+
+Indica el número de columnas con el atributo `cols` (por defecto son 2).
+
+```markdown
+::: {.grid cols=2}
+![](imagen1.png)
+![](imagen2.png)
+:::
+```
+
+### Control de Espacio (Spans)
+
+Puedes hacer que una imagen ocupe más de una columna o fila usando `{span=N}` y `{rowspan=N}`.
+
+**Ejemplo: Una grande arriba y dos pequeñas debajo**
+```markdown
+::: {.grid cols=2}
+![](grande.png){span=2}
+![](peque1.png)
+![](peque2.png)
+:::
+```
+
+**Ejemplo: Imagen vertical a la izquierda y rejilla mixta**
+```markdown
+::: {.grid cols=3}
+![](vertical.png){rowspan=2}
+![](derecha1.png){span=2}
+![](derecha2.png)
+![](derecha3.png)
+:::
+```
+
 # Texto con formato
 
 El formato estándar de Markdown funciona normalmente:
@@ -167,7 +205,9 @@ La estructura del proyecto está organizada para separar los scripts de la lógi
     ├── plantilla_custom.tex ← plantilla base de Pandoc
     ├── filtro_portada.lua   ← genera la portada y el índice
     ├── filtro_codigo.lua    ← aplica estilos a bloques de código
-    └── filtro_notas.lua     ← procesa los callouts (notas, tips...)
+    ├── filtro_notas.lua     ← procesa los callouts (notas, tips...)
+    ├── filtro_grid.lua      ← gestiona la rejilla de imágenes
+    └── filtro_tablas.lua    ← auto-ajuste y estilo de tablas
 ```
 
 # Dependencias (instalar una vez)
