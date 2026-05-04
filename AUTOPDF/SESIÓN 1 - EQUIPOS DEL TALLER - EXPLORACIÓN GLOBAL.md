@@ -159,4 +159,56 @@ Basada en la microarquitectura Wolfdale (64 bits)
 
 \imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_3765.jpeg}
 
+# RAM
 
+## Capacidad total
+
+4096 MB (4 GB). La placa base tiene un total de 4 ranuras DIMM, de las cuales 2 están ocupadas por módulos de 2 GB cada uno y 2 están libres
+
+## Tecnología DDR
+
+DDR3. Específicamente, los módulos son PC3-10600U (DDR3 a 1333 MHz), aunque la BIOS indica que operan a 1066 MHz para sincronizarse con el bus del sistema
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_3754.jpeg}
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_3755.jpeg}
+
+# HDD
+
+## Marca
+
+Seagate
+
+## Modelo 
+
+Barracuda 7200.12 (Número de modelo: ST3250318AS)
+
+## Factor de forma
+
+3.5 pulgadas
+
+## Capacidad total
+
+250 Gbytes
+
+## Caché
+
+8 MB
+
+## RPM
+
+7200 RPM
+
+## Interfaz de conexión
+
+SATA (Serial ATA a 3.0 Gb/s)
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_3746.jpeg}
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_3747.jpeg}
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_3748.jpeg}
+
+# SSD
+
+El ordenador no cuenta con un disco SSD.
