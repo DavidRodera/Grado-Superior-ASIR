@@ -78,4 +78,14 @@ La placa tiene impresa la etiqueta VER: B01. Esto significa que es la "Versión 
 
 El diseño del circuito (PCB) corresponde a la revisión del año 2009 realizada por el departamento "HP Engineering"
 
+## Manual
 
+::: link
+[Manual del Ordenador](https://h10032.www1.hp.com/ctg/Manual/c01957825.pdf)
+:::
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_3762.jpeg}
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_3763.jpeg}
+
+\imagen[width=0.25\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_3753.jpeg}
