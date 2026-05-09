@@ -50,8 +50,6 @@ En la imagen se observa que el cable de datos está conectado al puerto SATA2 (a
 
 \imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/cap4.png}
 
-\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/cap4.png}
-
 \imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_2896.jpeg}
 
 ## Verificación del BIOS
@@ -80,16 +78,35 @@ Tras haber completado con éxito la instalación de los módulos de memoria RAM,
 
 # Procedimiento oficial de instalación del conjunto CPU-Disipador-Ventilador
 
-## Instalación del CPU
+## Instalación de la CPU
 
-Para la instalación del procesador, el procedimiento exige una manipulación extremadamente cuidadosa para no dañar los pines del zócalo (socket) de la placa base.
+Según las especificaciones técnicas de la placa base (Capítulo 3), el sistema utiliza un procesador con arquitectura Intel Core 2 en un paquete FC-LGA775.
 
-- Apertura: Se debe presionar y desplazar hacia fuera la palanca de carga (Load Lever) para liberar la placa de retención.
+- Montaje: Se realiza sobre un zócalo de fuerza de inserción cero (ZIF Socket). El procedimiento oficial requiere liberar la palanca de carga para abrir la placa de retención, alinear las muescas del procesador con las del zócalo y cerrar la palanca para asegurar el contacto de los 775 pines sin aplicar fuerza manual sobre el chip.
 
-- Alineación: El procesador cuenta con dos muescas de guía que deben coincidir exactamente con las pestañas del zócalo. Se debe depositar el chip verticalmente sin ejercer presión.
+## Instalación del Disipador de Calor (Heatsink)
+El manual técnico define el disipador como una pieza crítica para la estabilidad del sistema:
 
-- Cierre: Una vez asentado, se baja la placa de carga y se vuelve a fijar la palanca en su posición de bloqueo.
+- Ajuste: El disipador se asienta sobre el procesador una vez que este ha sido bloqueado en el zócalo. Aunque este manual no detalla el giro de los tornillos, especifica que el diseño está hecho para mantener una presión constante sobre el IHS (Integrated Heat Spreader) del procesador para maximizar la transferencia térmica.
 
-## Preparación y Aplicación de Pasta Térmica
+- Pasta Térmica: Es imperativo que exista una interfaz térmica entre el procesador y el disipador para evitar el sobrecalentamiento que activaría las protecciones del sistema descritas en el capítulo de gestión de energía.
 
-Antes de colocar el sistema de refrigeración, es obligatorio asegurar una transferencia de calor eficiente, limpiando cualquier residuo anterior con alcohol isopropílico y aplicando una pequeña cantidad (tamaño de un guisante) de compuesto térmico en el centro de la CPU. Una cantidad excesiva puede desbordarse y causar problemas térmicos.
+## Instalación y Conexión del Ventilador
+
+El ventilador es de tipo velocidad variable y es gestionado automáticamente por la placa base:
+
+- Conexión: El cable del ventilador debe conectarse obligatoriamente al cabezal de la placa base identificado en los diagramas como P8 (CPU Fan Connector).
+
+- Funcionamiento: El sistema utiliza una lógica de control térmico que ajusta las revoluciones por minuto (RPM) del ventilador basándose en los sensores de temperatura internos de la CPU. Si no se conecta correctamente al puerto P8, el sistema emitirá un error de diagnóstico al arrancar.
+
+## Manual de referencia
+
+- Página 3-2 (Capítulo 3.2): Especificaciones del procesador Intel y el zócalo de montaje.
+
+- Página 4-13 (Capítulo 4.5.4): Detalles sobre la lógica de control del ventilador y gestión térmica.
+
+- Página 7-8 (Capítulo 7, Tabla 7-7): Localización y descripción del conector P8 para el ventilador de la CPU.
+
+::: link
+[Manual Technical Reference Guide HP Compaq 8000 Elite Series Business Desktop Computers](https://h10032.www1.hp.com/ctg/Manual/c01960471.pdf)
+:::
