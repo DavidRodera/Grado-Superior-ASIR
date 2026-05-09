@@ -12,7 +12,7 @@ date: "2024–2025"
 
 Antes de proceder con el montaje, se consultó el manual técnico del HP Compaq 8000 Elite SFF para identificar la disposición de los zócalos DIMM. Según la tabla de ubicaciones, el sistema requiere que el zócalo DIMM1 (color negro) esté ocupado obligatoriamente para evitar errores de post-arranque. Para optimizar el rendimiento mediante la arquitectura Dual Channel, el manual recomienda utilizar los canales de forma alterna; en este caso, se seleccionaron los slots 1 y 3 (correspondientes a los canales XMM1 y XMM3), asegurando así una configuración equilibrada entre el Canal A y el Canal B.
 
-\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/cap1.png}
+\imagen[width=\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/cap1.png}
 
 ## Inserción de los Módulos RAM
 
