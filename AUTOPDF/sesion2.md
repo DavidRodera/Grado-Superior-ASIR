@@ -8,14 +8,28 @@ date: "2024–2025"
 
 # Montaje RAM
 
-Para completar el montaje de la memoria RAM en el HP Compaq 8000 Elite SFF, se alinearon las muescas de dos módulos Kingston DDR3 de 2GB con los zócalos de la placa base, aplicando una presión firme y uniforme en ambos extremos hasta que las pestañas de seguridad se cerraron automáticamente. Siguiendo las recomendaciones del manual del fabricante para optimizar el rendimiento, los módulos se insertaron específicamente en los canales XMM1 y XMM3, lo que permite habilitar la arquitectura de doble canal. Finalmente, al encender el equipo y acceder a la BIOS, se confirmó en la pantalla de "System Information" que el sistema reconoce correctamente el total de 4096 MB operando en Dual Channel, validando así el éxito de la instalación según las especificaciones técnicas del equipo.
+## Consulta del Manual y Configuración de Canales
+
+Antes de proceder con el montaje, se consultó el manual técnico del HP Compaq 8000 Elite SFF para identificar la disposición de los zócalos DIMM. Según la tabla de ubicaciones, el sistema requiere que el zócalo DIMM1 (color negro) esté ocupado obligatoriamente para evitar errores de post-arranque. Para optimizar el rendimiento mediante la arquitectura Dual Channel, el manual recomienda utilizar los canales de forma alterna; en este caso, se seleccionaron los slots 1 y 3 (correspondientes a los canales XMM1 y XMM3), asegurando así una configuración equilibrada entre el Canal A y el Canal B.
 
 \imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/cap1.png}
 
+## Inserción de los Módulos RAM
+
+Para la instalación física, se utilizaron dos módulos Kingston DDR3 de 2GB. El proceso consiste en alinear la muesca del módulo con la llave del zócalo y aplicar una presión firme y constante hacia abajo con ambos dedos. Este movimiento debe mantenerse hasta que las pestañas blancas de seguridad en los extremos del slot se cierren automáticamente hacia adentro, garantizando que el módulo ha quedado perfectamente anclado y haciendo contacto eléctrico total con los pines de la placa base.
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/cap2.png}
+
 \imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_2883.jpeg}
+
+## Verificación del Sistema y BIOS
+
+Una vez completado el montaje mecánico, se realizó una doble verificación. Primero, se inspeccionó visualmente que ambos módulos estuvieran alineados y nivelados en sus respectivos slots. Posteriormente, se encendió el equipo y se accedió a la pantalla de System Information de la BIOS. En este panel se confirmó el éxito de la operación al mostrar una Memory Size de 4096 MB operando correctamente en Dual Channel, detallando la presencia de los 2048 MB en cada una de las ranuras seleccionadas (XMM1 y XMM3).
 
 \imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_2885.jpeg}
 
 \imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_2892.jpeg}
+
+# Montaje Disco Duro
 
 
