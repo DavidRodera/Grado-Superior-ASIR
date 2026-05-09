@@ -78,4 +78,18 @@ Tras haber completado con éxito la instalación de los módulos de memoria RAM,
 
 \imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_2889.jpeg}
 
-#
+# Procedimiento oficial de instalación del conjunto CPU-Disipador-Ventilador
+
+## Instalación del CPU
+
+Para la instalación del procesador, el procedimiento exige una manipulación extremadamente cuidadosa para no dañar los pines del zócalo (socket) de la placa base.
+
+- Apertura: Se debe presionar y desplazar hacia fuera la palanca de carga (Load Lever) para liberar la placa de retención.
+
+- Alineación: El procesador cuenta con dos muescas de guía que deben coincidir exactamente con las pestañas del zócalo. Se debe depositar el chip verticalmente sin ejercer presión.
+
+- Cierre: Una vez asentado, se baja la placa de carga y se vuelve a fijar la palanca en su posición de bloqueo.
+
+## Preparación y Aplicación de Pasta Térmica
+
+Antes de colocar el sistema de refrigeración, es obligatorio asegurar una transferencia de calor eficiente, limpiando cualquier residuo anterior con alcohol isopropílico y aplicando una pequeña cantidad (tamaño de un guisante) de compuesto térmico en el centro de la CPU. Una cantidad excesiva puede desbordarse y causar problemas térmicos.
