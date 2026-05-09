@@ -60,7 +60,7 @@ Para la verificación del disco duro en la BIOS, el procedimiento consiste en na
 En este caso el cable de datos se encontraba conectado al puerto SATA3 (negro). Lo recomendado era que estuviese conectado al puerto SATA0 (azul oscuro), apareciendo SATA0 en la verifiación del BIOS.
 :::
 
-\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_2893.jpeg}
+\imagen[width=\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_3851.jpg}
 
 # Conexión de Periféricos y Alimentación Externa
 
@@ -74,7 +74,7 @@ En este paso final, se conectaron los elementos esenciales para la puesta en mar
 
 Tras haber completado con éxito la instalación de los módulos de memoria RAM, el montaje del disco duro y la correcta conexión de todos los cables de alimentación y periféricos, se procedió a realizar la prueba de encendido. El equipo arrancó de manera estable, confirmando que todos los componentes han sido integrados correctamente y que el sistema se encuentra plenamente operativo y listo para su uso.
 
-\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_2889.jpeg}
+\imagen[width=\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_2889.jpeg}
 
 # Procedimiento oficial de instalación del conjunto CPU-Disipador-Ventilador
 
@@ -82,22 +82,32 @@ Tras haber completado con éxito la instalación de los módulos de memoria RAM,
 
 Según las especificaciones técnicas de la placa base (Capítulo 3), el sistema utiliza un procesador con arquitectura Intel Core 2 en un paquete FC-LGA775.
 
-- Montaje: Se realiza sobre un zócalo de fuerza de inserción cero (ZIF Socket). El procedimiento oficial requiere liberar la palanca de carga para abrir la placa de retención, alinear las muescas del procesador con las del zócalo y cerrar la palanca para asegurar el contacto de los 775 pines sin aplicar fuerza manual sobre el chip.
+### Montaje
+
+Se realiza sobre un zócalo de fuerza de inserción cero (ZIF Socket). El procedimiento oficial requiere liberar la palanca de carga para abrir la placa de retención, alinear las muescas del procesador con las del zócalo y cerrar la palanca para asegurar el contacto de los 775 pines sin aplicar fuerza manual sobre el chip.
 
 ## Instalación del Disipador de Calor (Heatsink)
 El manual técnico define el disipador como una pieza crítica para la estabilidad del sistema:
 
-- Ajuste: El disipador se asienta sobre el procesador una vez que este ha sido bloqueado en el zócalo. Aunque este manual no detalla el giro de los tornillos, especifica que el diseño está hecho para mantener una presión constante sobre el IHS (Integrated Heat Spreader) del procesador para maximizar la transferencia térmica.
+### Ajuste
 
-- Pasta Térmica: Es imperativo que exista una interfaz térmica entre el procesador y el disipador para evitar el sobrecalentamiento que activaría las protecciones del sistema descritas en el capítulo de gestión de energía.
+El disipador se asienta sobre el procesador una vez que este ha sido bloqueado en el zócalo. Aunque este manual no detalla el giro de los tornillos, especifica que el diseño está hecho para mantener una presión constante sobre el IHS (Integrated Heat Spreader) del procesador para maximizar la transferencia térmica.
+
+### Pasta Térmica
+
+Es imperativo que exista una interfaz térmica entre el procesador y el disipador para evitar el sobrecalentamiento que activaría las protecciones del sistema descritas en el capítulo de gestión de energía.
 
 ## Instalación y Conexión del Ventilador
 
 El ventilador es de tipo velocidad variable y es gestionado automáticamente por la placa base:
 
-- Conexión: El cable del ventilador debe conectarse obligatoriamente al cabezal de la placa base identificado en los diagramas como P8 (CPU Fan Connector).
+### Conexión
 
-- Funcionamiento: El sistema utiliza una lógica de control térmico que ajusta las revoluciones por minuto (RPM) del ventilador basándose en los sensores de temperatura internos de la CPU. Si no se conecta correctamente al puerto P8, el sistema emitirá un error de diagnóstico al arrancar.
+El cable del ventilador debe conectarse obligatoriamente al cabezal de la placa base identificado en los diagramas como P8 (CPU Fan Connector).
+
+### Funcionamiento
+
+El sistema utiliza una lógica de control térmico que ajusta las revoluciones por minuto (RPM) del ventilador basándose en los sensores de temperatura internos de la CPU. Si no se conecta correctamente al puerto P8, el sistema emitirá un error de diagnóstico al arrancar.
 
 ## Manual de referencia
 
