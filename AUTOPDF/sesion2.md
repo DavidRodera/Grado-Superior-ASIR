@@ -40,7 +40,7 @@ El manual indica que para acceder a la bahía del disco duro, se debe primero re
 
 ## Inserción y Conexión de Cables
 
-Siguiendo las indicaciones del manual, se procedió a la instalación física deslizando el disco en su compartimento. Posteriormente, se realizó la conexión del cable de alimentación y, siguiendo la jerarquía de prioridad del sistema, se conectó el cable de datos al puerto SATA0 de la placa base (identificado por ser el conector de color azul oscuro), asegurando así que el equipo reconozca correctamente esta unidad como el dispositivo de almacenamiento primario durante el arranque.
+Siguiendo las indicaciones del manual, se procedió a la instalación física deslizando el disco en su compartimento. Posteriormente, se realizó la conexión del cable de alimentación y, siguiendo la jerarquía de prioridad del sistema, se conectó el cable de datos al puerto SATA0 de la placa base (identificado por ser el conector de color azul oscuro, aunque en la imagen se observa conectado al puerto SATA2 (azul claro), el cual también es plenamente funcional para el almacenamiento, aunque generalmente se reserva para unidades secundarias o lectoras ópticas), asegurando así que el equipo reconozca correctamente esta unidad como el dispositivo de almacenamiento primario durante el arranque.
 
 \imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_2895.jpeg}
 
@@ -49,3 +49,17 @@ Siguiendo las indicaciones del manual, se procedió a la instalación física de
 \imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/cap4.png}
 
 \imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_2896.jpeg}
+
+## Verificación del BIOS
+
+Para la verificación del disco duro en la BIOS, el procedimiento consiste en navegar hasta el menú Storage y seleccionar la opción Device Configuration. En este apartado, el sistema confirma la detección física del disco duro indicando su capacidad de 250 GB y su estado actual. Al aparecer listado correctamente en esta pantalla, se valida que tanto el cable de alimentación como el de datos (conectado al puerto SATA, en este caso conectado al puerto SATA3) funcionan perfectamente y que la placa base ha reconocido la unidad de almacenamiento sin conflictos.
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_2893.jpeg}
+
+# Conexión de Periféricos y Alimentación Externa
+
+En este paso final, se conectaron los elementos esenciales para la puesta en marcha del equipo: el cable de alimentación a la fuente de poder, el cable de video para la pantalla (en este caso VGA) y los periféricos de entrada, teclado y ratón, a través de los puertos USB traseros. Estas conexiones permiten establecer la interfaz necesaria para que el usuario pueda interactuar con el sistema y visualizar la información de la BIOS o el sistema operativo una vez encendido el ordenador.
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_2887.jpeg}
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_2888.jpeg}
