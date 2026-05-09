@@ -32,4 +32,20 @@ Una vez completado el montaje mecánico, se realizó una doble verificación. Pr
 
 # Montaje Disco Duro
 
+## Preparación y Acceso al Compartimento
 
+El manual indica que para acceder a la bahía del disco duro, se debe primero retirar el panel de acceso del equipo. En este modelo SFF, el disco duro de 3.5 pulgadas se encuentra ubicado en una bahía interna debajo de la unidad óptica. El manual especifica que la jaula de unidades es abatible: debe rotarse hacia arriba para permitir la instalación o el reemplazo de los componentes que están debajo.
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/cap3.png}
+
+## Inserción y Conexión de Cables
+
+Siguiendo las indicaciones del manual, se procedió a la instalación física deslizando el disco en su compartimento. Posteriormente, se realizó la conexión del cable de alimentación y, siguiendo la jerarquía de prioridad del sistema, se conectó el cable de datos al puerto SATA0 de la placa base (identificado por ser el conector de color azul oscuro), asegurando así que el equipo reconozca correctamente esta unidad como el dispositivo de almacenamiento primario durante el arranque.
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_2895.jpeg}
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/cap4.png}
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/cap4.png}
+
+\imagen[width=0.5\textwidth]{/home/davidrodera/Documentos/Grado-Superior-ASIR/AUTOPDF/fotos/IMG_2896.jpeg}
