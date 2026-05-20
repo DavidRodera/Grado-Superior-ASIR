@@ -45,3 +45,15 @@ date: "2024–2025"
 - Interfaz: **CLI**
 
 - Origen: **Nativa**
+
+- Opciones de lanzamiento esenciales: **-p** (Reparación automática), **-y** (Asumir "Sí"), **-f** (Forzar), **-c** (Comprobar bloques dañados), **-n** (Solo lectura) y **-v** (Modo detallado).
+
+## PerfMon
+
+- Mide, registra y analiza el uso de los recursos del sistema
+
+- SO: **Windows** 
+
+- Interfaz: **Ambas**
+
+- Origen: **Nativa**
