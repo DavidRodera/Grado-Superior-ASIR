@@ -35,3 +35,13 @@ date: "2024–2025"
 - Interfaz: **CLI**
 
 - Origen: **Nativa**
+
+## e2fsck
+
+- Verifica y repara los errores en ext2, ext3 y ext4.
+
+- SO: **Linux** 
+
+- Interfaz: **CLI**
+
+- Origen: **Nativa**
