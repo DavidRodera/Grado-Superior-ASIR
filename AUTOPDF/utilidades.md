@@ -57,3 +57,9 @@ date: "2024–2025"
 - Interfaz: **Ambas**
 
 - Origen: **Nativa**
+
+- Opciones de lanzamiento esenciales: **perfmon /res** (Abre directamente el monitor de recursos)
+
+- Funcionalidades incorporadas del entorno gráfico: Muestra varias gráficas mostrand ola información de los principales componentes.
+
+## rsync
