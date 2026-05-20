@@ -19,10 +19,15 @@ function Pandoc(doc)
   local autor      = escape(getMeta("author"))
 
   -- 1. Portada
-  local portada_tex = string.format(
-    "\\pagenumbering{arabic}\n\\setcounter{page}{1}\n\\portada{%s}{%s}{%s}",
-    titulo, asignatura, autor
-  )
+  local sin_portada = os.getenv("SIN_PORTADA") or ""
+  local portada_tex = ""
+
+  if sin_portada ~= "1" then
+    portada_tex = string.format(
+      "\\pagenumbering{arabic}\n\\setcounter{page}{1}\n\\portada{%s}{%s}{%s}",
+      titulo, asignatura, autor
+    )
+  end
 
   -- 2. Índice (Situado más arriba y sin línea superior)
   local sin_indice = os.getenv("SIN_INDICE") or ""

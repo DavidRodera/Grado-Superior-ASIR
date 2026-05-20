@@ -15,6 +15,6 @@
 
 | **Script** | **Uso** |
 | --- | --- |
-| **generar_pdf.sh** | Pasa el archivo .md a .pdf con la plantilla |
+| **generar_pdf.sh** | Pasa el archivo .md a .pdf con la plantilla. Admite `--sin-indice` y `--solo-contenido`. |
 | **extraer_contenido.sh** | Coge de un .pdf sus imágenes y las almacena en una carpeta, y extrae el texto y lo pone en un archivo .md |
 

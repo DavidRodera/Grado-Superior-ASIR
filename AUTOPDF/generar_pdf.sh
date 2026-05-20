@@ -32,9 +32,19 @@ if [ ! -f "$ARCHIVO_MD" ]; then
   echo -e "${ROJO}Error: no se encuentra '$ARCHIVO_MD'${NC}"; exit 1
 fi
 
-# Pasar flag --sin-indice al filtro vía variable de entorno
+# Pasar flags al filtro vía variables de entorno
 export SIN_INDICE=""
-[ "$2" == "--sin-indice" ] && export SIN_INDICE="1"
+export SIN_PORTADA=""
+
+for arg in "$@"; do
+  case $arg in
+    --sin-indice) export SIN_INDICE="1" ;;
+    --solo-contenido) 
+      export SIN_INDICE="1"
+      export SIN_PORTADA="1"
+      ;;
+  esac
+done
 
 PANDOC_ARGS=(
   --pdf-engine=xelatex
