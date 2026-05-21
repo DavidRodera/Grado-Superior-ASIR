@@ -95,3 +95,25 @@ date: "2024–2025"
 - Origen: **De Terceros**
 
 - Funcionalidades incorporadas del entorno gráfico: Muestra un resumen del uso del CPU, memoria RAM, almacenamiento del disco duro e información del SO; además, hay un limpiador del sistema que permite escanear y eliminar archivos.
+
+## TreeSize
+
+- Escanea visualmente el árbol de directorios para encontrar donde se ha ido el espacio en disco
+
+- SO: **Windows** 
+
+- Interfaz: **GUI**
+
+- Origen: **De Terceros**
+
+- Funcionalidades incorporadas del entorno gráfico: Muestra una estructura de árbol de los directorios, muestra un resumen del estado de las particiones y los discos, mostrando cuanto almacenamiento ocupa cada directorio
+
+## Zstd
+
+- Comprime datos sin pérdida
+
+- SO: **Ambos** 
+
+- Interfaz: **CLI**
+
+- Origen: **Nativa**
