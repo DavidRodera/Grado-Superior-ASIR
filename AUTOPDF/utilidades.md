@@ -46,7 +46,7 @@ date: "2024–2025"
 
 - Origen: **Nativa**
 
-- Opciones de lanzamiento esenciales: **-p** (Reparación automática), **-y** (Asumir "Sí"), **-f** (Forzar), **-c** (Comprobar bloques dañados), **-n** (Solo lectura) y **-v** (Modo detallado).
+- Opciones de lanzamiento esenciales: **-p** (Reparación automática), **-y** (Asumir "Sí"), **-f** (Forzar), **-c** (Comprobar bloques dañados), **-n** (Solo lectura) y **-v** (Modo detallado)
 
 ## PerfMon
 
@@ -63,3 +63,35 @@ date: "2024–2025"
 - Funcionalidades incorporadas del entorno gráfico: Muestra varias gráficas mostrand ola información de los principales componentes.
 
 ## rsync
+
+- Copia y sincroniza archivos local o remotamente
+
+- SO: **Linux** 
+
+- Interfaz: **CLI**
+
+- Origen: **Nativa**
+
+- Opciones de lanzamiento esenciales: **-a** (Modo archivo), **-v** (Modo detallado), **-z** (Comprimir) y **-P** (Muestra una barra de progreso y mantiene los archivosd parcialmente descargados si hay una interrupción)
+
+## sfc
+
+- Analiza los archivos del sistema, reparandolos en caso de corrupción
+
+- SO: **Windows** 
+
+- Interfaz: **CLI**
+
+- Origen: **Nativa**
+
+## Stacer
+
+- Optimiza y monitorea el sistema
+
+- SO: **Linux** 
+
+- Interfaz: **GUI**
+
+- Origen: **De Terceros**
+
+- Funcionalidades incorporadas del entorno gráfico: Muestra un resumen del uso del CPU, memoria RAM, almacenamiento del disco duro e información del SO; además, hay un limpiador del sistema que permite escanear y eliminar archivos.
