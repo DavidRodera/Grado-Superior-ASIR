@@ -50,23 +50,50 @@ Es la protección del entorno virtual y digital. Consiste en blindar el software
 
 # Hardware específico del CPD del CSIC. Características
 
-### Nodos de Computación (Clúster Local)
+## Nodos de Computación (Clúster Local)
 
 Servidores en formato rack (habitualmente de fabricantes como IBM/Lenovo, HP o Dell) equipados con procesadores de alta densidad de núcleos (Intel Xeon o AMD EPYC) optimizados para la ejecución de algoritmos bioinformáticos y análisis de imágenes médicas.
 
-### Aceleración Gráfica (GPUs)
+## Aceleración Gráfica (GPUs)
 
 Incorporación de tarjetas GPU especializadas (como NVIDIA de arquitectura Enterprise) orientadas al procesamiento paralelo, esenciales para tareas de Machine Learning aplicado a la medicina predictiva, microscopía de alta resolución y plegamiento de proteínas.
 
-### Sistemas de Almacenamiento Masivo (Storage)
+## Sistemas de Almacenamiento Masivo (Storage)
 
 Cabinas NAS/SAN híbridas: Combinan discos de estado sólido (SSD NVMe) para el acceso rápido a bases de datos activas y discos HDD de alta capacidad para el almacenamiento de históricos de secuenciación de ADN.
 
 - Redundancia de datos: Configuraciones RAID avanzadas y sistemas de réplica automatizada para evitar cualquier pérdida de información científica sensible. 
 
-### Hardware de Red de Alta Velocidad
+## Hardware de Red de Alta Velocidad
 
 Conmutadores (Switches) de baja latencia con conexiones internas de 10 GbE o 40 GbE para garantizar el trasvase rápido de archivos de gran volumen entre los nodos de cálculo y las cabinas de almacenamiento.
 
 # Infraestructura específica del CPD del CSIC. Características
-2 : Infraestructura Climatización y Control Ambiental (HVAC): Sistemas de refrigeración de precisión encargados de mantener la temperatura (generalmente entre 20°C y 22°C) y la humedad relativa estables. ● Uso frecuente de arquitecturas de pasillos fríos y pasillos calientes para optimizar el flujo de aire y reducir el consumo eléctrico de los ventiladores. Suministro Eléctrico y Respaldo: ● Sistemas de Alimentación Ininterrumpida (SAI/UPS): Protegen los servidores frente a picos de tensión o microcortes, manteniendo el CPD operativo el tiempo suficiente para que entren en juego los sistemas alternativos. ● Grupo Electrógeno (Generador Diésel): Garantiza la continuidad del suministro y la autonomía de las salas de datos durante apagones prolongados en la red eléctrica general. Seguridad Física y Lógica: ● Protección contra incendios: Sistemas de detección precoz de humos (tipo aspiración) combinados con extinción mediante gases inertes o agentes limpios (que apagan el fuego por inundación de gas sin dañar el hardware electrónico). ● Control de accesos: Restricción física a las salas de servidores mediante tarjetas magnéticas o control biométrico. Conectividad Exterior: Enlace directo de alta velocidad a la red RedIRIS (la red académica y de investigación española), lo que permite al IIBM interconectarse con los supercomputadores del CSIC y otras bases de datos biomédicas europeas de manera ultrarrápida.  
+
+## Climatización y Control Ambiental (HVAC)
+
+Sistemas de refrigeración de precisión encargados de mantener la temperatura (generalmente entre 20°C y 22°C) y la humedad relativa estables. 
+
+- Uso frecuente de arquitecturas de pasillos fríos y pasillos calientes para optimizar el flujo de aire y reducir el consumo eléctrico de los ventiladores. 
+
+## Suministro Eléctrico y Respaldo 
+
+- Sistemas de Alimentación Ininterrumpida (SAI/UPS): Protegen los servidores frente a picos de tensión o microcortes, manteniendo el CPD operativo el tiempo suficiente para que entren en juego los sistemas alternativos.
+
+- Grupo Electrógeno (Generador Diésel): Garantiza la continuidad del suministro y la autonomía de las salas de datos durante apagones prolongados en la red eléctrica general. 
+
+## Seguridad Física y Lógica
+
+- Protección contra incendios: Sistemas de detección precoz de humos (tipo aspiración) combinados con extinción mediante gases inertes o agentes limpios (que apagan el fuego por inundación de gas sin dañar el hardware electrónico). 
+
+- Control de accesos: Restricción física a las salas de servidores mediante tarjetas magnéticas o control biométrico. 
+
+## Conectividad Exterior
+
+Enlace directo de alta velocidad a la red RedIRIS (la red académica y de investigación española), lo que permite al IIBM interconectarse con los supercomputadores del CSIC y otras bases de datos biomédicas europeas de manera ultrarrápida.
+
+# Bibliografia
+
+Información CPD: [Xataka](https://www.xataka.com/pro/cpd-que-centro-procesamiento-datos-como-funciona)
+
+La información detallada en los apartados de Hardware e Infraestructura del CSIC está basada en el centro IIBM (sitio de prácticas de Sergio Díaz).
