@@ -57,3 +57,31 @@ IaaS, PaaS y SaaS.
 **d) ¿Cuál de los tres modelos se parece más a trabajar directamente con una máquina virtual tradicional?**
 
 Se parece más el modelo IaaS, porque se basa en proporcionar servidores virtuales sobre los que el usuario tiene administración directa.
+
+### Caso 4 — Construyendo nuestro primer sistema en AWS
+
+**a) ¿Qué servicio utilizarías para cada necesidad?**
+
+- Red virtual propia: VPC
+- Máquina virtual para la aplicación: EC2
+- Disco asociado a la máquina: EBS
+- Almacenar miles de fotografías independientemente: S3
+- Base de datos relacional administrada: RDS
+- Control de permisos de usuarios: IAM
+
+**b) Explica brevemente qué función realiza cada uno.**
+
+- VPC: Define una red privada y aislada dentro de AWS para desplegar los recursos de forma segura.
+- EC2: Proporciona servidores virtuales bajo el modelo IaaS para ejecutar la aplicación.
+- EBS: Funciona como un disco duro de bloques directamente conectado a EC2 para el sistema operativo y archivos temporales.
+- S3: Almacenamiento de objetos desacoplado, escalable y accesible mediante peticiones web.
+- RDS: Servicio gestionado que automatiza tareas de mantenimiento y respaldos de bases de datos relacionales.
+- IAM: Gestiona las identidades, usuarios, roles y políticas de seguridad para el acceso a la infraestructura.
+
+**c) Si mañana eliminásemos la máquina EC2, ¿por qué conceptualmente no deberíamos considerar S3 simplemente como “el disco duro de EC2”?**
+
+S3 es un servicio de almacenamiento de objetos que no está vinculado al ciclo de vida de la máquina virtual.** A diferencia de un disco asociado (EBS), si mañana se elimina la instancia EC2, los archivos almacenados en S3 se mantienen intactos y se pueden acceder directamente mediante la red/API desde otros servidores, aplicaciones o usuarios autorizados.
+
+**d) Dibuja un esquema muy sencillo que represente cómo crees que podrían relacionarse estos elementos. No importa que todavía no sea una arquitectura técnicamente perfecta.**
+
+\imagen[width=0.8\textwidth]{fotos/I.jpeg}
