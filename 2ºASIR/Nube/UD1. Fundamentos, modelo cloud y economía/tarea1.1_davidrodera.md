@@ -6,7 +6,7 @@ subject: "Arquitecturas en la nube"
 date: "2026–2027"
 ---
 
-### Caso 1 — La tienda y el Black Friday
+## Caso 1 — La tienda y el Black Friday
 
 **a) ¿Qué problema presenta esta solución durante la mayor parte del año?**
 
@@ -20,7 +20,7 @@ La elasticidad permite escalar la capacidad de recursos de manera automática pa
 
 Desde el punto de vista CAPEX, la empresa realizaría una alta inversión en hardware e infraestructura que será independiente al uso que al final se le dé, en cambio, desde el punto de vista de OPEX no habrá una inversión inicial masiva y solo se pagará por los recursos consumidos.
 
-### Caso 2 — No queremos llevarlo todo a la nube
+## Caso 2 — No queremos llevarlo todo a la nube
 
 **a) ¿Qué modelo de despliegue propondrías: cloud, on-premises o híbrido? Justifica la respuesta.**
 
@@ -38,7 +38,7 @@ Las mayores ventajas son la flexibidad al poderse preservar los datos críticos 
 
 Los posibles inconvenientes serán la integración de canales de seguros entre los dos entornos, la latencia de red al cominucarse los dos entornos y la gran carga administrativa al gestionar politicas de seguridad de forma dual.
 
-### Caso 3 — ¿Máquina virtual, plataforma o aplicación?
+## Caso 3 — ¿Máquina virtual, plataforma o aplicación?
 
 **a) Clasifica A, B y C como IaaS, PaaS o SaaS.**
 
@@ -58,7 +58,7 @@ IaaS, PaaS y SaaS.
 
 Se parece más el modelo IaaS, porque se basa en proporcionar servidores virtuales sobre los que el usuario tiene administración directa.
 
-### Caso 4 — Construyendo nuestro primer sistema en AWS
+## Caso 4 — Construyendo nuestro primer sistema en AWS
 
 **a) ¿Qué servicio utilizarías para cada necesidad?**
 
