@@ -3,7 +3,6 @@
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  border: 1px solid black;
 }
 
 body {
@@ -15,21 +14,21 @@ body {
 
 .horario {
   display: grid;
-  grid-template-columns: 80px repeat(5, 1fr);
-  grid-auto-rows: minmax(60px, auto);
+  grid-template-columns: 85px repeat(5, 1fr);
+  grid-template-rows: auto auto repeat(3, 1fr) 40px repeat(3, 1fr);
   width: 100%;
   max-width: 1100px;
   background-color: #ffffff;
-  border: 1px solid #777777;
+  border: 2px solid #000000;
 }
 
 .titulo {
   grid-column: 1 / -1;
   text-align: center;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   padding: 8px;
-  border-bottom: 1px solid #777777;
+  border-bottom: 2px solid #000000;
 }
 
 .header {
@@ -37,13 +36,14 @@ body {
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  border-bottom: 1px solid #777777;
-  border-right: 1px solid #777777;
+  font-size: 1.05rem;
+  border-bottom: 2px solid #000000;
+  border-right: 2px solid #000000;
   background-color: #ffffff;
-  height: 40px;
+  padding: 8px 0;
 }
 
-.header:last-child {
+.header:nth-child(7) {
   border-right: none;
 }
 
@@ -53,14 +53,14 @@ body {
   justify-content: center;
   text-align: center;
   font-weight: bold;
-  font-size: 0.8rem;
-  border-bottom: 1px solid #777777;
-  border-right: 1px solid #777777;
+  font-size: 0.85rem;
+  border-bottom: 2px solid #000000;
+  border-right: 2px solid #000000;
   background-color: #ffffff;
 }
 
-.recreo-hora {
-  height: 35px;
+.hora-recreo {
+  background-color: #ffffff;
 }
 
 .recreo {
@@ -68,36 +68,36 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid #777777;
-  height: 35px;
-  font-size: 0.9rem;
+  border-bottom: 2px solid #000000;
+  font-size: 1rem;
+  background-color: #ffffff;
 }
 
 .celda {
   display: flex;
   flex-direction: column;
-  padding: 6px;
-  border-bottom: 1px solid #777777;
-  border-right: 1px solid #777777;
-  font-size: 0.85rem;
-}
-
-.horario > div:nth-child(6n + 7) {
-  border-right: none;
+  padding: 8px;
+  border-bottom: 2px solid #000000;
+  border-right: 2px solid #000000;
+  font-size: 0.9rem;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .celda strong {
   font-weight: bold;
-  margin-bottom: 2px;
+  font-size: 0.95rem;
+  margin-bottom: 3px;
 }
 
 .celda span {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
 }
 
 .celda small {
   font-size: 0.75rem;
-  margin-top: 2px;
+  margin-top: auto;
+  font-weight: bold;
 }
 
 .span-2 {
@@ -109,53 +109,53 @@ body {
 }
 
 .ingles {
-  background-color: #a49733;
-  color: #ffffff;
+  background-color: #a39535;
+  color: #000000;
 }
 
 .admin-si {
-  background-color: #e06338;
-  color: #ffffff;
+  background-color: #e56233;
+  color: #000000;
 }
 
 .servicios-red {
-  background-color: #9d2d5a;
+  background-color: #8c2653;
   color: #ffffff;
 }
 
 .adm-desis {
-  background-color: #d6cf9f;
-  color: #222222;
+  background-color: #dcd7ab;
+  color: #000000;
 }
 
 .dig-apl {
-  background-color: #64bd80;
-  color: #ffffff;
+  background-color: #6bbe82;
+  color: #000000;
 }
 
 .sostenibilidad {
-  background-color: #3b8b9b;
-  color: #ffffff;
+  background-color: #3f8d9c;
+  color: #000000;
 }
 
 .arquitecturas {
-  background-color: #0f5291;
+  background-color: #1a518b;
   color: #ffffff;
 }
 
 .itinerario {
-  background-color: #f7bb97;
-  color: #222222;
+  background-color: #f7bfa0;
+  color: #000000;
 }
 
 .seguridad {
-  background-color: #f29bd4;
-  color: #222222;
+  background-color: #f29cd5;
+  color: #000000;
 }
 
 .implantacion {
-  background-color: #1f8538;
-  color: #ffffff;
+  background-color: #1f8638;
+  color: #000000;
 }
 
 .vacia {
