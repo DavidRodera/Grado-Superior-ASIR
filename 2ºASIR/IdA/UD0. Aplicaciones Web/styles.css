@@ -39,3 +39,22 @@ div{
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+.campo1 p{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.campo1 p span{
+    color: #E50914;
+}
+
+.campo2{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.campo2 div{
+    display: flex;
+    flex-direction: column;
+}
