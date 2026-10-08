@@ -1,0 +1,390 @@
+% ═══════════════════════════════════════════════════════════════
+%  header.tex — Plantilla Académica ASIR (Sin esquinas redondeadas)
+% ═══════════════════════════════════════════════════════════════
+
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{eso-pic}
+\usepackage{setspace}
+\usepackage{microtype}
+\usepackage{rotating}
+\usepackage{calc}
+\usepackage{afterpage}
+\usepackage[export]{adjustbox}
+\usepackage{multirow}
+\usepackage{needspace}
+\usepackage{newunicodechar}
+\usepackage{hyperref}
+
+\tcbuselibrary{listings,skins,breakable,raster}
+
+% ── Paleta de colores ────────────────────────────────────────────
+\definecolor{blancoPuro}{HTML}{FFFFFF}
+\definecolor{grisTexto}{HTML}{2D2D2D}
+\definecolor{grisCabecera}{HTML}{404040}
+\definecolor{grisClaro}{HTML}{F4F4F4}
+\definecolor{grisLinea}{HTML}{CCCCCC}
+\definecolor{grisLineaTOC}{HTML}{888888}
+\definecolor{accentLine}{HTML}{1E4E79}
+\definecolor{azulProfundo}{HTML}{1E4E79}
+\definecolor{colorTeal}{HTML}{008080}
+
+% Colores para Callouts
+\definecolor{colorNota}{HTML}{1E4E79}
+\definecolor{bgNota}{HTML}{F0F5FA}
+\definecolor{colorTip}{HTML}{27AE60}
+\definecolor{bgTip}{HTML}{F2FFF7}
+\definecolor{colorWarning}{HTML}{E67E22}
+\definecolor{bgWarning}{HTML}{FFF8F2}
+\definecolor{colorLink}{HTML}{0077CC}
+\definecolor{bgLink}{HTML}{F0F7FF}
+
+% Colores Código
+\definecolor{sqlBG}{HTML}{F8F8F8}
+\definecolor{sqlKeyword}{HTML}{0000CC}
+\definecolor{sqlString}{HTML}{CC3300}
+\definecolor{sqlComment}{HTML}{999999}
+\definecolor{termBG}{HTML}{1C1C1C}
+\definecolor{termText}{HTML}{33FF33}
+
+% Configuración de enlaces
+\hypersetup{
+    colorlinks=true,
+    urlcolor=colorLink,
+    linkcolor=azulProfundo,
+    citecolor=colorLink,
+}
+
+% ── Márgenes y Eficiencia de Espacio ────────────────────────────
+\geometry{
+  a4paper,
+  top=2.5cm, bottom=2.5cm,
+  left=2.5cm, right=2.5cm,
+  headheight=1.2cm, headsep=0.4cm, footskip=1.3cm
+}
+
+\setlength{\parskip}{1.0em plus 2pt minus 1pt}
+\setstretch{1.12}
+
+% ── Tipografías ──────────────────────────────────────────────────
+\newfontfamily\montserratfont[
+  Path=/usr/share/fonts/opentype/montserrat/,
+  Extension=.otf,
+  UprightFont=*-Regular,
+  BoldFont=*-ExtraBold,
+  ItalicFont=*-Italic,
+  BoldItalicFont=*-ExtraBoldItalic
+]{Montserrat}
+
+\newfontfamily\cabinfont[
+  Path=/usr/share/fonts/opentype/cabin/,
+  Extension=.otf,
+  UprightFont=*-Regular,
+  BoldFont=*-SemiBold,
+  ItalicFont=*-Italic,
+  BoldItalicFont=*-SemiBoldItalic
+]{Cabin}
+
+\newfontfamily\opensansfont[
+  Path=/usr/share/fonts/truetype/open-sans/,
+  Extension=.ttf,
+  UprightFont=OpenSans-Regular,
+  BoldFont=OpenSans-Semibold,
+  ItalicFont=OpenSans-Italic,
+  BoldItalicFont=OpenSans-SemiboldItalic
+]{OpenSans}
+
+\newfontfamily\dejavufont{DejaVu Sans}
+\newunicodechar{→}{{\dejavufont →}}
+\newunicodechar{✓}{{\dejavufont ✓}}
+
+% ── Cabecera y Pie de Página (Estilo Guía de Estudio) ────────────
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\fancyhead[L]{}
+\fancyhead[R]{}
+
+\fancyfoot[L]{%
+  \montserratfont\footnotesize\color{grisCabecera}Guía de estudio · ASIR%
+}
+\fancyfoot[R]{%
+  \montserratfont\footnotesize\color{grisCabecera}Página \thepage%
+}
+
+% Línea fina sobre el pie de página
+\AddToShipoutPictureBG{%
+  \AtPageLowerLeft{%
+    \setlength{\unitlength}{1cm}%
+    \begin{picture}(21,29.7)
+      \color{grisLinea}
+      \put(2.5,1.8){\line(1,0){16.0}}
+    \end{picture}%
+  }%
+}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyfoot[L]{\montserratfont\footnotesize\color{grisCabecera}Guía de estudio · ASIR}
+  \fancyfoot[R]{\montserratfont\footnotesize\color{grisCabecera}Página \thepage}
+}
+
+\fancypagestyle{portada}{%
+  \fancyhf{}
+  \fancyfoot[L]{}
+  \fancyfoot[R]{}
+}
+
+% ── Jerarquía de Títulos (H1, H2, H3, H4) ─────────────────────────
+\titleformat{\section}[block]
+  {\needspace{5cm}\montserratfont\Large\bfseries\color{azulProfundo}}
+  {\llap{\textcolor{grisClaro}{\fontsize{36}{36}\selectfont\thesection}\hspace{10pt}}}
+  {0pt}
+  {}
+  [{\vspace{3pt}\color{accentLine}\titlerule[0.8pt]}]
+\titlespacing{\section}{0pt}{3.0em}{1.2em}
+
+\titleformat{\subsection}
+  {\needspace{4cm}\cabinfont\large\bfseries\color{azulProfundo}}{}
+  {0em}{}
+\titlespacing{\subsection}{0pt}{2.2em}{0.9em}
+
+\titleformat{\subsubsection}
+  {\needspace{3cm}\cabinfont\normalsize\bfseries\color{grisCabecera}}{}
+  {0em}{}
+\titlespacing{\subsubsection}{0pt}{1.8em}{0.7em}
+
+\titleformat{\paragraph}[runin]
+  {\normalfont\normalsize\bfseries\color{grisTexto}}{}
+  {0em}{}[.]
+\titlespacing{\paragraph}{0pt}{1.0em}{1em}
+
+% ── Índice (TOC) ─────────────────────────────────────────────────
+\renewcommand{\contentsname}{}
+\titlecontents{section}[0em]
+  {\vspace{0.5em}\montserratfont\small\bfseries\color{azulProfundo}}
+  {}{}
+  {\hfill\montserratfont\small\color{grisCabecera}\thecontentspage}
+  [\vspace{0.1em}]
+\titlecontents{subsection}[1.4em]
+  {\vspace{0.1em}\opensansfont\small\color{grisTexto}}
+  {}{}
+  {\hfill\opensansfont\small\color{grisLineaTOC}\thecontentspage}
+
+\titlecontents{subsubsection}[2.8em]
+  {\opensansfont\footnotesize\color{grisLineaTOC}}
+  {}{}
+  {\hfill\opensansfont\footnotesize\color{grisLineaTOC}\thecontentspage}
+
+% ── Tablas Limpias y Estrictas ───────────────────────────────────
+\renewcommand{\arraystretch}{1.35}
+\setlength{\tabcolsep}{6pt}
+
+\let\oldlongtable\longtable
+\let\endoldlongtable\endlongtable
+\renewenvironment{longtable}{
+  \rowcolors{1}{white}{grisClaro}
+  \arrayrulecolor{grisLinea}
+  \oldlongtable
+}{
+  \endoldlongtable
+}
+
+% ── Bloques de Código (Sin esq. redondeadas, rectangulares) ───────
+\newtcblisting{sqlbox}{
+  arc=0pt, outer arc=0pt, colback=sqlBG, colframe=grisCabecera, boxrule=0.5pt,
+  listing only, listing engine=listings,
+  listing options={style=sqlstyle, language=mysql},
+  enhanced, breakable,
+  before skip=1.2em, after skip=1.2em,
+  attach boxed title to top right={yshift=0mm, xshift=0mm},
+  title=SQL,
+  boxed title style={colback=grisCabecera, size=small, arc=0pt, boxrule=0pt},
+  fonttitle=\montserratfont\tiny\bfseries
+}
+
+\newtcblisting{terminalbox}{
+  arc=0pt, outer arc=0pt, colback=termBG, colframe=termBG, boxrule=0pt,
+  listing only, listing engine=listings,
+  listing options={style=terminalstyle},
+  enhanced, breakable,
+  before skip=1.2em, after skip=1.2em,
+  attach boxed title to top right={yshift=0mm, xshift=0mm},
+  title=TERMINAL,
+  boxed title style={colback=accentLine, size=small, arc=0pt, boxrule=0pt},
+  fonttitle=\montserratfont\tiny\bfseries
+}
+
+\newtcblisting{defaultbox}[1]{
+  arc=0pt, outer arc=0pt, colback=grisClaro, colframe=grisLinea, boxrule=0.5pt,
+  listing only, listing engine=listings,
+  listing options={style=defaultcode, language={#1}},
+  enhanced, breakable,
+  before skip=1.2em, after skip=1.2em,
+  attach boxed title to top right={yshift=0mm, xshift=0mm},
+  title=\MakeUppercase{#1},
+  boxed title style={colback=grisLinea, size=small, arc=0pt, boxrule=0pt},
+  fonttitle=\montserratfont\tiny\bfseries
+}
+
+% ── Callouts (Avisos, Consejos - Rectangulares sin redondeces) ───
+\newtcolorbox{notabox}{
+  enhanced, breakable,
+  before skip=1.2em, after skip=1.2em,
+  colback=bgNota, colframe=colorNota,
+  boxrule=0pt, leftrule=3.5pt,
+  arc=0pt, outer arc=0pt,
+  fonttitle=\montserratfont\small\bfseries,
+  title=NOTA,
+  coltitle=colorNota,
+  attach title to upper,
+  after title={\hspace{0.5em}}
+}
+
+\newtcolorbox{tipbox}{
+  enhanced, breakable,
+  before skip=1.2em, after skip=1.2em,
+  colback=bgTip, colframe=colorTip,
+  boxrule=0pt, leftrule=3.5pt,
+  arc=0pt, outer arc=0pt,
+  fonttitle=\montserratfont\small\bfseries,
+  title=CONSEJO,
+  coltitle=colorTip,
+  attach title to upper,
+  after title={\hspace{0.5em}}
+}
+
+\newtcolorbox{warningbox}{
+  enhanced, breakable,
+  before skip=1.2em, after skip=1.2em,
+  colback=bgWarning, colframe=colorWarning,
+  boxrule=0pt, leftrule=3.5pt,
+  arc=0pt, outer arc=0pt,
+  fonttitle=\montserratfont\small\bfseries,
+  title=ATENCIÓN,
+  coltitle=colorWarning,
+  attach title to upper,
+  after title={\hspace{0.5em}}
+}
+
+\newtcolorbox{linkbox}{
+  enhanced, breakable,
+  before skip=1.2em, after skip=1.2em,
+  colback=bgLink, colframe=colorLink,
+  boxrule=0pt, leftrule=3.5pt,
+  arc=0pt, outer arc=0pt,
+  fonttitle=\montserratfont\small\bfseries,
+  title=ENLACE,
+  coltitle=colorLink,
+  attach title to upper,
+  after title={\hspace{0.5em}}
+}
+
+% ── Estilos de listings ──────────────────────────────────────────
+\lstdefinelanguage{mysql}{
+  morekeywords={SELECT,FROM,WHERE,INSERT,INTO,VALUES,UPDATE,SET,
+    DELETE,CREATE,DROP,TABLE,DATABASE,USE,ALTER,ADD,PRIMARY,KEY,
+    FOREIGN,REFERENCES,INDEX,UNIQUE,NOT,NULL,DEFAULT,AUTO_INCREMENT,
+    INT,VARCHAR,TEXT,DATE,DATETIME,FLOAT,DOUBLE,BOOLEAN,IF,EXISTS,
+    JOIN,LEFT,RIGHT,INNER,OUTER,ON,AS,AND,OR,IN,LIKE,ORDER,BY,
+    GROUP,HAVING,LIMIT,OFFSET,DISTINCT,COUNT,SUM,AVG,MAX,MIN,
+    SHOW,DESCRIBE,GRANT,REVOKE,COMMIT,ROLLBACK,BEGIN,TRANSACTION,
+    CONSTRAINT,CHECK,CASCADE,TRUNCATE,REPLACE,PROCEDURE,FUNCTION,
+    TRIGGER,VIEW,UNION,ALL,CASE,WHEN,THEN,ELSE,END,BETWEEN,IS,
+    CHAR,BIGINT,TINYINT,SMALLINT,DECIMAL,ENUM,CALL,RETURNS,
+    RETURN,DECLARE,CURSOR,OPEN,FETCH,CLOSE},
+  sensitive=false,
+  morestring=[b]', morestring=[b]",
+  morecomment=[l]{--}, morecomment=[s]{/*}{*/}
+}
+
+\lstdefinestyle{sqlstyle}{
+  basicstyle=\ttfamily\small\color{grisTexto},
+  keywordstyle=\color{sqlKeyword}\bfseries,
+  stringstyle=\color{sqlString},
+  commentstyle=\color{sqlComment}\itshape,
+  breaklines=true, showstringspaces=false, tabsize=2,
+  literate={á}{{\'{a}}}1 {é}{{\'{e}}}1 {í}{{\'{i}}}1 {ó}{{\'{o}}}1 {ú}{{\'{u}}}1 {ñ}{{\~{n}}}1
+}
+
+\lstdefinestyle{terminalstyle}{
+  basicstyle=\ttfamily\small\color{termText},
+  breaklines=true, showstringspaces=false, tabsize=2,
+  literate={á}{{\'{a}}}1 {é}{{\'{e}}}1 {í}{{\'{i}}}1 {ó}{{\'{o}}}1 {ú}{{\'{u}}}1 {ñ}{{\~{n}}}1
+}
+
+\lstdefinestyle{defaultcode}{
+  basicstyle=\ttfamily\small\color{grisTexto},
+  keywordstyle=\color{grisCabecera}\bfseries,
+  stringstyle=\color{accentLine},
+  commentstyle=\color{grisLineaTOC}\itshape,
+  breaklines=true, showstringspaces=false, tabsize=2
+}
+
+% ── Grid y Imágenes (Rectangulares, eficientes) ───────────────────
+\newenvironment{imggrid}[1]{%
+  \vspace{1.2em}
+  \begin{tcbraster}[
+    raster columns=#1,
+    raster column skip=3mm,
+    raster row skip=3mm,
+    raster force size=false,
+    blankest
+  ]
+}{%
+  \end{tcbraster}
+  \vspace{1.2em}
+}
+
+\newcommand{\gridimg}[2][]{%
+  \tcbitem[#1]
+  \begin{tikzpicture}
+    \node[inner sep=0pt, clip] (img) {\includegraphics[width=\linewidth, frame=0pt]{#2}};
+    \draw[grisLinea, line width=0.5pt] (img.south west) rectangle (img.north east);
+  \end{tikzpicture}
+}
+
+\newcommand{\imagen}[2][width=\linewidth]{%
+  \par\vspace{1.2em}
+  \begin{center}
+    \begin{tikzpicture}
+      \node[inner sep=0pt, clip] (img) {\includegraphics[#1, frame=0pt]{#2}};
+      \draw[grisLinea, line width=0.5pt] (img.south west) rectangle (img.north east);
+    \end{tikzpicture}
+  \end{center}
+  \par\vspace{1.2em}
+}
+
+% ── Portada Académica (Estilo Guía de Estudio limpio) ─────────────
+\newcommand{\portada}[3]{%
+  \newgeometry{margin=2.5cm}%
+  \thispagestyle{portada}%
+  \vspace*{2cm}
+  \begin{center}
+    {\montserratfont\small\bfseries\color{colorTeal}\MakeUppercase{Guía de Estudio}}\par\vspace{1.5em}
+    {\montserratfont\Huge\bfseries\color{azulProfundo}#1}\par\vspace{1.0em}
+    {\montserratfont\large\color{grisCabecera}#2}\par\vspace{2.0em}
+    \begin{tikzpicture}
+      \draw[colorTeal, line width=1.5pt] (0,0) -- (8,0);
+    \end{tikzpicture}\par\vspace{2.0em}
+    {\cabinfont\normalsize\color{grisTexto}#3}
+  \end{center}
+  \vfill
+  \clearpage
+  \restoregeometry
+  \pagecolor{white}
+  \color{grisTexto}
+}

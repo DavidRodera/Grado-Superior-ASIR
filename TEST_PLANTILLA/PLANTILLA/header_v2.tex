@@ -182,7 +182,8 @@
   \vspace{1em}
   \begin{tcbraster}[
     raster columns=#1,
-    raster gutter=4mm,
+    raster column skip=4mm,
+    raster row skip=4mm,
     raster force size=false,
     blankest
   ]
@@ -192,8 +193,7 @@
 }
 
 \newcommand{\gridimg}[2][]{%
-  \tcbitem[#1]
-  \includegraphics[width=\linewidth, frame=0.5pt]{#2}
+  \tcbitem[#1] \includegraphics[width=\linewidth, frame=0.5pt]{#2}
 }
 
 % ── Portada (Estilo Guía) ────────────────────────────────────────
