@@ -1,0 +1,217 @@
+% ═══════════════════════════════════════════════════════════════
+%  header_v2.tex — Plantilla Estilo "Guía de Estudio" David Rodera
+% ═══════════════════════════════════════════════════════════════
+
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{tikz}
+\usetikzlibrary{shadows,patterns,calc}
+\usepackage{eso-pic}
+\usepackage{setspace}
+\usepackage{microtype}
+\usepackage[export]{adjustbox}
+\usepackage{multirow}
+\usepackage{needspace}
+\usepackage{newunicodechar}
+\usepackage{hyperref}
+
+\tcbuselibrary{listings,skins,breakable,raster}
+
+% ── Colores de la Referencia ─────────────────────────────────────
+\definecolor{refTeal}{HTML}{298897}
+\definecolor{refDarkBlue}{HTML}{1A4671}
+\definecolor{refGreenBG}{HTML}{EEF9F1}
+\definecolor{refGreenText}{HTML}{0E4D1A}
+\definecolor{grisFooter}{HTML}{AAAAAA}
+\definecolor{grisTablaHeader}{HTML}{2C4B6B}
+\definecolor{grisTablaRow}{HTML}{F2F6F9}
+\definecolor{blancoPuro}{HTML}{FFFFFF}
+\definecolor{negroTexto}{HTML}{1A1A1A}
+
+% ── Tipografías ──────────────────────────────────────────────────
+% Se asumen instaladas ( Montserrat, Open Sans, DejaVu Sans Mono )
+\newfontfamily\montserratfont[
+  Path=/usr/share/fonts/opentype/montserrat/,
+  Extension=.otf,
+  UprightFont=*-Regular,
+  BoldFont=*-ExtraBold,
+  ItalicFont=*-Italic,
+  BoldItalicFont=*-ExtraBoldItalic
+]{Montserrat}
+
+\newfontfamily\opensansfont[
+  Path=/usr/share/fonts/truetype/open-sans/,
+  Extension=.ttf,
+  UprightFont=OpenSans-Regular,
+  BoldFont=OpenSans-Semibold,
+  ItalicFont=OpenSans-Italic,
+  BoldItalicFont=OpenSans-SemiboldItalic
+]{OpenSans}
+
+\newfontfamily\dejavufont{DejaVu Sans}
+\newunicodechar{→}{{\dejavufont →}}
+\newunicodechar{✓}{{\dejavufont ✓}}
+
+% ── Márgenes ────────────────────────────────────────────────────
+\geometry{
+  a4paper,
+  top=2.5cm, bottom=3.0cm,
+  left=2.5cm, right=2.5cm,
+  headheight=1.0cm, headsep=0.8cm, footskip=1.5cm
+}
+
+\setlength{\parskip}{1.0em plus 2pt minus 1pt}
+\setstretch{1.1}
+
+% ── Cabecera y Pie de Página ─────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Variable para el nombre del archivo (se pasará desde Lua)
+\newcommand{\footerfilename}{Archivo Markdown}
+
+\fancyfoot[L]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \draw[color=grisFooter,line width=0.4pt]
+      ([xshift=2.5cm,yshift=1.2cm]current page.south west)
+      -- ([xshift=-2.5cm,yshift=1.2cm]current page.south east);
+  \end{tikzpicture}%
+  \opensansfont\footnotesize\color{grisFooter}\footerfilename}
+
+\fancyfoot[R]{\opensansfont\footnotesize\color{grisFooter}Página \thepage}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyfoot[L]{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \draw[color=grisFooter,line width=0.4pt]
+        ([xshift=2.5cm,yshift=1.2cm]current page.south west)
+        -- ([xshift=-2.5cm,yshift=1.2cm]current page.south east);
+    \end{tikzpicture}%
+    \opensansfont\footnotesize\color{grisFooter}\footerfilename}
+  \fancyfoot[R]{\opensansfont\footnotesize\color{grisFooter}Página \thepage}
+}
+
+% ── Títulos (Estilo Guía) ────────────────────────────────────────
+\titleformat{\section}[block]
+  {\needspace{5cm}\montserratfont\huge\bfseries\color{refDarkBlue}}
+  {\thesection. }
+  {0pt}
+  {}
+  [{\vspace{5pt}\color{refTeal}\titlerule[1.5pt]}]
+\titlespacing{\section}{0pt}{2em}{1.5em}
+
+\titleformat{\subsection}
+  {\montserratfont\Large\bfseries\color{refTeal}}{\thesubsection\ }{0em}{}
+\titlespacing{\subsection}{0pt}{1.8em}{0.8em}
+
+\titleformat{\subsubsection}
+  {\montserratfont\large\bfseries\color{refDarkBlue}}{\thesubsubsection\ }{0em}{}
+\titlespacing{\subsubsection}{0pt}{1.5em}{0.6em}
+
+% ── Índice ───────────────────────────────────────────────────────
+\titlecontents{section}[0em]
+  {\vspace{0.8em}\montserratfont\normalsize\bfseries\color{refDarkBlue}}
+  {\thecontentslabel. \ }{}
+  {\titlerule*[0.8pc]{.}\opensansfont\normalsize\color{refDarkBlue}\thecontentspage}
+\titlecontents{subsection}[1.5em]
+  {\vspace{0.2em}\opensansfont\small\color{negroTexto}}
+  {\thecontentslabel\ }{}
+  {\titlerule*[0.8pc]{.}\opensansfont\small\color{negroTexto}\thecontentspage}
+
+% ── Tablas ───────────────────────────────────────────────────────
+\renewcommand{\arraystretch}{1.5}
+\setlength{\tabcolsep}{8pt}
+
+\let\oldlongtable\longtable
+\let\endoldlongtable\endlongtable
+\renewenvironment{longtable}{
+  \rowcolors{1}{blancoPuro}{refGreenBG!40} % Estilo similar a la referencia
+  \oldlongtable
+}{
+  \endoldlongtable
+}
+
+% ── Bloques de Código (Cuadrados y Eficientes) ──────────────────
+\lstdefinestyle{bashstyle}{
+  basicstyle=\ttfamily\small\color{negroTexto},
+  keywordstyle=\color{refTeal}\bfseries,
+  stringstyle=\color{refGreenText},
+  commentstyle=\color{grisFooter}\itshape,
+  breaklines=true, showstringspaces=false, tabsize=2
+}
+
+\newtcblisting{codebox}{
+  arc=0pt, outer arc=0pt, % Sin bordes redondeados
+  colback=refGreenBG!20, colframe=refTeal, boxrule=0.5pt,
+  listing only, listing engine=listings,
+  listing options={style=bashstyle},
+  enhanced, breakable=false, % Evitar que se parta si es posible
+  before skip=1em, after skip=1em
+}
+
+% ── Bloques de Notas (Reference style) ──────────────────────────
+\newtcolorbox{calloutbox}[1]{
+  enhanced, breakable=false,
+  arc=0pt, outer arc=0pt,
+  before skip=1.5em, after skip=1.5em,
+  colback=refGreenBG, colframe=refGreenBG,
+  boxrule=0pt,
+  fontupper=\opensansfont\small,
+  fonttitle=\montserratfont\small\bfseries,
+  coltitle=refGreenText,
+  title=#1,
+  attach title to upper,
+  after title={\textbf{:}\hspace{0.5em}}
+}
+
+% ── Grid de Imágenes ─────────────────────────────────────────────
+\newenvironment{imggrid}[1]{%
+  \vspace{1em}
+  \begin{tcbraster}[
+    raster columns=#1,
+    raster gutter=4mm,
+    raster force size=false,
+    blankest
+  ]
+}{%
+  \end{tcbraster}
+  \vspace{1.0em}
+}
+
+\newcommand{\gridimg}[2][]{%
+  \tcbitem[#1]
+  \includegraphics[width=\linewidth, frame=0.5pt]{#2}
+}
+
+% ── Portada (Estilo Guía) ────────────────────────────────────────
+\newcommand{\portadaGuia}[4]{%
+  \thispagestyle{empty}
+  \begin{center}
+    \vspace*{2cm}
+    {\montserratfont\large\bfseries\color{refTeal} GUÍA DE ESTUDIO} \\
+    \vspace{1cm}
+    {\montserratfont\fontsize{38}{44}\selectfont\bfseries\color{refDarkBlue} #1} \\
+    \vspace{0.5cm}
+    {\opensansfont\Large\color{negroTexto} #2} \\
+    \vspace{1cm}
+    {\color{refTeal}\rule{0.6\linewidth}{2pt}} \\
+    \vspace{2cm}
+    {\opensansfont\large #3} \\
+    \vfill
+    {\opensansfont\small\itshape #4}
+  \end{center}
+  \clearpage
+}

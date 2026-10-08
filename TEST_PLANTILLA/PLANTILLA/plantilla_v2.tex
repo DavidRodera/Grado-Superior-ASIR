@@ -1,0 +1,42 @@
+$if(beamer)$
+$else$
+\documentclass[11pt,a4paper]{article}
+$endif$
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp}
+\else
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+
+\usepackage{xcolor}
+
+$if(geometry)$
+\usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+$endif$
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc}
+\usepackage{etoolbox}
+\usepackage{graphicx}
+
+\setlength{\emergencystretch}{3em}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref} }
+
+% Aquí incluimos el header_v2.tex que contiene toda la lógica de diseño
+\input{PLANTILLA/header_v2.tex}
+
+\begin{document}
+
+$body$
+
+\end{document}
