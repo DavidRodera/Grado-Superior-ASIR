@@ -1,16 +1,16 @@
-% ═══════════════════════════════════════════════════════════════
-%  header.tex — Plantilla Académica ASIR (Sin esquinas redondeadas)
-% ═══════════════════════════════════════════════════════════════
+% =================================================================
+% header.tex – Plantilla Académica ASIR (Sin esquinas redondeadas)
+% =================================================================
 
 \usepackage[most]{tcolorbox}
-\tcbuselibrary{raster}
+\tcbuselibrary{raster, skins, listings, breakable}
+
 \usepackage{xcolor}
 \usepackage{geometry}
 \usepackage{graphicx}
 \usepackage{titlesec}
 \usepackage{titletoc}
 \usepackage{fancyhdr}
-\usepackage{tcolorbox}
 \usepackage{colortbl}
 \usepackage{array}
 \usepackage{longtable}
@@ -29,36 +29,34 @@
 \usepackage{newunicodechar}
 \usepackage{hyperref}
 
-\tcbuselibrary{listings,skins,breakable,raster}
-
 % ── Paleta de colores ────────────────────────────────────────────
-\definecolor{blancoPuro}{HTML}{FFFFFF}
-\definecolor{grisTexto}{HTML}{2D2D2D}
-\definecolor{grisCabecera}{HTML}{404040}
-\definecolor{grisClaro}{HTML}{F4F4F4}
-\definecolor{grisLinea}{HTML}{CCCCCC}
-\definecolor{grisLineaTOC}{HTML}{888888}
-\definecolor{accentLine}{HTML}{1E4E79}
-\definecolor{azulProfundo}{HTML}{1E4E79}
-\definecolor{colorTeal}{HTML}{008080}
+\providecolor{blancoPuro}{HTML}{FFFFFF}
+\providecolor{grisTexto}{HTML}{2D2D2D}
+\providecolor{grisCabecera}{HTML}{404040}
+\providecolor{grisClaro}{HTML}{F4F4F4}
+\providecolor{grisLinea}{HTML}{CCCCCC}
+\providecolor{grisLineaTOC}{HTML}{888888}
+\providecolor{accentLine}{HTML}{1E4E79}
+\providecolor{azulProfundo}{HTML}{1E4E79}
+\providecolor{colorTeal}{HTML}{008080}
 
 % Colores para Callouts
-\definecolor{colorNota}{HTML}{1E4E79}
-\definecolor{bgNota}{HTML}{F0F5FA}
-\definecolor{colorTip}{HTML}{27AE60}
-\definecolor{bgTip}{HTML}{F2FFF7}
-\definecolor{colorWarning}{HTML}{E67E22}
-\definecolor{bgWarning}{HTML}{FFF8F2}
-\definecolor{colorLink}{HTML}{0077CC}
-\definecolor{bgLink}{HTML}{F0F7FF}
+\providecolor{colorNota}{HTML}{1E4E79}
+\providecolor{bgNota}{HTML}{F0F5FA}
+\providecolor{colorTip}{HTML}{27AE60}
+\providecolor{bgTip}{HTML}{F2FFF7}
+\providecolor{colorWarning}{HTML}{E67E22}
+\providecolor{bgWarning}{HTML}{FFF8F2}
+\providecolor{colorLink}{HTML}{0077CC}
+\providecolor{bgLink}{HTML}{F0F7FF}
 
 % Colores Código
-\definecolor{sqlBG}{HTML}{F8F8F8}
-\definecolor{sqlKeyword}{HTML}{0000CC}
-\definecolor{sqlString}{HTML}{CC3300}
-\definecolor{sqlComment}{HTML}{999999}
-\definecolor{termBG}{HTML}{1C1C1C}
-\definecolor{termText}{HTML}{33FF33}
+\providecolor{sqlBG}{HTML}{F8F8F8}
+\providecolor{sqlKeyword}{HTML}{0000CC}
+\providecolor{sqlString}{HTML}{CC3300}
+\providecolor{sqlComment}{HTML}{999999}
+\providecolor{termBG}{HTML}{1C1C1C}
+\providecolor{termText}{HTML}{33FF33}
 
 % Configuración de enlaces
 \hypersetup{
@@ -120,12 +118,8 @@
 \fancyhead[L]{}
 \fancyhead[R]{}
 
-\fancyfoot[L]{%
-  \montserratfont\footnotesize\color{grisCabecera}Guía de estudio · ASIR%
-}
-\fancyfoot[R]{%
-  \montserratfont\footnotesize\color{grisCabecera}Página \thepage%
-}
+\fancyfoot[L]{\montserratfont\footnotesize\color{grisCabecera}Guía de estudio · ASIR}
+\fancyfoot[R]{\montserratfont\footnotesize\color{grisCabecera}Página \thepage}
 
 % Línea fina sobre el pie de página
 \AddToShipoutPictureBG{%
@@ -336,7 +330,7 @@
   breaklines=true, showstringspaces=false, tabsize=2
 }
 
-% ── Grid y Imágenes (Rectangulares, eficientes) ───────────────────
+% ── Grid e Imágenes ──────────────────────────────────────────────
 \newenvironment{imggrid}[1]{%
   \vspace{1.2em}
   \begin{tcbraster}[
@@ -351,12 +345,14 @@
   \vspace{1.2em}
 }
 
-\newcommand{\gridimg}[2][]{%
-  \tcbitem[#1]
-  \begin{tikzpicture}
-    \node[inner sep=0pt, clip] (img) {\includegraphics[width=\linewidth, frame=0pt]{#2}};
-    \draw[grisLinea, line width=0.5pt] (img.south west) rectangle (img.north east);
-  \end{tikzpicture}
+% Macro para insertar imágenes de forma segura tanto dentro como fuera de grids
+\providecommand{\gridimg}[1]{%
+  \begin{tcolorbox}[blankest]
+    \begin{tikzpicture}
+      \node[inner sep=0pt, clip] (img) {\includegraphics[width=\linewidth]{#1}};
+      \draw[grisLinea, line width=0.5pt] (img.south west) rectangle (img.north east);
+    \end{tikzpicture}
+  \end{tcolorbox}%
 }
 
 \newcommand{\imagen}[2][width=\linewidth]{%
@@ -370,7 +366,7 @@
   \par\vspace{1.2em}
 }
 
-% ── Portada Académica (Estilo Guía de Estudio limpio) ─────────────
+% ── Portada Académica ─────────────────────────────────────────────
 \newcommand{\portada}[3]{%
   \newgeometry{margin=2.5cm}%
   \thispagestyle{portada}%
