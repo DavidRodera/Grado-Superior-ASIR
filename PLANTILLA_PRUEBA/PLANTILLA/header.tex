@@ -55,8 +55,11 @@
 \providecolor{sqlKeyword}{HTML}{0000CC}
 \providecolor{sqlString}{HTML}{CC3300}
 \providecolor{sqlComment}{HTML}{999999}
-\providecolor{termBG}{HTML}{1C1C1C}
-\providecolor{termText}{HTML}{33FF33}
+\providecolor{termBG}{HTML}{300A24}
+\providecolor{ubuntuBlue}{HTML}{3465A4}
+\providecolor{ubuntuGreen}{HTML}{4E9A06}
+\providecolor{ubuntuText}{HTML}{FFFFFF}
+\providecolor{termText}{HTML}{FFFFFF}
 
 % Configuración de enlaces
 \hypersetup{
@@ -238,7 +241,19 @@
   before skip=1.2em, after skip=1.2em,
   attach boxed title to top right={yshift=0mm, xshift=0mm},
   title=TERMINAL,
-  boxed title style={colback=accentLine, size=small, arc=0pt, boxrule=0pt},
+  boxed title style={colback=ubuntuBlue, size=small, arc=0pt, boxrule=0pt},
+  fonttitle=\montserratfont\tiny\bfseries
+}
+
+\newtcblisting{bashbox}{
+  arc=0pt, outer arc=0pt, colback=termBG, colframe=termBG, boxrule=0pt,
+  listing only, listing engine=listings,
+  listing options={style=bashstyle, language=bash},
+  enhanced, breakable,
+  before skip=1.2em, after skip=1.2em,
+  attach boxed title to top right={yshift=0mm, xshift=0mm},
+  title=BASH SCRIPT,
+  boxed title style={colback=ubuntuGreen, size=small, arc=0pt, boxrule=0pt},
   fonttitle=\montserratfont\tiny\bfseries
 }
 
@@ -321,6 +336,16 @@
 \lstdefinestyle{terminalstyle}{
   basicstyle=\ttfamily\small\color{termText},
   breaklines=true, showstringspaces=false, tabsize=2,
+  literate={á}{{\'{a}}}1 {é}{{\'{e}}}1 {í}{{\'{i}}}1 {ó}{{\'{o}}}1 {ú}{{\'{u}}}1 {ñ}{{\~{n}}}1
+}
+
+\lstdefinestyle{bashstyle}{
+  basicstyle=\ttfamily\small\color{ubuntuText},
+  keywordstyle=\color{ubuntuGreen}\bfseries,
+  stringstyle=\color{ubuntuBlue},
+  commentstyle=\color{grisLineaTOC}\itshape,
+  breaklines=true, showstringspaces=false, tabsize=2,
+  morekeywords={if,then,else,elif,fi,case,esac,for,select,while,do,done,in},
   literate={á}{{\'{a}}}1 {é}{{\'{e}}}1 {í}{{\'{i}}}1 {ó}{{\'{o}}}1 {ú}{{\'{u}}}1 {ñ}{{\~{n}}}1
 }
 
