@@ -224,50 +224,50 @@
 
 % ── Bloques de Código (Sin esq. redondeadas, rectangulares) ───────
 \newtcblisting{sqlbox}{
-  arc=0pt, outer arc=0pt, colback=sqlBG, colframe=grisCabecera, boxrule=0.5pt,
+  arc=3pt, outer arc=3pt, sharp corners=northeast, colback=sqlBG, colframe=grisCabecera, boxrule=0.5pt,
   listing only, listing engine=listings,
   listing options={style=sqlstyle, language=mysql},
   enhanced, breakable,
   before skip=1.2em, after skip=1.2em,
   attach boxed title to top right={yshift=0mm, xshift=0mm},
   title=SQL,
-  boxed title style={colback=grisCabecera, size=small, arc=0pt, boxrule=0pt},
+  boxed title style={colback=grisCabecera, size=small, arc=3pt, sharp corners=south, boxrule=0pt},
   fonttitle=\montserratfont\tiny\bfseries
 }
 
 \newtcblisting{terminalbox}{
-  arc=3pt, outer arc=3pt, colback=termBG, colframe=termBG, boxrule=0pt,
+  arc=3pt, outer arc=3pt, sharp corners=northeast, colback=termBG, colframe=termBG, boxrule=0pt,
   listing only, listing engine=listings,
   listing options={style=terminalstyle},
   enhanced, breakable,
   before skip=1.2em, after skip=1.2em,
   attach boxed title to top right={yshift=0mm, xshift=0mm},
   title=TERMINAL,
-  boxed title style={colback=grisCabecera, size=small, arc=3pt, boxrule=0pt},
+  boxed title style={colback=grisCabecera, size=small, arc=3pt, sharp corners=south, boxrule=0pt},
   fonttitle=\montserratfont\tiny\bfseries
 }
 
 \newtcblisting{bashbox}{
-  arc=0pt, outer arc=0pt, colback=termBG, colframe=termBG, boxrule=0pt,
+  arc=3pt, outer arc=3pt, sharp corners=northeast, colback=termBG, colframe=termBG, boxrule=0pt,
   listing only, listing engine=listings,
   listing options={style=bashstyle, language=bash},
   enhanced, breakable,
   before skip=1.2em, after skip=1.2em,
   attach boxed title to top right={yshift=0mm, xshift=0mm},
   title=BASH SCRIPT,
-  boxed title style={colback=ubuntuGreen, size=small, arc=0pt, boxrule=0pt},
+  boxed title style={colback=grisCabecera, size=small, arc=3pt, sharp corners=south, boxrule=0pt},
   fonttitle=\montserratfont\tiny\bfseries
 }
 
 \newtcblisting{defaultbox}[1]{
-  arc=0pt, outer arc=0pt, colback=grisClaro, colframe=grisLinea, boxrule=0.5pt,
+  arc=3pt, outer arc=3pt, sharp corners=northeast, colback=grisClaro, colframe=grisLinea, boxrule=0.5pt,
   listing only, listing engine=listings,
   listing options={style=defaultcode, language={#1}},
   enhanced, breakable,
   before skip=1.2em, after skip=1.2em,
   attach boxed title to top right={yshift=0mm, xshift=0mm},
   title=\MakeUppercase{#1},
-  boxed title style={colback=grisLinea, size=small, arc=0pt, boxrule=0pt},
+  boxed title style={colback=grisCabecera, size=small, arc=3pt, sharp corners=south, boxrule=0pt},
   fonttitle=\montserratfont\tiny\bfseries
 }
 
