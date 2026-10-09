@@ -1,8 +1,10 @@
 ---
+tipo: "GUÍA DE ESTUDIO"
 title: "Linux y scripting en Bash"
-subtitle: "Guía de estudio basada en scripts y prácticas de ASIR"
-author: "Implantación de Sistemas Operativos (ISO) · CFGS ASIR"
-date: "Repaso para examen"
+author: "Análisis de mis scripts · Comandos · Bucles · Errores típicos"
+subject: "Implantación de Sistemas Operativos (ISO)"
+curso: "CFGS Administración de Sistemas Informáticos en Red (ASIR)"
+footer: "Guía de estudio · Linux y Bash · ASIR"
 ---
 
 # 0. Qué he analizado

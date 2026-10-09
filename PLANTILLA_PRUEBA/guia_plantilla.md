@@ -1,28 +1,33 @@
 ---
-title:   "Guía de la Plantilla"
-
+tipo: "GUÍA DE REFERENCIA"
+title: "Plantilla LaTex"
 author: "David Rodera"
-subject: "Documentación"
-date: "2024–2025"
+subject: ""
+curso: "2º Administración de Sistemas Informáticos en Red (2ºASIR)"
+footer: "Guía de referencia · Plantilla LaTex"
 ---
 
 # Estructura del YAML
 
-Todo archivo `.md` debe empezar con un bloque YAML. Los cuatro campos son obligatorios:
+Todo archivo `.md` debe empezar con un bloque YAML para configurar la portada y metadatos:
 
-```
+```yaml
 ---
-title:   "Nombre del Proyecto"
-author:  "David Rodera"
-subject: "Nombre de la Asignatura"
-date:    "Curso 2024–2025"
+tipo: "GUÍA DE ESTUDIO"
+title: "Linux y scripting en Bash"
+author: "Análisis de mis scripts · Comandos · Bucles · Errores típicos"
+subject: "Implantación de Sistemas Operativos (ISO)"
+curso: "CFGS Administración de Sistemas Informáticos en Red (ASIR)"
+footer: "Guía de estudio · Linux y Bash · ASIR"
 ---
 ```
 
-- **title** → texto grande en la portada (en mayúsculas automáticamente)
-- **subject** → aparece girado en la franja derecha de la portada y en la cabecera de cada página
-- **author** → esquina inferior izquierda de la portada
-- **date** → solo se usa en los metadatos del PDF, no aparece visualmente
+- **tipo** → tipo de documento en la parte superior de la portada (ej. "GUÍA DE ESTUDIO", "PRÁCTICA", "RESUMEN", etc.; color teal, Montserrat).
+- **title** → título principal del documento (enorme, azul profundo, Montserrat).
+- **author** → nombre del autor o autores (o subtítulo/descripción corta, Montserrat large, gris cabecera).
+- **subject** → asignatura del documento (Cabin, texto gris).
+- **curso** → curso o ciclo formativo (Cabin, texto gris).
+- **footer** → texto que aparece en el pie de página de todas las páginas del documento (incluyendo la portada) junto con el número de página.
 
 # Títulos y secciones
 
