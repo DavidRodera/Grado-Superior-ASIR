@@ -32,6 +32,12 @@ Esta parte está dividida por categorías. En cada tabla verás **la función de
 
 Esto es lo más que preguntan en un examen: no son programas externos, son la sintaxis del lenguaje.
 
+```terminal
+sudo apt update
+sudo apt upgrade -y
+sudo apt dist-upgrade -y
+```
+
 ```bash
 #!/bin/bash
 clear
