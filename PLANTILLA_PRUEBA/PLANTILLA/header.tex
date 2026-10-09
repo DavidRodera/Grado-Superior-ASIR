@@ -222,53 +222,49 @@
   \endoldlongtable
 }
 
-% ── Bloques de Código (Sin esq. redondeadas, rectangulares) ───────
+% ── Bloques de Código (Cabecera de ancho completo y unida) ───────
 \newtcblisting{sqlbox}{
-  arc=3pt, outer arc=3pt, sharp corners=northeast, colback=sqlBG, colframe=grisCabecera, boxrule=0.5pt,
+  arc=3pt, outer arc=3pt, sharp corners=north, colback=sqlBG, colframe=grisCabecera, boxrule=0.5pt,
+  colbacktitle=grisCabecera, coltitle=white, center title,
   listing only, listing engine=listings,
   listing options={style=sqlstyle, language=mysql},
   enhanced, breakable,
   before skip=1.2em, after skip=1.2em,
-  attach boxed title to top right={yshift=0mm, xshift=0mm},
   title=SQL,
-  boxed title style={colback=grisCabecera, size=small, arc=3pt, sharp corners=south, boxrule=0pt},
-  fonttitle=\montserratfont\tiny\bfseries
+  fonttitle=\montserratfont\small\bfseries
 }
 
 \newtcblisting{terminalbox}{
-  arc=3pt, outer arc=3pt, sharp corners=northeast, colback=termBG, colframe=termBG, boxrule=0pt,
+  arc=3pt, outer arc=3pt, sharp corners=north, colback=termBG, colframe=termBG, boxrule=0pt,
+  colbacktitle=grisCabecera, coltitle=white, center title,
   listing only, listing engine=listings,
   listing options={style=terminalstyle},
   enhanced, breakable,
   before skip=1.2em, after skip=1.2em,
-  attach boxed title to top right={yshift=0mm, xshift=0mm},
   title=TERMINAL,
-  boxed title style={colback=grisCabecera, size=small, arc=3pt, sharp corners=south, boxrule=0pt},
-  fonttitle=\montserratfont\tiny\bfseries
+  fonttitle=\montserratfont\small\bfseries
 }
 
 \newtcblisting{bashbox}{
-  arc=3pt, outer arc=3pt, sharp corners=northeast, colback=termBG, colframe=termBG, boxrule=0pt,
+  arc=3pt, outer arc=3pt, sharp corners=north, colback=termBG, colframe=termBG, boxrule=0pt,
+  colbacktitle=grisCabecera, coltitle=white, center title,
   listing only, listing engine=listings,
   listing options={style=bashstyle, language=bash},
   enhanced, breakable,
   before skip=1.2em, after skip=1.2em,
-  attach boxed title to top right={yshift=0mm, xshift=0mm},
   title=BASH SCRIPT,
-  boxed title style={colback=grisCabecera, size=small, arc=3pt, sharp corners=south, boxrule=0pt},
-  fonttitle=\montserratfont\tiny\bfseries
+  fonttitle=\montserratfont\small\bfseries
 }
 
 \newtcblisting{defaultbox}[1]{
-  arc=3pt, outer arc=3pt, sharp corners=northeast, colback=grisClaro, colframe=grisLinea, boxrule=0.5pt,
+  arc=3pt, outer arc=3pt, sharp corners=north, colback=grisClaro, colframe=grisLinea, boxrule=0.5pt,
+  colbacktitle=grisCabecera, coltitle=white, center title,
   listing only, listing engine=listings,
   listing options={style=defaultcode, language={#1}},
   enhanced, breakable,
   before skip=1.2em, after skip=1.2em,
-  attach boxed title to top right={yshift=0mm, xshift=0mm},
   title=\MakeUppercase{#1},
-  boxed title style={colback=grisCabecera, size=small, arc=3pt, sharp corners=south, boxrule=0pt},
-  fonttitle=\montserratfont\tiny\bfseries
+  fonttitle=\montserratfont\small\bfseries
 }
 
 % ── Callouts (Rectangulares sin título, con borde sutil más oscuro que el fondo) ───
