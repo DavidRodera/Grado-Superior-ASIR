@@ -81,6 +81,11 @@
 
 \setlength{\parskip}{0.9em plus 2pt minus 1pt}
 \setstretch{1.15}
+\raggedbottom
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\brokenpenalty=10000
 
 % ── Tipografías ──────────────────────────────────────────────────
 \newfontfamily\montserratfont[
@@ -227,7 +232,7 @@
   arc=3pt, outer arc=3pt, sharp corners=northeast, colback=sqlBG, colframe=grisCabecera, boxrule=0.5pt,
   listing only, listing engine=listings,
   listing options={style=sqlstyle, language=mysql},
-  enhanced, breakable,
+  enhanced, nobreak,
   before skip=1.2em, after skip=1.2em,
   attach boxed title to top right={yshift=0mm, xshift=0mm},
   title=SQL,
@@ -239,7 +244,7 @@
   arc=3pt, outer arc=3pt, sharp corners=northeast, colback=termBG, colframe=termBG, boxrule=0pt,
   listing only, listing engine=listings,
   listing options={style=terminalstyle},
-  enhanced, breakable,
+  enhanced, nobreak,
   before skip=1.2em, after skip=1.2em,
   attach boxed title to top right={yshift=0mm, xshift=0mm},
   title=TERMINAL,
@@ -251,7 +256,7 @@
   arc=3pt, outer arc=3pt, sharp corners=northeast, colback=blancoPuro, colframe=grisLinea, boxrule=0.5pt,
   listing only, listing engine=listings,
   listing options={style=bashstyle, language=bash},
-  enhanced, breakable,
+  enhanced, nobreak,
   before skip=1.2em, after skip=1.2em,
   attach boxed title to top right={yshift=0mm, xshift=0mm},
   title=BASH SCRIPT,
@@ -263,7 +268,7 @@
   arc=3pt, outer arc=3pt, sharp corners=northeast, colback=grisClaro, colframe=grisLinea, boxrule=0.5pt,
   listing only, listing engine=listings,
   listing options={style=defaultcode, language={#1}},
-  enhanced, breakable,
+  enhanced, nobreak,
   before skip=1.2em, after skip=1.2em,
   attach boxed title to top right={yshift=0mm, xshift=0mm},
   title=\MakeUppercase{#1},
@@ -273,7 +278,7 @@
 
 % ── Callouts (Rectangulares sin título, con borde sutil más oscuro que el fondo) ───
 \newtcolorbox{notabox}{
-  enhanced, breakable,
+  enhanced, nobreak,
   before skip=1.2em, after skip=1.2em,
   colback=bgNota, colframe=colorNota!40!bgNota,
   boxrule=0.8pt,
@@ -282,7 +287,7 @@
 }
 
 \newtcolorbox{tipbox}{
-  enhanced, breakable,
+  enhanced, nobreak,
   before skip=1.2em, after skip=1.2em,
   colback=bgTip, colframe=colorTip!40!bgTip,
   boxrule=0.8pt,
@@ -291,7 +296,7 @@
 }
 
 \newtcolorbox{warningbox}{
-  enhanced, breakable,
+  enhanced, nobreak,
   before skip=1.2em, after skip=1.2em,
   colback=bgWarning, colframe=colorWarning!40!bgWarning,
   boxrule=0.8pt,
@@ -300,7 +305,7 @@
 }
 
 \newtcolorbox{linkbox}{
-  enhanced, breakable,
+  enhanced, nobreak,
   before skip=1.2em, after skip=1.2em,
   colback=bgLink, colframe=colorLink!40!bgLink,
   boxrule=0.8pt,
@@ -374,6 +379,7 @@
 
 % ── Grid e Imágenes ──────────────────────────────────────────────
 \newenvironment{imggrid}[1]{%
+  \needspace{6cm}%
   \vspace{1.2em}
   \begin{tcbraster}[
     raster columns=#1,
@@ -398,6 +404,7 @@
 }
 
 \newcommand{\imagen}[2][width=\linewidth]{%
+  \needspace{6cm}%
   \par\vspace{1.2em}
   \begin{center}
     \begin{tikzpicture}
