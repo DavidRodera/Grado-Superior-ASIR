@@ -203,14 +203,15 @@
   {}
 
 % ── Tablas Limpias y Estrictas ───────────────────────────────────
-\renewcommand{\arraystretch}{1.35}
-\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.4}
+\setlength{\tabcolsep}{8pt}
 
 \let\oldlongtable\longtable
 \let\endoldlongtable\endlongtable
 \renewenvironment{longtable}{
-  \rowcolors{1}{white}{grisClaro}
-  \arrayrulecolor{grisLinea}
+  \rowcolors{2}{white}{bgNota}
+  \arrayrulecolor{colorNota}
+  \setlength{\arrayrulewidth}{0.8pt}
   \oldlongtable
 }{
   \endoldlongtable
@@ -259,7 +260,8 @@
   before skip=1.2em, after skip=1.2em,
   colback=bgNota, colframe=colorNota!40!bgNota,
   boxrule=0.8pt,
-  arc=0pt, outer arc=0pt
+  arc=0pt, outer arc=0pt,
+  fontupper=\setstretch{1.25}
 }
 
 \newtcolorbox{tipbox}{
@@ -267,7 +269,8 @@
   before skip=1.2em, after skip=1.2em,
   colback=bgTip, colframe=colorTip!40!bgTip,
   boxrule=0.8pt,
-  arc=0pt, outer arc=0pt
+  arc=0pt, outer arc=0pt,
+  fontupper=\setstretch{1.25}
 }
 
 \newtcolorbox{warningbox}{
@@ -275,7 +278,8 @@
   before skip=1.2em, after skip=1.2em,
   colback=bgWarning, colframe=colorWarning!40!bgWarning,
   boxrule=0.8pt,
-  arc=0pt, outer arc=0pt
+  arc=0pt, outer arc=0pt,
+  fontupper=\setstretch{1.25}
 }
 
 \newtcolorbox{linkbox}{
@@ -283,7 +287,8 @@
   before skip=1.2em, after skip=1.2em,
   colback=bgLink, colframe=colorLink!40!bgLink,
   boxrule=0.8pt,
-  arc=0pt, outer arc=0pt
+  arc=0pt, outer arc=0pt,
+  fontupper=\setstretch{1.25}
 }
 
 % ── Estilos de listings ──────────────────────────────────────────
