@@ -1,50 +1,77 @@
 -- filtro_tablas.lua
--- Fuerza el centrado, distribuye anchos, estiliza cabeceras (fondo colorNota y texto blanco negrita) y ajusta tamaño para tablas grandes
+-- Convierte tablas de Pandoc a longtable con cabecera oscura (colorNota), texto blanco, filas alternas y anchos iguales
+
+local function blocks_to_latex(blocks)
+  local doc = pandoc.Pandoc(blocks)
+  local s = pandoc.write(doc, 'latex')
+  s = s:gsub("[\r\n]+$", "")
+  s = s:gsub("[\r\n]+", " ")
+  return s
+end
 
 function Table(el)
   local num_cols = #el.colspecs
-  local has_widths = false
+  local width = string.format("%.4f", 0.95 / num_cols)
 
-  -- Recorremos las especificaciones de columnas (colspecs)
-  for i, colspec in ipairs(el.colspecs) do
-    colspec[1] = 'AlignCenter'
-    -- Verificamos si ya tiene un ancho definido en el Markdown
-    if colspec[2] and colspec[2] > 0 then
-      has_widths = true
-    end
+  local latex = {}
+  table.insert(latex, "\\arrayrulecolor{colorNota}")
+  table.insert(latex, "\\setlength{\\arrayrulewidth}{0.8pt}")
+  table.insert(latex, "\\begin{longtable}[]{@{}")
+  for i = 1, num_cols do
+    table.insert(latex, ">{\\centering\\arraybackslash}p{" .. width .. "\\columnwidth}")
   end
+  table.insert(latex, "@{}}")
+  table.insert(latex, "\\hline")
 
-  -- Si no hay anchos definidos, distribuimos equitativamente para forzar el ajuste de texto
-  if not has_widths then
-    local width = 0.95 / num_cols -- Un poco menos de 1 para dejar margen a los bordes/paddings
-    for i, colspec in ipairs(el.colspecs) do
-      colspec[2] = width
-    end
-  end
-
-  -- Estilizar la cabecera (TableHead): fondo colorNota y texto blanco en negrita
+  -- Header row
   if el.head and el.head.content then
-    for r_idx, row in ipairs(el.head.content) do
-      if r_idx == 1 and row.content and #row.content > 0 then
-        -- Añadir \rowcolor{colorNota} antes de la primera celda
-        table.insert(row.content[1].content, 1, pandoc.RawBlock('latex', '\\rowcolor{colorNota}'))
-      end
+    for _, row in ipairs(el.head.content) do
+      table.insert(latex, "\\rowcolor{colorNota}")
+      local cells = {}
       for _, cell in ipairs(row.content) do
-        -- Envolver el contenido de cada celda de la cabecera en \textcolor{white}{\textbf{ ... }}
-        table.insert(cell.content, 1, pandoc.RawBlock('latex', '\\textcolor{white}{\\textbf{'))
-        table.insert(cell.content, pandoc.RawBlock('latex', '}}'))
+        local cell_text = blocks_to_latex(cell.content)
+        table.insert(cells, "\\textcolor{white}{\\textbf{" .. cell_text .. "}}")
+      end
+      table.insert(latex, table.concat(cells, " & ") .. " \\\\ \\hline")
+    end
+  end
+
+  table.insert(latex, "\\endhead")
+
+  -- Body rows
+  if el.bodies then
+    local row_idx = 0
+    for _, body in ipairs(el.bodies) do
+      if body.content then
+        for _, row in ipairs(body.content) do
+          row_idx = row_idx + 1
+          if row_idx % 2 == 1 then
+            table.insert(latex, "\\rowcolor{white}")
+          else
+            table.insert(latex, "\\rowcolor{bgNota}")
+          end
+          local cells = {}
+          for _, cell in ipairs(row.content) do
+            local cell_text = blocks_to_latex(cell.content)
+            table.insert(cells, cell_text)
+          end
+          table.insert(latex, table.concat(cells, " & ") .. " \\\\ \\hline")
+        end
       end
     end
   end
 
-  -- Si la tabla es muy ancha (más de 5 columnas), reducimos el tamaño de fuente
+  table.insert(latex, "\\end{longtable}")
+
+  local latex_code = table.concat(latex, "\n")
+
   if num_cols > 5 then
     return {
       pandoc.RawBlock('latex', '{\\small'),
-      el,
+      pandoc.RawBlock('latex', latex_code),
       pandoc.RawBlock('latex', '}')
     }
+  else
+    return pandoc.RawBlock('latex', latex_code)
   end
-
-  return el
 end
