@@ -1,5 +1,5 @@
 -- filtro_codigo.lua
--- Convierte bloques de código en tcolorbox diferenciando terminal (con prompt automático Ubuntu) y bash
+-- Convierte bloques de código en tcolorbox diferenciando terminal (con prompt automático usuario@PC-usuario) y bash
 
 function CodeBlock(el)
   local lang = el.classes[1] or ""
@@ -12,11 +12,11 @@ function CodeBlock(el)
   elseif lang == "terminal" or lang == "console" or lang == "ubuntu" then
     env = "terminalbox"
     lstlang = ""
-    -- Añadir automáticamente el prompt de Ubuntu a las líneas de comandos
+    -- Añadir automáticamente el prompt usuario@PC-usuario:~$\u0020 a las líneas de comandos
     local processed_lines = {}
     for line in el.text:gmatch("([^\r\n]*)[\r\n]?") do
       if line ~= "" and not line:match("^%s*#") and not line:match("^%s*%(*\\textcolor") then
-        local prompt = "(*\\textcolor{ubuntuBlue}{davidrodera}\\textcolor{ubuntuGreen}{@PC-DAROVA}\\textcolor{white}{:\\$ }*)"
+        local prompt = "(*\\textcolor{emeraldGreen}{usuario@PC-usuario}\\textcolor{white}{:}\\textcolor{darkBlue}{\\sim}\\textcolor{white}{\\$} *)"
         table.insert(processed_lines, prompt .. line)
       else
         table.insert(processed_lines, line)
