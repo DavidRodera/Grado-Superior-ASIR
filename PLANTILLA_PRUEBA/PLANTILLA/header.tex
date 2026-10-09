@@ -222,49 +222,53 @@
   \endoldlongtable
 }
 
-% ── Bloques de Código (Cabecera de ancho completo y unida) ───────
+% ── Bloques de Código (Pestaña a la derecha y unida) ───────
 \newtcblisting{sqlbox}{
-  arc=3pt, outer arc=3pt, sharp corners=north, colback=sqlBG, colframe=grisCabecera, boxrule=0.5pt,
-  colbacktitle=grisCabecera, coltitle=white, center title,
+  arc=3pt, outer arc=3pt, sharp corners=northeast, colback=sqlBG, colframe=grisCabecera, boxrule=0.5pt,
   listing only, listing engine=listings,
   listing options={style=sqlstyle, language=mysql},
   enhanced, breakable,
   before skip=1.2em, after skip=1.2em,
+  attach boxed title to top right={yshift=0mm, xshift=0mm},
   title=SQL,
-  fonttitle=\montserratfont\small\bfseries
+  boxed title style={colback=grisCabecera, size=small, arc=3pt, sharp corners=south, boxrule=0pt},
+  fonttitle=\montserratfont\tiny\bfseries
 }
 
 \newtcblisting{terminalbox}{
-  arc=3pt, outer arc=3pt, sharp corners=north, colback=termBG, colframe=termBG, boxrule=0pt,
-  colbacktitle=grisCabecera, coltitle=white, center title,
+  arc=3pt, outer arc=3pt, sharp corners=northeast, colback=termBG, colframe=termBG, boxrule=0pt,
   listing only, listing engine=listings,
   listing options={style=terminalstyle},
   enhanced, breakable,
   before skip=1.2em, after skip=1.2em,
+  attach boxed title to top right={yshift=0mm, xshift=0mm},
   title=TERMINAL,
-  fonttitle=\montserratfont\small\bfseries
+  boxed title style={colback=grisCabecera, size=small, arc=3pt, sharp corners=south, boxrule=0pt},
+  fonttitle=\montserratfont\tiny\bfseries
 }
 
 \newtcblisting{bashbox}{
-  arc=3pt, outer arc=3pt, sharp corners=north, colback=termBG, colframe=termBG, boxrule=0pt,
-  colbacktitle=grisCabecera, coltitle=white, center title,
+  arc=3pt, outer arc=3pt, sharp corners=northeast, colback=blancoPuro, colframe=grisLinea, boxrule=0.5pt,
   listing only, listing engine=listings,
   listing options={style=bashstyle, language=bash},
   enhanced, breakable,
   before skip=1.2em, after skip=1.2em,
+  attach boxed title to top right={yshift=0mm, xshift=0mm},
   title=BASH SCRIPT,
-  fonttitle=\montserratfont\small\bfseries
+  boxed title style={colback=grisCabecera, size=small, arc=3pt, sharp corners=south, boxrule=0pt},
+  fonttitle=\montserratfont\tiny\bfseries
 }
 
 \newtcblisting{defaultbox}[1]{
-  arc=3pt, outer arc=3pt, sharp corners=north, colback=grisClaro, colframe=grisLinea, boxrule=0.5pt,
-  colbacktitle=grisCabecera, coltitle=white, center title,
+  arc=3pt, outer arc=3pt, sharp corners=northeast, colback=grisClaro, colframe=grisLinea, boxrule=0.5pt,
   listing only, listing engine=listings,
   listing options={style=defaultcode, language={#1}},
   enhanced, breakable,
   before skip=1.2em, after skip=1.2em,
+  attach boxed title to top right={yshift=0mm, xshift=0mm},
   title=\MakeUppercase{#1},
-  fonttitle=\montserratfont\small\bfseries
+  boxed title style={colback=grisCabecera, size=small, arc=3pt, sharp corners=south, boxrule=0pt},
+  fonttitle=\montserratfont\tiny\bfseries
 }
 
 % ── Callouts (Rectangulares sin título, con borde sutil más oscuro que el fondo) ───
@@ -339,13 +343,20 @@
 }
 
 \lstdefinestyle{bashstyle}{
-  basicstyle=\ttfamily\small\color{ubuntuText},
-  keywordstyle=\color{ubuntuGreen}\bfseries,
-  stringstyle=\color{ubuntuBlue},
-  commentstyle=\color{grisLineaTOC}\itshape,
+  basicstyle=\ttfamily\small\color{black},
+  keywordstyle=\color{blue}\bfseries,
+  stringstyle=\color{red!70!black},
+  commentstyle=\color{green!50!black}\itshape,
   breaklines=true, showstringspaces=false, tabsize=2,
-  morekeywords={if,then,else,elif,fi,case,esac,for,select,while,do,done,in},
+  morekeywords={if,then,else,elif,fi,case,esac,for,select,while,do,done,in,function},
+  emph={-eq,-ne,-gt,-lt,-ge,-le,-f,-d,-z,-n,-r,-w,-x},
+  emphstyle=\color{purple},
+  moredelim=[s][\color{orange!90!black}]{\$}{\ },
+  moredelim=[s][\color{orange!90!black}]{\$\{}{\}},
   literate={á}{{\'{a}}}1 {é}{{\'{e}}}1 {í}{{\'{i}}}1 {ó}{{\'{o}}}1 {ú}{{\'{u}}}1 {ñ}{{\~{n}}}1
+           {[}{{\textcolor{black}{[}}}1 {]}{{\textcolor{black}{]}}}1
+           {(}{{\textcolor{black}{(}}}1 {)}{{\textcolor{black}{)}}}1
+           {\{}{{\textcolor{black}{\{}}}1 {\}}{{\textcolor{black}{\}}}}1
 }
 
 \lstdefinestyle{defaultcode}{
