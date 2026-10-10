@@ -57,8 +57,8 @@ Una vez hecho esto, procedemos a instalar Apache en Ubuntu 24.
 ### Comandos a ejecutar:
 
 ```terminal
-sudo apt-get update
-sudo apt-get install apache2
+sudo apt update
+sudo apt install apache2
 ```
 
 \imagen[width=0.9\textwidth]{fotos/img3.png}
@@ -75,10 +75,34 @@ sudo apt-get install apache2
 Para asegurarnos de que las reglas no se pierdan al reiniciar el sistema, instalamos el paquete `iptables-persistent`:
 
 ```terminal
-sudo apt-get install iptables-persistent
+sudo apt install iptables-persistent
 ```
 
 \imagen[width=1\textwidth]{fotos/img5.png}
 \imagen[width=1\textwidth]{fotos/img6.png}
+
+\newpage
+
+### Comandos a ejecutar:
+
+```terminal
+sudo iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
+sudo iptables -S
+```
+
+Permitiremos el tráfico de entrada por el puerto 3306 TCP, que es el que utiliza el servidor de base de datos MySQL.
+
 \imagen[width=1\textwidth]{fotos/img7.png}
+
+```terminal
+sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+sudo iptables -S
+```
+
+ Abriremos el puerto 80 TCP (HTTP).
+
 \imagen[width=1\textwidth]{fotos/img8.png}
+
+::: note
+ Con `sudo iptables -S` listaremos las reglas activas y comprobaremos que las reglas se han añadido correctamente a la cadena INPUT.
+:::
