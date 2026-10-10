@@ -44,10 +44,41 @@ Entorno de red aislado y virtualizado.
 Primero descargamos la máquina Ubuntu 24 desde [releases.ubuntu.com/noble](https://releases.ubuntu.com/noble/).
 Una vez descargada la ISO, creamos la máquina virtual en VirtualBox y configuramos un usuario y contraseña.
 
-\imagen[width=0.85\textwidth]{fotos/img1.png}
-\imagen[width=0.85\textwidth]{fotos/img2.png}
+\imagen[width=0.7\textwidth]{fotos/img1.png}
+\imagen[width=0.7\textwidth]{fotos/img2.png}
 \imagen[width=0.5\textwidth]{fotos/img0_instalacion.png}
 
 Una vez hecho esto, procedemos a instalar Apache en Ubuntu 24.
 
+## 2. Instalar Apache
 
+¿Qué es Apache? **Apache HTTP Server** es un software de servidor web gratuito y de código abierto para plataformas Unix con el cual se ejecutan cerca del 46% de los sitios web de todo el mundo. Es mantenido y desarrollado por la Apache Software Foundation. Permite servir contenido web y es uno de los servidores más confiables desde su lanzamiento en 1995.
+
+### Comandos a ejecutar:
+
+```terminal
+sudo apt-get update
+sudo apt-get install apache2
+```
+
+\imagen[width=0.9\textwidth]{fotos/img3.png}
+\imagen[width=1\textwidth]{fotos/img4.png}
+
+## 3. Instalar iptables
+
+**IPtables** es la herramienta estándar en Linux que proporciona seguridad al sistema a través del filtrado de tráfico, NAT y control de conexiones. Trabaja con tres bloques principales:
+
+- **Reglas**: Instrucciones que indican qué hacer con los paquetes (Accept, Reject, Drop).
+- **Cadenas**: Lista de reglas aplicadas según el sentido del tráfico (`INPUT`, `OUTPUT`, `FORWARD`).
+- **Tablas**: Agrupan cadenas según su función (`filter`, `NAT`, `mangle`).
+
+Para asegurarnos de que las reglas no se pierdan al reiniciar el sistema, instalamos el paquete `iptables-persistent`:
+
+```terminal
+sudo apt-get install iptables-persistent
+```
+
+\imagen[width=1\textwidth]{fotos/img5.png}
+\imagen[width=1\textwidth]{fotos/img6.png}
+\imagen[width=1\textwidth]{fotos/img7.png}
+\imagen[width=1\textwidth]{fotos/img8.png}
