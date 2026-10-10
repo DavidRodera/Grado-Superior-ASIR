@@ -1,233 +1,214 @@
 ---
 tipo: "GUÍA DE REFERENCIA"
-title: "Plantilla LaTex"
+title: "Guía completa de la Plantilla LaTeX & Markdown"
 author: "David Rodera"
-subject: ""
+subject: "Documentación y Uso"
 curso: "2º Administración de Sistemas Informáticos en Red (2ºASIR)"
-footer: "Guía de referencia · Plantilla LaTex"
+footer: "Guía de referencia · Plantilla ASIR"
 ---
 
-# Estructura del YAML
+# 1. Primeros pasos y Estructura YAML
 
-Todo archivo `.md` debe empezar con un bloque YAML para configurar la portada y metadatos:
+Todo documento `.md` debe comenzar con un bloque YAML para configurar la portada, metadatos y el índice automático:
 
 ```yaml
 ---
 tipo: "GUÍA DE ESTUDIO"
-title: "Linux y scripting en Bash"
-author: "Análisis de mis scripts · Comandos · Bucles · Errores típicos"
-subject: "Implantación de Sistemas Operativos (ISO)"
-curso: "CFGS Administración de Sistemas Informáticos en Red (ASIR)"
-footer: "Guía de estudio · Linux y Bash · ASIR"
+title: "Título principal del documento"
+author: "Subtítulo o descripción breve"
+subject: "Asignatura (ej. Implantación de Sistemas Operativos)"
+curso: "CFGS ASIR"
+footer: "Pie de página personalizado · ASIR"
 ---
 ```
 
-- **tipo** → tipo de documento en la parte superior de la portada (ej. "GUÍA DE ESTUDIO", "PRÁCTICA", "RESUMEN", etc.; color teal, Montserrat).
-- **title** → título principal del documento (enorme, azul profundo, Montserrat).
-- **author** → nombre del autor o autores (o subtítulo/descripción corta, Montserrat large, gris cabecera).
-- **subject** → asignatura del documento (Cabin, texto gris).
-- **curso** → curso o ciclo formativo (Cabin, texto gris).
-- **footer** → texto que aparece en el pie de página de todas las páginas del documento (incluyendo la portada) junto con el número de página.
+- **tipo**: Categoría del documento en la parte superior de la portada (ej. "GUÍA DE ESTUDIO", "PRÁCTICA", "RESUMEN").
+- **title**: Título principal (enorme, color azul profundo).
+- **author**: Subtítulo o nombre del autor.
+- **subject**: Asignatura.
+- **curso**: Curso o ciclo formativo.
+- **footer**: Texto que aparece en el pie de página de todas las páginas junto al número de página.
 
-# Títulos y secciones
+# 2. Generar el PDF y Opciones de Compilación
 
-Usa la jerarquía estándar de Markdown. Cada nivel tiene una tipografía distinta:
-
-```
-# Sección principal          ← Montserrat ExtraBold + línea decorativa
-## Subsección                ← Cabin, gris medio
-### Sub-subsección           ← Cabin cursiva, gris claro
-```
-
-Las secciones principales (`#`) generan entradas en negrita en el índice.
-Las subsecciones (`##`) aparecen indentadas en el índice.
-
-# Tablas
-
-Las tablas Markdown estándar se renderizan con cabecera oscura y filas alternas. La plantilla incluye un sistema de auto-ajuste:
-
-- **Ajuste de texto**: Si una celda tiene mucho texto, se ajustará automáticamente en varias líneas para no desbordar el margen.
-- **Escalado automático**: Si una tabla tiene más de 5 columnas, el tamaño de la fuente se reducirá ligeramente para asegurar que quepa en la página.
-
-```
-| Columna A | Columna B | Columna C |
-|-----------|-----------|-----------|
-| Valor 1   | Valor 2   | Valor 3   |
-| Valor 4   | Valor 5   | Valor 6   |
-```
-
-# Bloques de código
-
-## SQL / MySQL
-
-Usa ` ```sql ` o ` ```mysql `. El resultado imita MySQL Workbench: fondo gris claro,
-palabras clave en azul, strings en rojo, comentarios en gris.
-
-```sql
--- Crear tabla de ejemplo
-CREATE TABLE usuarios (
-    id   INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    email  VARCHAR(150) UNIQUE
-);
-
-SELECT * FROM usuarios WHERE id = 1;
-UPDATE usuarios SET email = 'nuevo@mail.com' WHERE id = 1;
-```
-
-## Terminal / Bash
-
-Usa ` ```bash `, ` ```shell ` o ` ```terminal `. Fondo negro, texto verde.
+Para generar el PDF a partir de tu archivo Markdown, utiliza el script `generar_pdf.sh`:
 
 ```bash
-davidrodera@PC-DAROVA:~/Proyecto$ ls -la
-davidrodera@PC-DAROVA:~/Proyecto$ ./generar_pdf.sh apuntes.md
+# Compilación estándar (genera portada, índice y contenido)
+./generar_pdf.sh tu_archivo.md
+
+# Generar sin índice de contenidos (--sin-indice)
+./generar_pdf.sh tu_archivo.md --sin-indice
+
+# Generar solo el contenido (sin portada y sin índice) (--solo-contenido)
+./generar_pdf.sh tu_archivo.md --solo-contenido
 ```
 
-## Otros lenguajes
+El script compila automáticamente dos veces para asegurar que los números de página del índice sean correctos.
 
-Para Python, JavaScript, HTML, etc., usa el nombre del lenguaje normalmente.
-El fondo será gris claro con resaltado básico.
+# 3. Títulos y Secciones
+
+Usa la jerarquía estándar de Markdown. Cada nivel tiene su tipografía y espaciado optimizado:
+
+```markdown
+# Sección principal (H1)     ← Montserrat Bold + línea decorativa inferior
+## Subsección (H2)           ← Cabin, color Teal
+### Sub-subsección (H3)      ← Cabin cursiva, gris cabecera
+```
+
+Las secciones (`#`) generan automáticamente entradas en negrita en el índice general.
+
+# 4. Saltos de Página Manuales
+
+Si en algún momento deseas forzar un salto de página exacto (por ejemplo, para separar temas importantes), puedes escribir en cualquier parte de tu Markdown:
+
+```markdown
+\newpage
+```
+
+o bien:
+
+```markdown
+\pagebreak
+```
+
+*(Nota: La plantilla también cuenta con protección automática para evitar títulos huérfanos y cortes indeseados en párrafos, bloques de código o imágenes).*
+
+# 5. Estilos de Texto, Colores y Tipografías Inline
+
+Puedes aplicar formato básico con Markdown estándar o utilizar comandos LaTeX para colores y estilos específicos:
+
+```markdown
+**negrita**        → Open Sans Semibold
+*cursiva*          → Open Sans Italic
+`código inline`    → Monoespaciado sobre fondo gris
+```
+
+### Texto con Colores Personalizados
+Puedes destacar palabras o frases concretas usando el comando LaTeX `\textcolor{color}{texto}`:
+
+```markdown
+Esto es un texto normal y esto es \textcolor{emeraldGreen}{texto en verde esmeralda}.
+```
+
+Colores disponibles en la plantilla:
+- `emeraldGreen` (Verde esmeralda)
+- `azulProfundo` (Azul corporativo)
+- `colorTeal` (Verde azulado)
+- `darkBlue` (Azul oscuro)
+- `grisCabecera` (Gris texto)
+
+# 6. Imágenes y Rejillas (Grids)
+
+## Imagen con sombra suave (Recomendado)
+Usa el comando `\imagen` para añadir bordes y sombras difuminadas profesionales:
+
+```markdown
+\imagen[width=0.8\textwidth]{fotos/imagen.png}
+\imagen[width=\linewidth]{fotos/imagen.png}
+```
+
+## Rejilla de Imágenes (Grid)
+Organiza varias imágenes en columnas usando bloques `::: {.grid}`:
+
+```markdown
+::: {.grid cols=2}
+![](fotos/img1.png)
+![](fotos/img2.png)
+:::
+```
+
+### Control de Columnas (Spans)
+Haz que una imagen ocupe varias columnas con `{span=N}`:
+
+```markdown
+::: {.grid cols=2}
+![](fotos/grande.png){span=2}
+![](fotos/peque1.png)
+![](fotos/peque2.png)
+:::
+```
+
+# 7. Bloques de Aviso (Callouts)
+
+Destaca información importante mediante contenedores estilizados:
+
+```markdown
+::: note
+Nota informativa estándar para aclaraciones generales.
+:::
+
+::: tip
+Consejo rápido o buenas prácticas recomendadas.
+:::
+
+::: warning
+Advertencia sobre errores comunes o precauciones críticas.
+:::
+
+::: link
+[Enlace destacado](https://google.com)
+Bloque especial para enlaces web importantes.
+:::
+```
+
+# 8. Bloques de Código
+
+La plantilla incluye soporte especializado para distintos tipos de código:
+
+## 1. Terminal (Estilo Ubuntu)
+Cualquier bloque con etiqueta ` ```terminal `, ` ```console ` o ` ```ubuntu ` generará automáticamente un recuadro oscuro con el fondo granate de Ubuntu (`#300A24`) e insertará de forma automática el prompt `usuario@PC-usuario:~$` (con el usuario en verde esmeralda, `~` en azul oscuro, y `:` y `$` en blanco).
+
+```terminal
+sudo apt update
+sudo apt install apache2
+systemctl status apache2
+```
+
+## 2. Bash Script
+Para scripts de Bash (etiqueta ` ```bash ` o ` ```sh `), se activa un editor de texto en modo claro con resaltado de sintaxis (palabras clave en azul, variables en naranja, opciones en púrpura y comentarios en verde).
+
+```bash
+#!/bin/bash
+# Script de ejemplo
+usuario="admin"
+if [ -d /home/$usuario ]; then
+    echo "El usuario existe"
+fi
+```
+
+## 3. SQL / MySQL
+Usa ` ```sql ` o ` ```mysql ` para simular MySQL Workbench con resaltado específico (palabras clave en azul, strings en rojo).
+
+```sql
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL
+);
+```
+
+## 4. Otros Lenguajes (Python, JS, etc.)
+Cualquier otro lenguaje se renderiza con fondo gris claro, marco sutil y el título del lenguaje centrado en su pestaña superior.
 
 ```python
 def saludar(nombre):
     return f"Hola, {nombre}"
-
-print(saludar("David"))
 ```
 
-# Imágenes
+---
 
-## Imagen estándar (sin sombra)
-
-```
-![Descripción de la imagen](ruta/imagen.png)
-```
-
-## Imagen con sombra suave (recomendado)
-
-Usa el comando LaTeX directamente en el `.md`:
-
-```
-\imagen[width=0.8\textwidth]{ruta/imagen.png}
-\imagen[width=\textwidth]{ruta/imagen.png}
-\imagen[width=5cm]{ruta/imagen.png}
-```
-
-La sombra es difuminada hacia la derecha e inferior, ligera (18% opacidad).
-
-## Rejilla de Imágenes (Grid)
-
-Para organizar varias imágenes en una rejilla flexible, utiliza un bloque `::: {.grid}`.
-
-### Uso Básico
-
-Indica el número de columnas con el atributo `cols` (por defecto son 2).
-
-```markdown
-::: {.grid cols=2}
-![](imagen1.png)
-![](imagen2.png)
-:::
-```
-
-### Control de Espacio (Spans)
-
-Puedes hacer que una imagen ocupe más de una columna o fila usando `{span=N}` y `{rowspan=N}`.
-
-**Ejemplo: Una grande arriba y dos pequeñas debajo**
-```markdown
-::: {.grid cols=2}
-![](grande.png){span=2}
-![](peque1.png)
-![](peque2.png)
-:::
-```
-
-**Ejemplo: Imagen vertical a la izquierda y rejilla mixta**
-```markdown
-::: {.grid cols=3}
-![](vertical.png){rowspan=2}
-![](derecha1.png){span=2}
-![](derecha2.png)
-![](derecha3.png)
-:::
-```
-
-# Texto con formato
-
-El formato estándar de Markdown funciona normalmente:
-
-```
-**negrita**        → Open Sans Semibold
-*cursiva*          → Open Sans Italic
-`código inline`    → DejaVu Sans Mono sobre fondo gris
-```
-
-### Bloques de aviso (Callouts)
-
-::: note
-Esta es una nota informativa estándar. Úsala para aclaraciones que no requieren atención inmediata.
-:::
-
-::: tip
-¡Consejo rápido! Puedes usar este bloque para trucos o mejores prácticas que ayuden al lector.
-:::
-
-::: warning
-Atención: Este bloque sirve para resaltar errores comunes o precauciones críticas.
-:::
-
-::: link
-[Visitar el sitio web](https://google.com)
-Este bloque se usa para enlaces destacados. Los enlaces son de color azul y clicables (se resaltan automáticamente en azul).
-:::
-
-## Generar el PDF
-
-
-```bash
-# Desde el directorio donde está el .md:
-./generar_pdf.sh mi_archivo.md
-
-# Sin índice:
-./generar_pdf.sh mi_archivo.md --sin-indice
-```
-
-El script hace dos compilaciones automáticamente para que los
-números de página del índice sean correctos.
-
-# Archivos de la plantilla
-
-La estructura del proyecto está organizada para separar los scripts de la lógica de la plantilla:
+# 9. Estructura del Proyecto
 
 ```text
 /
-├── generar_pdf.sh       ← script principal (ejecutar esto)
-├── extraer_contenido.sh ← para pasar PDFs antiguos a Markdown
-└── PLANTILLA/           ← carpeta con los recursos de diseño
-    ├── header.tex           ← estilos, tipografías, colores
-    ├── plantilla_custom.tex ← plantilla base de Pandoc
-    ├── filtro_portada.lua   ← genera la portada y el índice
-    ├── filtro_codigo.lua    ← aplica estilos a bloques de código
-    ├── filtro_notas.lua     ← procesa los callouts (notas, tips...)
-    ├── filtro_grid.lua      ← gestiona la rejilla de imágenes
-    └── filtro_tablas.lua    ← auto-ajuste y estilo de tablas
-```
-
-# Dependencias (instalar una vez)
-
-```bash
-sudo apt install \
-  pandoc \
-  poppler-utils \
-  texlive-xetex \
-  texlive-latex-extra \
-  texlive-latex-recommended \
-  texlive-fonts-recommended \
-  texlive-lang-spanish \
-  fonts-open-sans \
-  fonts-montserrat \
-  fonts-cabin \
-  fonts-dejavu
+├── generar_pdf.sh       ← Script principal de compilación
+├── guia_plantilla.md    ← Esta guía de referencia
+└── PLANTILLA/           ← Recursos de diseño LaTeX y filtros Lua
+    ├── header.tex           ← Estilos, tipografías, colores y cajas
+    ├── plantilla_custom.tex ← Plantilla base de Pandoc
+    ├── filtro_portada.lua   ← Portada e índice automático
+    ├── filtro_codigo.lua    ← Procesamiento de bloques de código
+    ├── filtro_notas.lua     ← Procesamiento de callouts
+    ├── filtro_grid.lua      ← Gestión de rejillas de imágenes
+    └── filtro_tablas.lua    ← Auto-ajuste, cabeceras y anchos de tabla
 ```
