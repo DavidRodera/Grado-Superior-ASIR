@@ -104,5 +104,45 @@ sudo iptables -S
 \imagen[width=1\textwidth]{fotos/img8.png}
 
 ::: note
- Con `sudo iptables -S` listaremos las reglas activas y comprobaremos que las reglas se han añadido correctamente a la cadena INPUT.
+ Con **sudo iptables -S** listaremos las reglas activas y comprobaremos que las reglas se han añadido correctamente a la cadena INPUT.
 :::
+
+## 4. Instalar MySQL
+
+### 4.1. Instalar el servidor MySQL
+```terminal
+sudo apt upgrade
+sudo apt install mysql-server
+```
+\imagen[width=0.85\textwidth]{fotos/img9.png}
+
+\newpage
+
+### 4.2. Acceso a MySQL y definición usuario
+
+Accedemos por primera vez a la consola de MySQL:
+```terminal
+sudo mysql
+```
+
+\imagen[width=0.85\textwidth]{fotos/img10.png}
+
+Creamos un usuario y le asignamos el control de las bases de datos: 
+```sql
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+```
+
+Verificamos la conexión introduciendo la contraseña:
+```terminal
+mysql -u root -p
+```
+
+\imagen[width=0.85\textwidth]{fotos/img6.png}
+
+Comprobamos el funcionamiento ejecutando consultas de prueba:
+```sql
+show databases;
+select now();
+```
+
+\imagen[width=0.85\textwidth]{fotos/img7.png}
