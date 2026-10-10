@@ -140,35 +140,43 @@ sudo iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
 sudo iptables -S
 ```
 
-### 5.1. Configuración de ficheros
+### 5.2. Configuración de ficheros
 
 Para poder conectarnos desde otro destino debemos reescribir el archivo *mysqld.cnf*.
 
 ```terminal
 sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
 ```
+Haremos que la linea "bind-address" se vuelva un comentario y así se pueda acceder desde cualquier destino.
 
-Creamos un usuario y le asignamos el control de las bases de datos: 
+```nano
+#bind-address           = 127.0.0.1
+```
+Para que se apliquen los cambios, reiniciaremos el servidor MySQL.
+
+```terminal
+sudo /etc/init.d/mysql restart
+```
+
+### 5.3. Verificación
+
+Ingresaremos a MySQL, creamos un usuario y le asignamos el control de las bases de datos: 
 ```sql
-CREATE USER 'usuario'@'10.0.1.2' IDENTIFIED BY 'contraseña';
-GRANT ALL PRIVILEGES ON *.* TO 'davidmarco2'@'10.0.1.2';
+CREATE USER 'usuario'@'ip' IDENTIFIED BY 'contraseña';
+GRANT ALL PRIVILEGES ON *.* TO 'davidmarco2'@'ip';
 ```
 
 \imagen[width=0.7\textwidth]{fotos/img11.png}
 
-Verificamos la conexión introduciendo la contraseña:
+Y finalmente, verificamos la conexión desde Ubuntu 20 introduciendo la contraseña:
+
 ```terminal
-sudo mysql -h ip -u davidmarco2 -p
+sudo mysql -h ip -u usuario -p
 ```
 
-Comprobamos el funcionamiento ejecutando consultas de prueba:
-```sql
-SHOW DATABASES;
-SELECT NOW();
-```
+\imagen[width=0.7\textwidth]{fotos/img12.png}
+
 \newpage
-
-
 
 ## 6. PHP
 
