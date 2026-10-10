@@ -103,7 +103,7 @@ sudo iptables -S
 
 \imagen[width=1\textwidth]{fotos/img8.png}
 
-::: note
+::: tip
  Con **sudo iptables -S** listaremos las reglas activas y comprobaremos que las reglas se han añadido correctamente a la cadena INPUT.
 :::
 
@@ -118,7 +118,7 @@ sudo apt install mysql-server
 ```
 \imagen[width=1\textwidth]{fotos/img9.png}
 
-### 4.2. Acceso a MySQL y definición de usuario
+### 4.2. Acceso a MySQL
 
 Accedemos a la consola de MySQL:
 ```terminal
@@ -128,6 +128,25 @@ sudo mysql -u root -p
 \imagen[width=1\textwidth]{fotos/img10.png}
 
 \newpage
+
+## 5. Trabajamos con IPtables y MySQL
+
+### 5.1. Configuración de IPtables
+
+Permitimos el tráfico de entrada de MySQL:
+
+```terminal
+sudo iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
+sudo iptables -S
+```
+
+### 5.1. Configuración de ficheros
+
+Para poder conectarnos desde otro destino debemos reescribir el archivo *mysqld.cnf*.
+
+```terminal
+sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+```
 
 Creamos un usuario y le asignamos el control de las bases de datos: 
 ```sql
@@ -147,44 +166,55 @@ Comprobamos el funcionamiento ejecutando consultas de prueba:
 SHOW DATABASES;
 SELECT NOW();
 ```
+\newpage
 
-\imagen[width=0.7\textwidth]{fotos/img12.png}
 
-## 5. Trabajamos con IPtables y MySQL
 
-### Consideraciones previas:
-- **Tráfico Input**: Tráfico que entra desde cualquier máquina hacia nuestro sistema.
-- **Tráfico Output**: Tráfico que sale desde nuestro sistema hacia el exterior.
+## 6. PHP
 
-::: tip
-**Recordatorio de iptables:**
-- `-A INPUT`: Añade la regla al final de la cadena de entrada.
-- `-p tcp`: Aplica la regla al protocolo TCP.
-- `--dport 3306`: Selecciona el puerto de destino 3306.
-- `-j ACCEPT`: Permite el tráfico entrante.
-:::
+PHP es un lenguaje de servidor diseñado para crear contenido web dinámico integrado con HTML.
 
+### 6.1. Instalación de PHP y módulos de Apache
 ```terminal
-sudo iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
-sudo iptables -S
+sudo apt update
+sudo apt install php libapache2-mod-php php-mysql
 ```
 
-Permitiremos el tráfico de entrada por el puerto 3306 TCP, que es el que utiliza el servidor de base de datos MySQL.
-
-\imagen[width=1\textwidth]{fotos/img7.png}
-
+Verificamos la versión y el estado de Apache:
 ```terminal
-sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-sudo iptables -S
+php -v
+sudo systemctl status apache2
 ```
 
- Abriremos el puerto 80 TCP (HTTP).
+\imagen[width=0.85\textwidth]{fotos/img13.png}
+\imagen[width=0.85\textwidth]{fotos/img13.png}
 
-\imagen[width=1\textwidth]{fotos/img8.png}
+\newpage
 
-::: note
- Con **sudo iptables -S** listaremos las reglas activas y comprobaremos que las reglas se han añadido correctamente a la cadena INPUT.
+Creamos una página web de prueba en `/var/www/html/info.php`:
+```terminal
+sudo nano /var/www/html/info.php
+```
+
+```html
+<?php
+$DateAndTime = date('d.m.Y h:i:s a', time());
+?>
+<html>
+<body>
+<h1>Página de Marisol</h1>
+<h2>Fecha Actual: <?=$DateAndTime?></h2>
+</body>
+</html>
+```
+
+\imagen[width=0.85\textwidth]{fotos/img14.png}
+
+Al acceder desde el navegador a `localhost/info.php`, obtenemos:
+
+\imagen[width=0.85\textwidth]{fotos/img15.png}
+
+::: warning
+Para permitir acceso HTTP externo, recordad abrir el puerto 80 en iptables:
+`sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT`
 :::
-
-\imagen[width=0.85\textwidth]{fotos/img11.png}
-
