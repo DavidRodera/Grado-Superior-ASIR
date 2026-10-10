@@ -83,30 +83,6 @@ sudo apt install iptables-persistent
 
 \newpage
 
-### Comandos a ejecutar:
-
-```terminal
-sudo iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
-sudo iptables -S
-```
-
-Permitiremos el tráfico de entrada por el puerto 3306 TCP, que es el que utiliza el servidor de base de datos MySQL.
-
-\imagen[width=1\textwidth]{fotos/img7.png}
-
-```terminal
-sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-sudo iptables -S
-```
-
- Abriremos el puerto 80 TCP (HTTP).
-
-\imagen[width=1\textwidth]{fotos/img8.png}
-
-::: note
- Con **sudo iptables -S** listaremos las reglas activas y comprobaremos que las reglas se han añadido correctamente a la cadena INPUT.
-:::
-
 ## 4. Instalar MySQL
 
 ### 4.1. Instalar el servidor MySQL
@@ -115,8 +91,6 @@ sudo apt upgrade
 sudo apt install mysql-server
 ```
 \imagen[width=1\textwidth]{fotos/img9.png}
-
-\newpage
 
 ### 4.2. Acceso a MySQL y definición de usuario
 
@@ -135,7 +109,7 @@ CREATE USER 'usuario'@'10.0.1.2' IDENTIFIED BY 'contraseña';
 GRANT ALL PRIVILEGES ON *.* TO 'davidmarco2'@'10.0.1.2';
 ```
 
-\imagen[width=0.6\textwidth]{fotos/img11.png}
+\imagen[width=0.7\textwidth]{fotos/img11.png}
 
 Verificamos la conexión introduciendo la contraseña:
 ```terminal
@@ -148,4 +122,6 @@ SHOW DATABASES;
 SELECT NOW();
 ```
 
-\imagen[width=0.6\textwidth]{fotos/img12.png}
+\imagen[width=0.7\textwidth]{fotos/img12.png}
+
+
