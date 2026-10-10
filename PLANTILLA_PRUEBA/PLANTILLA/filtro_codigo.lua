@@ -1,5 +1,5 @@
 -- filtro_codigo.lua
--- Convierte bloques de código en tcolorbox diferenciando terminal (con prompt automático usuario@PC-usuario) y bash
+-- Convierte bloques de código en tcolorbox diferenciando sql, terminal, bash, html, python y otros
 
 function CodeBlock(el)
   local lang = el.classes[1] or ""
@@ -9,6 +9,12 @@ function CodeBlock(el)
   if lang == "sql" or lang == "mysql" or lang == "SQL" or lang == "MySQL" then
     env = "sqlbox"
     lstlang = "mysql"
+  elseif lang == "html" or lang == "htm" or lang == "HTML" then
+    env = "htmlbox"
+    lstlang = ""
+  elseif lang == "python" or lang == "py" or lang == "PYTHON" then
+    env = "pythonbox"
+    lstlang = ""
   elseif lang == "terminal" or lang == "console" or lang == "ubuntu" then
     env = "terminalbox"
     lstlang = ""
@@ -28,7 +34,7 @@ function CodeBlock(el)
     lstlang = "bash"
   else
     -- Lenguajes que listings conoce
-    local known = {python=1,java=1,c=1,cpp=1,javascript=1,html=1,xml=1,json=1}
+    local known = {java=1,c=1,cpp=1,javascript=1,xml=1,json=1}
     if known[lang] then lstlang = lang end
   end
 
