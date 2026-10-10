@@ -61,8 +61,9 @@ sudo apt update
 sudo apt install apache2
 ```
 
-\imagen[width=0.9\textwidth]{fotos/img3.png}
-\imagen[width=1\textwidth]{fotos/img4.png}
+\imagen[width=1\textwidth]{fotos/img3.png}
+
+\newpage
 
 ## 3. Instalar iptables
 
@@ -83,7 +84,7 @@ sudo apt install iptables-persistent
 
 \newpage
 
-### Aplicación de las reglas de filtrado
+### Aplicación de las reglas de filtrado:
 
 ```terminal
 sudo iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
@@ -106,8 +107,6 @@ sudo iptables -S
 ::: tip
  Con **sudo iptables -S** listaremos las reglas activas y comprobaremos que las reglas se han añadido correctamente a la cadena INPUT.
 :::
-
-\imagen[width=0.85\textwidth]{fotos/img11.png}
 
 ## 4. Instalar MySQL
 
@@ -158,6 +157,8 @@ Para que se apliquen los cambios, reiniciaremos el servidor MySQL.
 sudo /etc/init.d/mysql restart
 ```
 
+\newpage
+
 ### 5.3. Verificación
 
 Ingresaremos a MySQL, creamos un usuario y le asignamos el control de las bases de datos: 
@@ -166,7 +167,7 @@ CREATE USER 'usuario'@'ip' IDENTIFIED BY 'contraseña';
 GRANT ALL PRIVILEGES ON *.* TO 'davidmarco2'@'ip';
 ```
 
-\imagen[width=0.7\textwidth]{fotos/img11.png}
+\imagen[width=1\textwidth]{fotos/img11.png}
 
 Y finalmente, verificamos la conexión desde Ubuntu 20 introduciendo la contraseña:
 
@@ -174,7 +175,7 @@ Y finalmente, verificamos la conexión desde Ubuntu 20 introduciendo la contrase
 sudo mysql -h ip -u usuario -p
 ```
 
-\imagen[width=0.7\textwidth]{fotos/img12.png}
+\imagen[width=1\textwidth]{fotos/img12.png}
 
 \newpage
 
@@ -194,8 +195,8 @@ php -v
 sudo systemctl status apache2
 ```
 
-\imagen[width=0.85\textwidth]{fotos/img13.png}
-\imagen[width=0.85\textwidth]{fotos/img13.png}
+\imagen[width=0.8\textwidth]{fotos/img13.png}
+\imagen[width=0.8\textwidth]{fotos/img4.png}
 
 \newpage
 
