@@ -83,6 +83,32 @@ sudo apt install iptables-persistent
 
 \newpage
 
+### Aplicación de las reglas de filtrado
+
+```terminal
+sudo iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
+sudo iptables -S
+```
+
+Permitiremos el tráfico de entrada por el puerto 3306 TCP, que es el que utiliza el servidor de base de datos MySQL.
+
+\imagen[width=1\textwidth]{fotos/img7.png}
+
+```terminal
+sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+sudo iptables -S
+```
+
+ Abriremos el puerto 80 TCP (HTTP).
+
+\imagen[width=1\textwidth]{fotos/img8.png}
+
+::: note
+ Con **sudo iptables -S** listaremos las reglas activas y comprobaremos que las reglas se han añadido correctamente a la cadena INPUT.
+:::
+
+\imagen[width=0.85\textwidth]{fotos/img11.png}
+
 ## 4. Instalar MySQL
 
 ### 4.1. Instalar el servidor MySQL
@@ -124,4 +150,41 @@ SELECT NOW();
 
 \imagen[width=0.7\textwidth]{fotos/img12.png}
 
+## 5. Trabajamos con IPtables y MySQL
+
+### Consideraciones previas:
+- **Tráfico Input**: Tráfico que entra desde cualquier máquina hacia nuestro sistema.
+- **Tráfico Output**: Tráfico que sale desde nuestro sistema hacia el exterior.
+
+::: tip
+**Recordatorio de iptables:**
+- `-A INPUT`: Añade la regla al final de la cadena de entrada.
+- `-p tcp`: Aplica la regla al protocolo TCP.
+- `--dport 3306`: Selecciona el puerto de destino 3306.
+- `-j ACCEPT`: Permite el tráfico entrante.
+:::
+
+```terminal
+sudo iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
+sudo iptables -S
+```
+
+Permitiremos el tráfico de entrada por el puerto 3306 TCP, que es el que utiliza el servidor de base de datos MySQL.
+
+\imagen[width=1\textwidth]{fotos/img7.png}
+
+```terminal
+sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+sudo iptables -S
+```
+
+ Abriremos el puerto 80 TCP (HTTP).
+
+\imagen[width=1\textwidth]{fotos/img8.png}
+
+::: note
+ Con **sudo iptables -S** listaremos las reglas activas y comprobaremos que las reglas se han añadido correctamente a la cadena INPUT.
+:::
+
+\imagen[width=0.85\textwidth]{fotos/img11.png}
 
