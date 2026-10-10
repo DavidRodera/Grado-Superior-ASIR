@@ -135,7 +135,7 @@ CREATE USER 'usuario'@'10.0.1.2' IDENTIFIED BY 'contraseña';
 GRANT ALL PRIVILEGES ON *.* TO 'davidmarco2'@'10.0.1.2';
 ```
 
-\imagen[width=0.85\textwidth]{fotos/img11.png}
+\imagen[width=0.6\textwidth]{fotos/img11.png}
 
 Verificamos la conexión introduciendo la contraseña:
 ```terminal
@@ -148,4 +148,4 @@ SHOW DATABASES;
 SELECT NOW();
 ```
 
-\imagen[width=1\textwidth]{fotos/img12.png}
+\imagen[width=0.6\textwidth]{fotos/img12.png}
