@@ -1,0 +1,42 @@
+1. Instalar Ubuntu 24
+Para el primer paso hemos instalado la versión de Ubuntu 24 en nuestro sistema. Una vez terminada la instalación, actualizamos el sistema con sudo apt update y sudo apt upgrade para asegurarnos de tener todos los paquetes al día y evitar problemas de compatibilidad con las aplicaciones que vamos a instalar después.
+
+2. Instalar Apache
+En este apartado instalamos el servidor web Apache usando sudo apt install apache2. Una vez instalado, iniciamos el servicio y lo dejamos habilitado para que arranque solo al encender la máquina. Comprobamos que funciona entrando desde el navegador a la IP del servidor o a localhost, donde nos aparece la página de bienvenida por defecto de Apache.
+
+3. Instalar iptables
+Para gestionar la seguridad y el filtrado del tráfico de nuestra máquina instalamos la herramienta iptables junto con iptables-persistent. Esta última nos sirve para guardar la configuración de las reglas y que no se borren cada vez que reiniciemos o apaguemos el equipo.
+
+4. Instalar MySQL
+Aquí montamos el gestor de bases de datos instalando mysql-server. Tras activar el servicio, ejecutamos el script de seguridad mysql_secure_installation para cambiar la contraseña de root, borrar los usuarios anónimos y quitar las bases de datos de prueba, dejando la base de datos lista y protegida para usarla con nuestra web.
+
+5. Trabajamos con IPtables y MySQL
+En este punto configuramos las reglas de iptables para controlar el acceso a la base de datos MySQL, que utiliza el puerto 3306. Añadimos reglas para permitir únicamente las conexiones que vengan de nuestra red o equipo autorizado y bloqueamos el resto del tráfico a ese puerto, guardando luego los cambios con netfilter-persistent save.
+
+6. PHP
+Para que la web pueda procesar código dinámico y conectarse a la base de datos, instalamos PHP junto con el módulo de Apache y el conector de MySQL (php-mysql). Reiniciamos Apache para que coja los cambios y creamos un archivo info.php en /var/www/html/ para comprobar que la web renderiza el código PHP sin problemas.
+
+Práctica final: segunda parte
+1. Prueba ping desde Ubuntu 24 a Ubuntu 20
+En esta prueba lanzamos varios paquetes ICMP mediante el comando ping desde la máquina con Ubuntu 24 hacia la IP de la máquina con Ubuntu 20. Con esto comprobamos que hay conectividad física y lógica entre ambas máquinas y que pueden comunicarse a través de la red sin bloqueos.
+
+2. Prueba de uso de nmap para obtener información de los equipos y servicios de la red
+Utilizamos la herramienta nmap desde un equipo escaneando la IP del otro para descubrir los puertos que tiene abiertos y los servicios que están escuchando. De esta forma podemos ver si el puerto 80 de web, el 3306 de MySQL o el 22 de SSH están activos y qué versión exacta están ejecutando.
+
+3. Prueba de conexión tcp-http entre ubuntu 20-ubuntu 24 y vuelta
+Aquí comprobamos la comunicación HTTP a nivel de protocolo TCP entre ambas máquinas. Realizamos peticiones de un lado a otro usando comandos como curl o abriendo la web desde el navegador, verificando en los dos sentidos que la conexión se establece correctamente con la respuesta 200 OK.
+
+4. Analizar tráfico de red con Wireshark para ver web visitada y contraseñas al usar HTTP
+Abrimos Wireshark y nos ponemos a capturar el tráfico de la interfaz de red mientras interactuamos con la web para demostrar cómo HTTP envía todo en texto plano sin ningún tipo de cifrado.
+
+4.1. Creamos la página de login indicando nuestro nombre en lugar de (nombre alumno):
+Editamos el archivo de login cambiando el campo por defecto para añadir nuestro nombre. Luego nos logueamos en la web y, al filtrar en Wireshark por peticiones HTTP POST, podemos ver en el detalle del paquete las credenciales y el usuario que acabamos de introducir al descubierto.
+
+4.2. Creamos página de recuperar usuario y contraseña:
+Diseñamos la página de recuperación de datos e introducimos la información en el formulario. Al analizar la captura de red en Wireshark, volvemos a comprobar que los datos enviados para recuperar la cuenta también se capturan fácilmente al viajar sin cifrar por la red.
+
+ANEXO 1_Configuración de IPs de manera manual
+Configurar IPs en las máquinas de Ubuntu
+Para evitar que las direcciones IP cambien por DHCP, entramos a la configuración de Netplan en /etc/netplan/ y editamos el archivo YAML. Asignamos a mano la IP fija, la máscara de red, la puerta de enlace y los servidores DNS para cada una de las máquinas de Ubuntu, aplicando los cambios con sudo netplan apply.
+
+Ejercicio extra: Para el ejercicio extra hemos modificado el documento login.php añadido unas cuantas lineas donde ciframos la contraseña por completo e impide que la contraseña sea vista a través de internet como por ejemplo en wireshark. Podria haberse hecho de otras formas como por ejemplo usando ssl o https pero esta era una manera sencilla donde solo tenias que modificar el html del login.php

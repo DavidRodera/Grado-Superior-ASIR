@@ -208,7 +208,7 @@ CREATE TABLE usuarios (
 ## 4. Otros Lenguajes (Python, JS, etc.)
 Cualquier otro lenguaje se renderiza con fondo gris claro, marco sutil y el título del lenguaje centrado en su pestaña superior.
 
-```html
+```python
 def saludar(nombre):
     return f"Hola, {nombre}"
 ```
