@@ -152,7 +152,25 @@ Bloque especial para enlaces web importantes.
 :::
 ```
 
-# 8. Bloques de Código
+# 8. Tablas
+
+Las tablas se escriben en formato estándar de Markdown. La plantilla incluye un sistema inteligente automatizado que gestiona:
+- **Ancho equitativo**: Todas las columnas tienen exactamente el mismo tamaño, adaptándose al ancho de página.
+- **Ajuste de texto automático**: Si introduces mucho texto en una celda, se ajustará y saltará de línea automáticamente.
+- **Estilo automático**:
+  - **Cabecera**: Fondo azul oscuro (`colorNota`) con texto en blanco y negrita.
+  - **Filas alternas**: Alternancia elegante entre fondo blanco y azul claro (`bgNota`).
+  - **Bordes y rejilla**: Bordes en color azul nota (`colorNota`) de `0.8pt`.
+- **Tablas grandes**: Si la tabla tiene más de 5 columnas, el tamaño de la fuente se reduce ligeramente de forma automática para asegurar que encaje perfectamente en la página.
+
+```markdown
+| Columna A | Columna B | Columna C |
+| :--- | :--- | :--- |
+| Valor 1 con texto largo | Valor 2 | Valor 3 |
+| Valor 4 | Valor 5 | Valor 6 |
+```
+
+# 9. Bloques de Código
 
 La plantilla incluye soporte especializado para distintos tipos de código:
 
@@ -197,7 +215,7 @@ def saludar(nombre):
 
 ---
 
-# 9. Estructura del Proyecto
+# 10. Estructura del Proyecto
 
 ```text
 /
