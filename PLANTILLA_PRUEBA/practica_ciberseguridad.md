@@ -167,7 +167,7 @@ CREATE USER 'usuario'@'ip' IDENTIFIED BY 'contraseña';
 GRANT ALL PRIVILEGES ON *.* TO 'davidmarco2'@'ip';
 ```
 
-\imagen[width=1\textwidth]{fotos/img11.png}
+\imagen[width=0.8\textwidth]{fotos/img11.png}
 
 Y finalmente, verificamos la conexión desde Ubuntu 20 introduciendo la contraseña:
 
@@ -175,7 +175,7 @@ Y finalmente, verificamos la conexión desde Ubuntu 20 introduciendo la contrase
 sudo mysql -h ip -u usuario -p
 ```
 
-\imagen[width=1\textwidth]{fotos/img12.png}
+\imagen[width=0.8\textwidth]{fotos/img12.png}
 
 \newpage
 
@@ -195,10 +195,12 @@ php -v
 sudo systemctl status apache2
 ```
 
-\imagen[width=0.8\textwidth]{fotos/img13.png}
-\imagen[width=0.8\textwidth]{fotos/img4.png}
+\imagen[width=1\textwidth]{fotos/img13.png}
+\imagen[width=1\textwidth]{fotos/img4.png}
 
 \newpage
+
+### 6.2. Creación página web
 
 Creamos una página web de prueba en `/var/www/html/info.php`:
 ```terminal
@@ -211,17 +213,15 @@ $DateAndTime = date('d.m.Y h:i:s a', time());
 ?>
 <html>
 <body>
-<h1>Página de Marisol</h1>
+<h1>Página de David y Marco</h1>
 <h2>Fecha Actual: <?=$DateAndTime?></h2>
 </body>
 </html>
 ```
 
-\imagen[width=0.85\textwidth]{fotos/img14.png}
-
 Al acceder desde el navegador a `localhost/info.php`, obtenemos:
 
-\imagen[width=0.85\textwidth]{fotos/img15.png}
+\imagen[width=1\textwidth]{fotos/img14.png}
 
 ::: warning
 Para permitir acceso HTTP externo, recordad abrir el puerto 80 en iptables:
