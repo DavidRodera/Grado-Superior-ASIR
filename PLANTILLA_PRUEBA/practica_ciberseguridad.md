@@ -114,35 +114,38 @@ sudo iptables -S
 sudo apt upgrade
 sudo apt install mysql-server
 ```
-\imagen[width=0.85\textwidth]{fotos/img9.png}
+\imagen[width=1\textwidth]{fotos/img9.png}
 
 \newpage
 
-### 4.2. Acceso a MySQL y definición usuario
+### 4.2. Acceso a MySQL y definición de usuario
 
-Accedemos por primera vez a la consola de MySQL:
+Accedemos a la consola de MySQL:
 ```terminal
-sudo mysql
+sudo mysql -u root -p
 ```
 
-\imagen[width=0.85\textwidth]{fotos/img10.png}
+\imagen[width=1\textwidth]{fotos/img10.png}
+
+\newpage
 
 Creamos un usuario y le asignamos el control de las bases de datos: 
 ```sql
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+CREATE USER 'usuario'@'10.0.1.2' IDENTIFIED BY 'contraseña';
+GRANT ALL PRIVILEGES ON *.* TO 'davidmarco2'@'10.0.1.2';
 ```
+
+\imagen[width=0.85\textwidth]{fotos/img11.png}
 
 Verificamos la conexión introduciendo la contraseña:
 ```terminal
-mysql -u root -p
+sudo mysql -h ip -u davidmarco2 -p
 ```
-
-\imagen[width=0.85\textwidth]{fotos/img6.png}
 
 Comprobamos el funcionamiento ejecutando consultas de prueba:
 ```sql
-show databases;
-select now();
+SHOW DATABASES;
+SELECT NOW();
 ```
 
-\imagen[width=0.85\textwidth]{fotos/img7.png}
+\imagen[width=1\textwidth]{fotos/img12.png}
