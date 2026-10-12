@@ -258,11 +258,7 @@ Aquí comprobamos la comunicación HTTP a nivel de protocolo TCP entre ambas má
 
 ## 4. Analizar tráfico de red con Wireshark para ver web visitada y contraseñas al usar HTTP
 
-Abrimos Wireshark y nos ponemos a capturar el tráfico de la interfaz de red mientras interactuamos con la web para demostrar cómo HTTP envía todo en texto plano sin ningún tipo de cifrado.
-
-## 4.1. Creamos la página de login:
-
-Editamos el archivo de login cambiando el campo por defecto para añadir nuestro nombre. Luego nos logueamos en la web y, al filtrar en Wireshark por peticiones HTTP POST, podemos ver en el detalle del paquete las credenciales y el usuario que acabamos de introducir al descubierto.
+### 4.1. Creamos la página de login:
 
 ```terminal
 sudo nano /var/www/html/login.php
@@ -293,3 +289,46 @@ password" />
 </body>
 </html>
 ```
+
+\newpage
+
+### 4.2. Creamos página de recuperar usuario y contraseña:
+
+```terminal
+sudo nano /var/www/html/login2.php
+```
+
+```html
+<?php
+$usuario = $_REQUEST["usuario"];
+$pswd = $_REQUEST["pswd"];
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<title>Página de acceso</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<h4>Página de inicio de sesión de (nombre alumno)</h4><br>
+<h5 >Contraseña correcta para el usuario
+<?=$usuario?> </h5><br>
+</body>
+</html>
+```
+
+### 4.3. Captura del tráfico a partir de Wireshark
+
+Abrimos Wireshark y nos ponemos a capturar el tráfico de la interfaz de red mientras interactuamos con la web para demostrar cómo HTTP envía todo en texto plano sin ningún tipo de cifrado.
+
+\imagen[width=1\textwidth]{fotos/img19.png}
+\imagen[width=1\textwidth]{fotos/img20.png}
+\imagen[width=1\textwidth]{fotos/img21.png}
+
+\newpage
+
+## 5. Ejercicio adicional
+
+Para el ejercicio extra hemos modificado el documento login.php añadido unas cuantas lineas donde ciframos la contraseña por completo e impide que la contraseña sea vista a través de internet como por ejemplo en wireshark. Podria haberse hecho de otras formas, como por ejemplo usando ssl o https, pero esta era una manera sencilla donde solo tenias que modificar el html del login.php
