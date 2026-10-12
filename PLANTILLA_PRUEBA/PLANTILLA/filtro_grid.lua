@@ -14,21 +14,20 @@ function Div(el)
     table.insert(blocks, pandoc.RawBlock('latex', '\\begin{imggrid}{' .. cols .. '}'))
     
     for _, block in ipairs(el.content) do
-      local img = nil
+      local images = {}
       
-      -- Extraer la imagen si está en un párrafo o es directa
+      -- Extraer todas las imágenes si están en un párrafo, plain, o son directas
       if block.t == 'Para' or block.t == 'Plain' then
         for _, inline in ipairs(block.content) do
           if inline.t == 'Image' then
-            img = inline
-            break
+            table.insert(images, inline)
           end
         end
       elseif block.t == 'Image' then
-        img = block
+        table.insert(images, block)
       end
       
-      if img then
+      for _, img in ipairs(images) do
         local span = img.attributes['span']
         local row_span = img.attributes['rowspan']
         local options = {}

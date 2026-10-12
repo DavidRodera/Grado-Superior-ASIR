@@ -455,10 +455,10 @@
 }
 
 % Macro para insertar imágenes de forma segura tanto dentro como fuera de grids
-\providecommand{\gridimg}[1]{%
-  \begin{tcolorbox}[blankest]
+\newcommand{\gridimg}[2][]{%
+  \begin{tcolorbox}[blankest, #1]
     \begin{tikzpicture}
-      \node[inner sep=0pt, clip] (img) {\includegraphics[width=\linewidth]{#1}};
+      \node[inner sep=0pt, clip] (img) {\includegraphics[width=\linewidth]{#2}};
       \draw[grisLinea, line width=0.5pt] (img.south west) rectangle (img.north east);
     \end{tikzpicture}
   \end{tcolorbox}%
