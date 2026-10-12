@@ -234,8 +234,11 @@ Para permitir acceso HTTP externo, recordad abrir el puerto 80 en iptables:
 
 En esta prueba lanzamos varios paquetes ICMP mediante el comando ping desde la máquina con Ubuntu 24 hacia la IP de la máquina con Ubuntu 20. Con esto comprobamos que hay conectividad física y lógica entre ambas máquinas y que pueden comunicarse a través de la red sin bloqueos.
 
-::: {.grid cols=2}
-![](fotos/imgconf.png)
-![](fotos/imgconf2.png)
-:::
+\imagen[width=1\textwidth]{fotos/imgconf.png}
+\imagen[width=1\textwidth]{fotos/imgconf2.png}
 \imagen[width=1\textwidth]{fotos/img15.png}
+\imagen[width=1\textwidth]{fotos/img16.png}
+
+\newpage
+
+

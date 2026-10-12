@@ -70,7 +70,7 @@ fi
 Aquí probamos el nuevo sistema de rejilla eficiente para fotos:
 
 ::: {.grid cols=2}
-![](../AUTOPDF/fotos/img1.png)
+![](../AUTOPDF/fotos/img1.png){span=2}
 ![](../AUTOPDF/fotos/img2.png)
 :::
 
