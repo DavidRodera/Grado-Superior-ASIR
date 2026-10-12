@@ -247,3 +247,49 @@ Utilizamos la herramienta nmap desde un equipo escaneando la IP del otro para de
 
 \imagen[width=1\textwidth]{fotos/img17.png}
 \imagen[width=1\textwidth]{fotos/img17.1.png}
+
+\newpage
+
+## 3. Prueba de conexión tcp-http entre ubuntu 20-ubuntu 24 y vuelta
+
+Aquí comprobamos la comunicación HTTP a nivel de protocolo TCP entre ambas máquinas. Realizamos peticiones de un lado a otro abriendo la web desde el navegador, verificando en los dos sentidos que la conexión se establece correctamente.
+
+\imagen[width=1\textwidth]{fotos/img18.png}
+
+## 4. Analizar tráfico de red con Wireshark para ver web visitada y contraseñas al usar HTTP
+
+Abrimos Wireshark y nos ponemos a capturar el tráfico de la interfaz de red mientras interactuamos con la web para demostrar cómo HTTP envía todo en texto plano sin ningún tipo de cifrado.
+
+## 4.1. Creamos la página de login:
+
+Editamos el archivo de login cambiando el campo por defecto para añadir nuestro nombre. Luego nos logueamos en la web y, al filtrar en Wireshark por peticiones HTTP POST, podemos ver en el detalle del paquete las credenciales y el usuario que acabamos de introducir al descubierto.
+
+```terminal
+sudo nano /var/www/html/login.php
+```
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<title>Ciudad</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initialscale=1.0">
+</head>
+<body>
+<h1>Página de inicio de sesión de David y Marco</h1><br>
+<form action="login2.php" method="POST">
+<!-- Email input -->
+<input type="email" name="usuario" placeholder="Enter a valid
+email address"/>
+ <br>
+<!-- Password input -->
+<input type="password" name="pswd" placeholder="Enter
+password" />
+<button type="submit" >Enviar</button>
+</form>
+</div>
+</body>
+</html>
+```
