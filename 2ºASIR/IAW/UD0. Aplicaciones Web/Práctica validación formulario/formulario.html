@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario | CineTrama</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="isotipo.png">
+</head>
+<body>
+    <div class="contenedor-principal">
+        <img src="logo.png" alt="CineTrama, revista de cine online">
+
+        <div class="formulario">
+            <form id="miFormulario" novalidate>
+                <div class="campo1">
+                    <p>Únete a <span>CineTrama</span></p>
+                </div>
+
+                <div class="campo campo2">
+                    <div class="nombre">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Nombre">
+                    </div>
+                    <div>
+                        <label for="apellidos">Apellidos</label>
+                        <input type="text" id="apellidos" name="apellidos" placeholder="Apellidos">
+                    </div>
+                </div>
+
+                <div class="campo campo3">
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="correo@ejemplo.com">
+                    </div>
+                    <div>
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="600 000 000">
+                    </div>
+                </div>
+
+                <div class="campo campo4">
+                    <div>
+                        <label for="fecha_nacimiento">Fecha de nacimiento</label>
+                        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento">
+                    </div>
+                    <div>
+                        <label>Sexo</label>
+                        <div class="opciones">
+                            <label class="opcion"><input type="radio" name="sexo" value="hombre"> Hombre</label>
+                            <label class="opcion"><input type="radio" name="sexo" value="mujer"> Mujer</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="campo campo5">
+                    <div>
+                        <label for="direccion">Dirección</label>
+                        <input type="text" id="direccion" name="direccion" placeholder="Calle, número, piso...">
+                    </div>
+                </div>
+
+                <div class="campo campo6">
+                    <div>
+                        <label for="ciudad">Ciudad</label>
+                        <input type="text" id="ciudad" name="ciudad" placeholder="Ciudad">
+                    </div>
+                    <div class="corto">
+                        <label for="codigo_postal">Código postal</label>
+                        <input type="text" id="codigo_postal" name="codigo_postal" placeholder="28001" inputmode="numeric">
+                    </div>
+                    <div>
+                        <label for="pais">País</label>
+                        <input type="text" id="pais" name="pais" placeholder="País">
+                    </div>
+                </div>
+
+                <div class="campo campo7">
+                    <div>
+                        <label>Tipo de pago</label>
+                        <div class="opciones">
+                            <label class="opcion"><input type="radio" name="tipo_pago" value="tarjeta" checked> Tarjeta</label>
+                            <label class="opcion"><input type="radio" name="tipo_pago" value="cuenta"> Cuenta bancaria</label>
+                        </div>
+                    </div>
+                    <div id="pago-tarjeta">
+                        <label for="tarjeta">Número de tarjeta</label>
+                        <input type="text" id="tarjeta" name="tarjeta" placeholder="0000 0000 0000 0000" inputmode="numeric" autocomplete="off">
+                    </div>
+                    <div id="pago-cuenta" hidden>
+                        <label for="cuenta">Cuenta bancaria (IBAN)</label>
+                        <input type="text" id="cuenta" name="cuenta" placeholder="ES00 0000 0000 0000 0000 0000" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="campo campo8">
+                    <div>
+                        <p class="subtitulo">Clave de acceso</p>
+                    </div>
+                    <div>
+                        <label for="usuario">Nombre de usuario</label>
+                        <input type="text" id="usuario" name="usuario" placeholder="Usuario" autocomplete="username">
+                    </div>
+                    <div class="fila-claves">
+                        <div>
+                            <label for="password">Contraseña</label>
+                            <input type="password" id="password" name="password" placeholder="Mín. 8 caracteres" autocomplete="new-password">
+                        </div>
+                        <div>
+                            <label for="password2">Repetir contraseña</label>
+                            <input type="password" id="password2" name="password2" placeholder="Repite la contraseña" autocomplete="new-password">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="boton">Crear cuenta</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const formulario = document.getElementById('miFormulario');
+
+        const radiosPago = document.querySelectorAll('input[name="tipo_pago"]');
+        radiosPago.forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                const tipo = document.querySelector('input[name="tipo_pago"]:checked').value;
+                document.getElementById('pago-tarjeta').hidden = (tipo !== 'tarjeta');
+                document.getElementById('pago-cuenta').hidden = (tipo !== 'cuenta');
+            });
+        });
+
+        formulario.addEventListener('submit', function(evento) {
+            const nombre = document.getElementById('nombre').value.trim();
+            const apellidos = document.getElementById('apellidos').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const telefono = document.getElementById('telefono').value.replace(/[\s-]/g, '');
+            const fecha = document.getElementById('fecha_nacimiento').value;
+            const sexo = document.querySelector('input[name="sexo"]:checked');
+            const direccion = document.getElementById('direccion').value.trim();
+            const ciudad = document.getElementById('ciudad').value.trim();
+            const codigoPostal = document.getElementById('codigo_postal').value.trim();
+            const pais = document.getElementById('pais').value.trim();
+            const tipoPago = document.querySelector('input[name="tipo_pago"]:checked').value;
+            const tarjeta = document.getElementById('tarjeta').value.replace(/[\s-]/g, '');
+            const cuenta = document.getElementById('cuenta').value.replace(/\s/g, '').toUpperCase();
+            const usuario = document.getElementById('usuario').value;
+            const password = document.getElementById('password').value;
+            const password2 = document.getElementById('password2').value;
+
+            // Calculo de la edad a partir de la fecha de nacimiento
+            const hoy = new Date();
+            const nacimiento = new Date(fecha);
+            let edad = hoy.getFullYear() - nacimiento.getFullYear();
+            const meses = hoy.getMonth() - nacimiento.getMonth();
+            if (meses < 0 || (meses === 0 && hoy.getDate() < nacimiento.getDate())) {
+                edad--;
+            }
+
+            if (nombre === '') {
+                alert('El campo nombre no puede estar vacío.');
+                evento.preventDefault(); // Detiene el envío del formulario
+
+            } else if (nombre.length > 25) {
+                alert('El campo nombre no puede superar los 25 caracteres.');
+                evento.preventDefault();
+
+            } else if (apellidos === '') {
+                alert('El campo apellidos no puede estar vacío.');
+                evento.preventDefault();
+
+            } else if (apellidos.length > 50) {
+                alert('El campo apellidos no puede superar los 50 caracteres.');
+                evento.preventDefault();
+
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+                alert('El email no tiene un formato válido.');
+                evento.preventDefault();
+
+            } else if (!/^[6-9]\d{8}$/.test(telefono)) {
+                alert('El teléfono debe tener 9 dígitos y empezar por 6, 7, 8 o 9.');
+                evento.preventDefault();
+
+            } else if (fecha === '') {
+                alert('Debes indicar la fecha de nacimiento.');
+                evento.preventDefault();
+
+            } else if (edad < 16) {
+                alert('Debes ser mayor de 16 años para registrarte.');
+                evento.preventDefault();
+
+            } else if (sexo === null) {
+                alert('Debes seleccionar Hombre o Mujer.');
+                evento.preventDefault();
+
+            } else if (direccion === '') {
+                alert('El campo dirección no puede estar vacío.');
+                evento.preventDefault();
+
+            } else if (direccion.length > 75) {
+                alert('El campo dirección no puede superar los 75 caracteres.');
+                evento.preventDefault();
+
+            } else if (ciudad === '') {
+                alert('El campo ciudad no puede estar vacío.');
+                evento.preventDefault();
+
+            } else if (ciudad.length > 25) {
+                alert('El campo ciudad no puede superar los 25 caracteres.');
+                evento.preventDefault();
+
+            } else if (!/^(0[1-9]|[1-4]\d|5[0-2])\d{3}$/.test(codigoPostal)) {
+                alert('El código postal no es válido (5 dígitos, por ejemplo 28001).');
+                evento.preventDefault();
+
+            } else if (pais === '') {
+                alert('El campo país no puede estar vacío.');
+                evento.preventDefault();
+
+            } else if (pais.length > 25) {
+                alert('El campo país no puede superar los 25 caracteres.');
+                evento.preventDefault();
+
+            } else if (tipoPago === 'tarjeta' && !/^\d{16}$/.test(tarjeta)) {
+                alert('La tarjeta debe tener 16 dígitos.');
+                evento.preventDefault();
+
+            } else if (tipoPago === 'cuenta' && !/^ES\d{22}$/.test(cuenta)) {
+                alert('La cuenta bancaria no es válida (ES + 22 dígitos).');
+                evento.preventDefault();
+
+            } else if (!/^[A-Za-z0-9]+$/.test(usuario)) {
+                alert('El nombre de usuario solo puede tener letras y números.');
+                evento.preventDefault();
+
+            } else if (!/^(?=.*[A-Za-z])(?=.*\d).{8,}$/.test(password)) {
+                alert('La contraseña debe tener mínimo 8 caracteres, al menos una letra y un número.');
+                evento.preventDefault();
+
+            } else if (password !== password2) {
+                alert('Las contraseñas no coinciden.');
+                evento.preventDefault();
+
+            } else {
+                alert('El formulario es correcto');
+            }
+        });
+    </script>
+</body>
+</html>
