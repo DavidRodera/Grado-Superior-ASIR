@@ -52,4 +52,22 @@ Para mantener un criterio ordenado y coherente al configurar las máquinas virtu
 
 Usando el Router2 Servidor DHCP como ejemplo, observamos que cuenta con tres interfaces (nombrada como enp0s8 la que lleva a internet), al saber esto configuramos los adaptadores de la siguiente manera.
 
+\imagen[width=0.7\textwidth]{fotos/img5.png}
 
+Para el adaptador 1 (enp0s3) siempre ha de estar seleccionada la opción "**Adaptador sólo anfitrión**"
+
+::: warning
+**IMPORTANTE**: Cada dispositivo tiene que tener un **nombre diferente** para que se les asigne una dirección IP diferente. Por ejemplo, el siguiente dispositivo tendrá el nombre *vboxnet2*.
+:::
+
+\imagen[width=0.7\textwidth]{fotos/img6.png}
+
+Para el adaptador 2 (enp0s8) siempre ha de estar seleccionada la opción "**Red Interna**", como la interfaz del Router2 pertenece a la RedDMZ pues le pondremos ese nombre.
+
+\imagen[width=0.7\textwidth]{fotos/img7.png}
+
+Para el adaptador 3 (enp0s9) siempre ha de estar seleccionada la opción "**Red Interna**", como la interfaz del Router2 pertenece a la RedBiologia pues le pondremos ese nombre.
+
+\imagen[width=0.7\textwidth]{fotos/img8.png}
+
+Para el adaptador 4 (enp0s10) siempre ha de estar seleccionada la opción "**Red Interna**", como la interfaz del Router2 pertenece a la RedFisica pues le pondremos ese nombre.
