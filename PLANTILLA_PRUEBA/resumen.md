@@ -42,10 +42,14 @@ Si mantuviéramos las direcciones MAC originales, todas las máquinas clonadas t
 \imagen[width=1\textwidth]{fotos/img2.png}
 \imagen[width=1\textwidth]{fotos/img3.png}
 
-## 1.2. Configuración de los Adaptadores de Red en VirtualBox
+## 1.2. Configuración de los Adaptadores de Red
 
 Para reproducir fielmente un escenario real con múltiples departamentos y redes aisladas, debemos configurar los adaptadores de red en los ajustes de cada máquina virtual según el esquema.
 
 Para mantener un criterio ordenado y coherente al configurar las máquinas virtuales de nuestro esquema (tanto en la línea de comandos como en los ficheros de red o en Netplan), aplicaremos una regla general basada en el **número de conexiones que tiene cada dispositivo en la topología**:
 
-\imagen[width=0.2\textwidth]{fotos/img4.png}
+\imagen[width=1\textwidth]{fotos/img4.png}
+
+Usando el Router2 Servidor DHCP como ejemplo, observamos que cuenta con tres interfaces (nombrada como enp0s8 la que lleva a internet), al saber esto configuramos los adaptadores de la siguiente manera.
+
+
