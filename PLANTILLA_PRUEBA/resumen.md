@@ -13,7 +13,7 @@ En este proyecto vamos a recrear y desplegar paso a paso la infraestructura de r
 
 \imagen[width=1\textwidth]{fotos/img1.jpeg}
 
-El objetivo principal es simular un entorno corporativo realista compuesto por tres sedes o departamentos independientes (*Departamento de Informática*, *Departamento de Física* y *Departamento de Biología)*, interconectados mediante enrutadores Linux y aislados en subredes específicas (192.168.100.0/24, 10.0.200.0/24, 10.0.100.0/24 y la red de tránsito 10.0.1.0/24).
+El objetivo principal es simular un entorno corporativo realista compuesto por tres sedes o departamentos independientes (**Departamento de Informática**, **Departamento de Física** y **Departamento de Biología**), interconectados mediante enrutadores Linux y aislados en subredes específicas (**192.168.100.0/24**, **10.0.200.0/24**, **10.0.100.0/24** y la red de tránsito **10.0.1.0/24**).
 
 A lo largo de la presentación, explicaremos de forma intuitiva cómo levantar esta topología en VirtualBox utilizando máquinas virtuales como si fuesen equipos y routers reales, analizando en cada etapa qué es cada servicio o función, para qué sirve y cómo se implementa mediante comandos y archivos de configuración en Linux.
 
@@ -21,7 +21,7 @@ A lo largo de la presentación, explicaremos de forma intuitiva cómo levantar e
 
 # 1. Creación y Preparación de las MVs
 
-## 1.1 Clonación de Máquinas Base
+## 1.1. Clonación de Máquinas Base
 
 Para agilizar el despliegue y asegurar un entorno homogéneo, la creación de cada equipo y router del esquema se realiza mediante la clonación de una máquina base clonadora preconfigurada.
 
@@ -39,4 +39,13 @@ Proceso de clonación:
 Si mantuviéramos las direcciones MAC originales, todas las máquinas clonadas tendrían el mismo identificador físico de red. Esto provocaría conflictos severos a nivel de Enlace de Datos (Capa 2), ya que los switches virtuales no sabrían a qué máquina entregar las tramas, y el servicio DHCP no podría identificar ni asignar direcciones IP de forma única a cada equipo.
 :::
 
-Captura 2
+\imagen[width=1\textwidth]{fotos/img2.png}
+\imagen[width=1\textwidth]{fotos/img3.png}
+
+## 1.2. Configuración de los Adaptadores de Red en VirtualBox
+
+Para reproducir fielmente un escenario real con múltiples departamentos y redes aisladas, debemos configurar los adaptadores de red en los ajustes de cada máquina virtual según el esquema.
+
+Para mantener un criterio ordenado y coherente al configurar las máquinas virtuales de nuestro esquema (tanto en la línea de comandos como en los ficheros de red o en Netplan), aplicaremos una regla general basada en el **número de conexiones que tiene cada dispositivo en la topología**:
+
+
