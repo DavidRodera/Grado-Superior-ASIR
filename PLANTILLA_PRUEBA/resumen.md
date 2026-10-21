@@ -48,4 +48,4 @@ Para reproducir fielmente un escenario real con múltiples departamentos y redes
 
 Para mantener un criterio ordenado y coherente al configurar las máquinas virtuales de nuestro esquema (tanto en la línea de comandos como en los ficheros de red o en Netplan), aplicaremos una regla general basada en el **número de conexiones que tiene cada dispositivo en la topología**:
 
-
+\imagen[width=0.2\textwidth]{fotos/img4.png}
