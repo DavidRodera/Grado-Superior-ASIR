@@ -1,0 +1,3 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,621649,i=>{"use strict";i.i(124618);var e=i.i(14861),n=i.i(607861),t=i.i(10492),a=i.i(673429);i.s(["GlobalInviteDialog",()=>e.GlobalInviteDialog,"TeamInvitationBanner",()=>t.TeamInvitationBanner,"TeamInvitationHandler",()=>a.TeamInvitationHandler,"useInviteMembersAction",()=>n.useInviteMembersAction])},276363,i=>{i.n(i.i(621649))}]);
+
+//# sourceMappingURL=4c3049d883dbfe4c.js.map

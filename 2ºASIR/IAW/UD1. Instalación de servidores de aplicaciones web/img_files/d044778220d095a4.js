@@ -1,0 +1,3 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,525670,e=>{"use strict";e.i(54724);var s=e.i(277476),i=e.i(472710),l=e.i(231776),t=e.i(320545),a=e.i(898744);e.s(["CreateTeamButton",()=>s.CreateTeamButton,"TEAMS_UPSELL_BI",()=>a.TEAMS_UPSELL_BI,"TeamsUpsellModal",()=>i.TeamsUpsellModal,"useTeamsUpsellBiEvents",()=>t.useTeamsUpsellBiEvents,"useTeamsUpsellEligibility",()=>l.useTeamsUpsellEligibility])},390062,e=>{e.n(e.i(525670))}]);
+
+//# sourceMappingURL=4c3049d883dbfe4c.js.map

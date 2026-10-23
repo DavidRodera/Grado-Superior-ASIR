@@ -1,0 +1,3 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,200042,i=>{"use strict";var t=i.i(404097),e=i.i(954028);i.i(180664);var r=i.i(66721);function c(i){let c,o=(0,e.c)(2),{children:n}=i;return o[0]!==n?(c=(0,t.jsx)(r.GridDensityProvider,{children:n}),o[0]=n,o[1]=c):c=o[1],c}i.s(["default",()=>c])}]);
+
+//# sourceMappingURL=232d403ea192b0e0.js.map
