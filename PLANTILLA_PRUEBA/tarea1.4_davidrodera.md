@@ -16,16 +16,12 @@ footer: "Tarea 1.4 - David Rodera"
 5. **Optimización de costes:** pagar solo por lo que se necesita y evitar gastos que no aportan nada.
 6. **Sostenibilidad:** reducir el impacto ambiental de la infraestructura usando solo los recursos y la energía necesarios.
 
----
-
 ## Parte 2. Evalúa tu proyecto 1.1
 
 | Pilar | ¿Qué hemos hecho bien en el proyecto? | ¿Qué mejorarías? |
 |-------|----------------------------------------|-------------------|
 | **Seguridad** | Usamos dos grupos de seguridad con reglas distintas. SG-BASTION solo admite SSH desde mi IP y SG-WEB solo admite SSH desde SG-BASTION, así que nadie puede entrar por SSH a los servidores web desde internet. Además, el HTTP quedó limitado al puerto 80 y las tres máquinas usaron la misma clave `.pem`. | Pondría los servidores web en subredes privadas, sin IP pública, y los dejaría accesibles solo a través de un balanceador. También añadiría HTTPS con certificado, porque ahora todo el tráfico web va sin cifrar. |
 | **Fiabilidad** | Repartimos los dos servidores Apache en subredes y zonas de disponibilidad distintas (us-east-1b y us-east-1c), de modo que un fallo en una zona no afectaría a las dos máquinas. Además, el User Data instala Apache solo, lo que permite repetir el despliegue igual cada vez. | Pondría un Application Load Balancer delante de los dos servidores, con comprobaciones de salud, y un grupo de Auto Scaling para reemplazar automáticamente las instancias que fallen. Así tener dos servidores serviría de algo y no dependeríamos de una IP pública concreta por servidor. |
-
----
 
 ## Parte 3. Una decisión de arquitectura
 
