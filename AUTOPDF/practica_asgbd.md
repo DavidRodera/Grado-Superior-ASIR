@@ -4,7 +4,7 @@ title: "Práctica del RA1: Operación DataShield"
 author: "David Rodera - Marco Gallego"
 subject: "Administración de Sistemas Gestores de Bases de Datos (ASGBD) - 22/10/2026"
 curso: "2º Administración de Sistemas Informáticos en Red (2ºASIR)"
-footer: "Práctica RA1 · Administración de Sistemas Gestores de Bases de Datos · ASIR"
+footer: "Práctica RA1 · Administración de Sistemas Gestores de Bases de Datos · ASGBD"
 ---
 
 # 0. Introducción
@@ -95,7 +95,7 @@ USE DataShield_DavidMarco;
 
 También podemos crearla de manera gráfica.
 
-\imagen[width=1\textwidth]{fotos2/img1.png}
+\imagen[width=0.7\textwidth]{fotos2/img1.png}
 
 \newpage
 
@@ -105,13 +105,18 @@ Podemos crear la tabla desde comandos:
 
 ```sql
 CREATE TABLE usuarios (
-    id_usuario INT PRIMARY KEY,
+    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(50) NOT NULL,
     rol ENUM('admin_seguridad', 'analista', 'soporte') DEFAULT 'soporte',
     hash_contraseña VARCHAR(50) NOT NULL
 );
 ```
+
 ::: note
+Se usará **AUTO_INCREMENT** para la clave primaria, esto hará que se genere automáticamente un número único cada vez que se inserte un nuevo registro en una tabla.
+:::
+
+::: warning
 Usaremos la restricción **NOT NULL**, de esta forma los valores insertados no pueden ser nulos.
 :::
 
@@ -121,4 +126,26 @@ Usaremos la cláusula **DEFAULT** para que si se inserta un valor nulo en rol, s
 
 O también de forma gráfica:
 
+\imagen[width=1\textwidth]{fotos2/img2.png}
 
+::: note 
+Marcando la casilla **A_I** asignaremos el **AUTO_INCREMENT**, y con la opción **Personalizado** en **Predeterminado** marcaremos el **DEFAULT**. 
+:::
+
+### Creación tabla sistemas
+
+Podemos crear la tabla desde comandos:
+
+```sql
+CREATE TABLE sistemas (
+    id_sistema INT PRIMARY KEY AUTO_INCREMENT,
+    nombre_sistema VARCHAR(50) NOT NULL,
+    ip VARCHAR(15) NOT NULL,
+    responsible INT,
+    FOREIGN KEY (responsible) REFERENCES usuarios (id_usuario)
+);
+```
+
+::: note
+Referenciaremos la columna **responsible** como **FK** a **usuarios**.
+:::
