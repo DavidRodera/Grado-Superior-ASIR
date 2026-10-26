@@ -28,6 +28,7 @@ FILTRO_PORT="${PLANTILLA_DIR}/filtro_portada.lua"
 FILTRO_NOTAS="${PLANTILLA_DIR}/filtro_notas.lua"
 FILTRO_TABLAS="${PLANTILLA_DIR}/filtro_tablas.lua"
 FILTRO_GRID="${PLANTILLA_DIR}/filtro_grid.lua"
+FILTRO_TITULOS="${PLANTILLA_DIR}/filtro_titulos.lua"
 
 if [ ! -f "$ARCHIVO_MD" ]; then
   echo -e "${ROJO}Error: no se encuentra '$ARCHIVO_MD'${NC}"; exit 1
@@ -55,6 +56,7 @@ PANDOC_ARGS=(
   --lua-filter="$FILTRO_NOTAS"
   --lua-filter="$FILTRO_TABLAS"
   --lua-filter="$FILTRO_GRID"
+  --lua-filter="$FILTRO_TITULOS"
   -V mainfont="Open Sans"
   -V sansfont="Open Sans"
   -V monofont="DejaVu Sans Mono"
