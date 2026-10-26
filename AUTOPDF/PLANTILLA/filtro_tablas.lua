@@ -1,5 +1,5 @@
 -- filtro_tablas.lua
--- Fuerza el centrado, distribuye anchos y ajusta tamaño para tablas grandes
+-- Fuerza el centrado, distribuye anchos iguales en todas las columnas y ajusta tamaño para tablas grandes
 
 function Table(el)
   local num_cols = #el.colspecs
@@ -7,16 +7,16 @@ function Table(el)
 
   -- Recorremos las especificaciones de columnas (colspecs)
   for i, colspec in ipairs(el.colspecs) do
-    colspec[1] = 'AlignCenter'
+    colspec[1] = pandoc.AlignCentre or 'AlignCenter'
     -- Verificamos si ya tiene un ancho definido en el Markdown
     if colspec[2] and colspec[2] > 0 then
       has_widths = true
     end
   end
 
-  -- Si no hay anchos definidos, distribuimos equitativamente para forzar el ajuste de texto
+  -- Si no hay anchos definidos, distribuimos equitativamente (mismo tamaño para todas las columnas)
   if not has_widths then
-    local width = 0.95 / num_cols -- Un poco menos de 1 para dejar margen a los bordes/paddings
+    local width = 0.95 / num_cols
     for i, colspec in ipairs(el.colspecs) do
       colspec[2] = width
     end

@@ -92,3 +92,7 @@ DROP DATABASE IF EXISTS DataShield_DavidMarco;
 CREATE DATABASE DataShield_DavidMarco;
 USE DataShield_DavidMarco;
 ```
+
+También podemos crearla de manera gráfica.
+
+\imagen[width=0.8\textwidth]{fotos2/img1.png}

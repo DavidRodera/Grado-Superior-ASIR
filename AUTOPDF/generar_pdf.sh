@@ -1,6 +1,6 @@
 #!/bin/bash
 # ─────────────────────────────────────────────────────────────────
-#  generar_pdf.sh — Convierte .md a PDF con plantilla David Rodera
+#  generar_pdf.sh — Convierte .md a PDF con la nueva plantilla ASIR
 # ─────────────────────────────────────────────────────────────────
 
 set -e
@@ -27,12 +27,12 @@ FILTRO_COD="${PLANTILLA_DIR}/filtro_codigo.lua"
 FILTRO_PORT="${PLANTILLA_DIR}/filtro_portada.lua"
 FILTRO_NOTAS="${PLANTILLA_DIR}/filtro_notas.lua"
 FILTRO_TABLAS="${PLANTILLA_DIR}/filtro_tablas.lua"
+FILTRO_GRID="${PLANTILLA_DIR}/filtro_grid.lua"
 
 if [ ! -f "$ARCHIVO_MD" ]; then
   echo -e "${ROJO}Error: no se encuentra '$ARCHIVO_MD'${NC}"; exit 1
 fi
 
-# Pasar flags al filtro vía variables de entorno
 export SIN_INDICE=""
 export SIN_PORTADA=""
 
@@ -54,6 +54,7 @@ PANDOC_ARGS=(
   --lua-filter="$FILTRO_COD"
   --lua-filter="$FILTRO_NOTAS"
   --lua-filter="$FILTRO_TABLAS"
+  --lua-filter="$FILTRO_GRID"
   -V mainfont="Open Sans"
   -V sansfont="Open Sans"
   -V monofont="DejaVu Sans Mono"
@@ -62,7 +63,6 @@ PANDOC_ARGS=(
 
 echo -e "${AZUL}⚙  Generando: ${ARCHIVO_PDF}...${NC}"
 
-# Dos pasadas para que el índice tenga los números de página correctos
 pandoc "$ARCHIVO_MD" "${PANDOC_ARGS[@]}" -o "$ARCHIVO_PDF"
 pandoc "$ARCHIVO_MD" "${PANDOC_ARGS[@]}" -o "$ARCHIVO_PDF"
 
