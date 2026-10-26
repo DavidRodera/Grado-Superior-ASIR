@@ -149,3 +149,9 @@ CREATE TABLE sistemas (
 ::: note
 Referenciaremos la columna **responsible** como **FK** a **usuarios**.
 :::
+
+O también de forma gráfica:
+
+\imagen[width=1\textwidth]{fotos2/img3.png}
+
+Para referenciar la FK de forma gráfica debemos acceder a la tabla **sistemas** --> **Estructura** --> **Vista de relaciones**
