@@ -7,7 +7,7 @@ function Header(el)
       local digits = first.text:match("^(%d+[%d%.]*)[%.:]?$")
       if digits then
         local new_content = {
-          pandoc.raw_inline("latex", string.format("\\sectionnumberboxinline{%s}", digits))
+          pandoc.RawInline("latex", string.format("\\sectionnumberboxinline{%s}", digits))
         }
         for i = 2, #el.content do
           table.insert(new_content, el.content[i])
