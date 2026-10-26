@@ -46,7 +46,7 @@ Nuestra base de datos **DataShield_DavidMarco** estará compuesta por tres tabla
 | hash_contraseña | VARCHAR(50) | Contraseña cifrada o hash (no en claro) |
 
 ::: note
-Para la columna rol usaremos ENUM en vez de VARCHAR, ya que ENUM (enumeración) es un objeto de cadena que limita los valores permitidos de una columna a una lista fija y predefinida, y como solo 3 valores a insertar en esa columna sería más correcto.
+Para la columna rol usaremos **ENUM** en vez de **VARCHAR**, ya que **ENUM()** es un objeto de cadena que limita los valores permitidos de una columna a una lista fija y predefinida, y como solo 3 valores a insertar en esa columna sería más correcto.
 :::
 
 ### Tabla sistemas
@@ -59,11 +59,11 @@ Para la columna rol usaremos ENUM en vez de VARCHAR, ya que ENUM (enumeración) 
 | responsible | INT | Usuario responsable del sistema (FK a usuarios) |
 
 ::: note
-En la columna ip, tiene un tipo VARCHAR(15) ya que una dirección IP está compuesta por 4 octetos de números del 0 al 255 separados por puntos, por lo que el máximo de caracteres es de 15.
+En la columna ip, tiene un tipo **VARCHAR(15)** ya que una dirección IP está compuesta por 4 octetos de números del 0 al 255 separados por puntos, por lo que el máximo de caracteres es de 15.
 :::
 
 ::: warning
-Como hay IPs que no ocupan justo 15 caracteres el tipo VARCHAR que permite un número de caracteres menor o igual a lo indicado, si todas las IPs ocupasen 15 caracteres la mejor opción sería CHAR.
+Como hay IPs que no ocupan justo 15 caracteres el tipo **VARCHAR** que permite un número de caracteres menor o igual a lo indicado, si todas las IPs ocupasen 15 caracteres la mejor opción sería **CHAR**.
 :::
 
 ### Tabla sistemas
@@ -78,7 +78,7 @@ Como hay IPs que no ocupan justo 15 caracteres el tipo VARCHAR que permite un n�
 | fecha | DATE | Fecha de detección |
 
 ::: note
-Usaremos el tipo ENUM en las columnas nivel_gravedad y estado ya que tienen pocos valores a insertar.
+Usaremos el tipo **ENUM** en las columnas **nivel_gravedad** y **estado** ya que tienen pocos valores a insertar.
 :::
 
 ## 1.2. Creación de la Base de Datos
@@ -95,4 +95,30 @@ USE DataShield_DavidMarco;
 
 También podemos crearla de manera gráfica.
 
-\imagen[width=0.8\textwidth]{fotos2/img1.png}
+\imagen[width=1\textwidth]{fotos2/img1.png}
+
+\newpage
+
+### Creación tabla usuarios
+
+Podemos crear la tabla desde comandos:
+
+```sql
+CREATE TABLE usuarios (
+    id_usuario INT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    rol ENUM('admin_seguridad', 'analista', 'soporte') DEFAULT 'soporte',
+    hash_contraseña VARCHAR(50) NOT NULL
+);
+```
+::: note
+Usaremos la restricción **NOT NULL**, de esta forma los valores insertados no pueden ser nulos.
+:::
+
+::: tip
+Usaremos la cláusula **DEFAULT** para que si se inserta un valor nulo en rol, se autoasigne el rol soporte.
+:::
+
+O también de forma gráfica:
+
+
