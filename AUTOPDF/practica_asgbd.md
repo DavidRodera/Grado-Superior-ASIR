@@ -159,7 +159,8 @@ O también de forma gráfica:
 Para referenciar la FK de forma gráfica debemos acceder a la tabla **sistemas** --> **Estructura** --> **Vista de relaciones** y añadiremos la referencia.
 
 \imagen[width=1\textwidth]{fotos2/img4.png}
-\imagen[width=1\textwidth]{fotos2/img5.png}
+
+\newpage
 
 ### Creación tabla incidencias
 
@@ -185,6 +186,21 @@ Referenciaremos la columna **sistema_id** como **FK** a **sistemas**:
 
 O también de forma gráfica:
 
-\imagen[width=1\textwidth]{fotos2/img6.png}
+\imagen[width=1\textwidth]{fotos2/img5.png}
 
 Para referenciar la FK de forma gráfica debemos acceder a la tabla **incidencias** –> **Estructura** –> **Vista de relaciones** y añadiremos la referencia.
+
+\imagen[width=1\textwidth]{fotos2/img6.png}
+
+## 1.3. Inserción de datos
+
+### Tabla usuarios
+
+Podemos insertar los datos desde comandos:
+
+```sql
+INSERT INTO usuarios (nombre, rol, hash_contraseña) VALUES
+('Laura Gómez', 'admin_seguridad', 'a3f4c9...'),
+('Carlos Pérez', 'analista', 'bc97d1...'),
+('Marta Ruiz', 'soporte', 'ef45aa...');
+```
