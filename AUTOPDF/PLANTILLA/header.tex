@@ -180,28 +180,9 @@
 \newif\ifnotocrule
 \notocrulefalse
 
-\newtcbox{\numbox}{
-  enhanced,
-  colback=azulProfundo,
-  colframe=azulProfundo,
-  colupper=white,
-  fontupper=\montserratbold\fontsize{13}{13}\selectfont,
-  arc=3pt,
-  outer arc=3pt,
-  boxrule=0pt,
-  left=6pt, right=6pt, top=3pt, bottom=3pt,
-  boxsep=0pt,
-  middle=0pt,
-  valign=center
-}
-
-\newcommand{\sectionnumberboxinline}[1]{%
-  \texorpdfstring{\numbox{#1}\hspace{10pt}}{#1. }%
-}
-
 \titleformat{\section}[block]
   {\needspace{8cm}\montserratbold\fontsize{18}{22}\selectfont\color{azulProfundo}}
-  {}
+  {\llap{\textcolor{grisClaro}{\fontsize{32}{32}\selectfont\thesection}\hspace{10pt}}}
   {0pt}
   {}
   [\ifnotocrule\relax\else{\vspace{4pt}\color{colorTeal}\titlerule[2.5pt]}\fi]
