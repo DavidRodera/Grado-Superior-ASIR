@@ -296,7 +296,7 @@ JOIN usuarios u ON s.Responsible = u.id_usuario;
 
 O de forma gráfica, como ya hay una vista creada habrá una nueva sección, accediendo desde **Vistas** --> **Nueva** donde introducimos la consulta SQL que normalmente haríamos para mostrar los datos que queremos ver:
 
-\imagen[width=0.7\textwidth]{fotos2/img11.png}
+\imagen[width=0.7\textwidth]{fotos2/img10.png}
 
 \newpage
 
