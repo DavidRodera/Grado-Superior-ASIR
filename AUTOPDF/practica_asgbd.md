@@ -23,7 +23,7 @@ Este reto se llama **Operación DataShield** porque se refiere precisamente a co
 
 1. Creación de la base de datos **DataShield_DavidMarco**.
 
-2. Configura un sistema de roles y vistas seguras que permita diferentes niveles de acceso:
+2. Configurar un sistema de roles y vistas seguras que permita diferentes niveles de acceso:
 - **Analistas**: solo lectura de datos no sensibles.
 - **Técnicos de soporte**: modificación de registros de incidencias.
 - **Administradores**: gestión completa y auditoría.
@@ -224,9 +224,64 @@ INSERT INTO sistemas (nombre_sistema, ip, responsible) VALUES
 ```
 
 ::: tip
-Como hemos puesto la clave **AUTO_INCREMENT**, no hay necesidad de introducir valores en la columna **id_usuario**.
+Como hemos puesto la clave **AUTO_INCREMENT**, no hay necesidad de introducir valores en la columna **id_sistema**.
 :::
 
 O también de forma gráfica:
 
-\imagen[width=1\textwidth]{fotos2/img7.png}
+\imagen[width=1\textwidth]{fotos2/img8.png}
+
+### Tabla incidencias
+
+Podemos insertar los datos desde comandos:
+
+```sql
+INSERT INTO incidencias (sistema_id, descripcion, nivel_gravedad, estado, fecha)
+VALUES
+(2, 'Ataque DDoS detectado', 'alta', 'en curso', '2025-10-14'),
+(1, 'Fallo en envío de correos', 'media', 'resuelta', '2025-10-10');
+```
+
+::: tip
+Como hemos puesto la clave **AUTO_INCREMENT**, no hay necesidad de introducir valores en la columna **id_incidencia**.
+:::
+
+O también de forma gráfica:
+
+\imagen[width=0.9\textwidth]{fotos2/img9.png}
+
+\newpage
+
+# 2. Creación de las Vistas Seguras
+
+Las vistas actuarán como un escudo intermedio para que los usuarios no accedan directamente a las tablas físicas.
+
+## 2.1. Creación vista_incidencias_analista
+
+Esta vista permitirá al rol analista ver el estado general de las incidencias, sin mostrar la **IP del sistema**, **usuario responsable** y cualquier **dato personal**.
+
+La podemos crear por comandos:
+
+```sql
+CREATE VIEW vista_incidencias_analista AS
+SELECT 
+    s.nombre_sistema, 
+    i.Descripcion, 
+    i.nivel_gravedad, 
+    i.Estado, 
+    i.Fecha
+FROM incidencias i
+JOIN sistemas s ON i.sistema_id = s.id_sistema;
+```
+
+O de forma gráfica, desde cualquier tabla --> **Examinar** --> **Crear Vista**, donde introducimos la consulta SQL que normalmente haríamos para mostrar los datos que queremos ver:
+
+
+
+\newpage
+
+# 3. Creación de Usuarios y Modelo RBAC
+
+## 3.1. Creación de Usuarios
+
+
