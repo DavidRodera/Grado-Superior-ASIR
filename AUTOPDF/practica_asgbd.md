@@ -200,7 +200,33 @@ Podemos insertar los datos desde comandos:
 
 ```sql
 INSERT INTO usuarios (nombre, rol, hash_contraseña) VALUES
-('Laura Gómez', 'admin_seguridad', 'a3f4c9...'),
-('Carlos Pérez', 'analista', 'bc97d1...'),
-('Marta Ruiz', 'soporte', 'ef45aa...');
+('Laura Gómez', 'admin_seguridad', 'a3f4c9'),
+('Carlos Pérez', 'analista', 'bc97d1'),
+('Marta Ruiz', 'soporte', 'ef45aa');
 ```
+
+::: tip
+Como hemos puesto la clave **AUTO_INCREMENT**, no hay necesidad de introducir valores en la columna **id_usuario**.
+:::
+
+O también de forma gráfica:
+
+\imagen[width=1\textwidth]{fotos2/img7.png}
+
+### Tabla sistemas
+
+Podemos insertar los datos desde comandos:
+
+```sql
+INSERT INTO sistemas (nombre_sistema, ip, responsible) VALUES
+('ServidorCorreo', '192.168.10.5', 3),
+('WebInstituto', '10.0.0.22', 2);
+```
+
+::: tip
+Como hemos puesto la clave **AUTO_INCREMENT**, no hay necesidad de introducir valores en la columna **id_usuario**.
+:::
+
+O también de forma gráfica:
+
+\imagen[width=1\textwidth]{fotos2/img7.png}
