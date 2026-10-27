@@ -143,6 +143,8 @@ CREATE TABLE sistemas (
     ip VARCHAR(15) NOT NULL,
     responsible INT,
     FOREIGN KEY (responsible) REFERENCES usuarios (id_usuario)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT
 );
 ```
 
@@ -157,3 +159,32 @@ O también de forma gráfica:
 Para referenciar la FK de forma gráfica debemos acceder a la tabla **sistemas** --> **Estructura** --> **Vista de relaciones** y añadiremos la referencia.
 
 \imagen[width=1\textwidth]{fotos2/img4.png}
+\imagen[width=1\textwidth]{fotos2/img5.png}
+
+### Creación tabla incidencias
+
+Podemos crear la tabla desde comandos:
+
+```sql
+CREATE TABLE incidencias (
+    id_incidencia INT PRIMARY KEY AUTO_INCREMENT,
+    sistema_id INT,
+    descripcion VARCHAR(100),
+    nivel_gravedad ENUM('baja', 'media', 'alta'),
+    estado ENUM('pendiente', 'en curso', 'resuelta'),
+    fecha DATE NOT NULL,
+    FOREIGN KEY (sistema_id) REFERENCES sistemas(id_sistema)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT
+);
+```
+
+::: note
+Referenciaremos la columna **sistema_id** como **FK** a **sistemas**:
+:::
+
+O también de forma gráfica:
+
+\imagen[width=1\textwidth]{fotos2/img6.png}
+
+Para referenciar la FK de forma gráfica debemos acceder a la tabla **incidencias** –> **Estructura** –> **Vista de relaciones** y añadiremos la referencia.
