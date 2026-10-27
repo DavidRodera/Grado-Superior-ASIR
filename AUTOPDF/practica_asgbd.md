@@ -276,7 +276,27 @@ JOIN sistemas s ON i.sistema_id = s.id_sistema;
 
 O de forma gráfica, desde cualquier tabla --> **Examinar** --> **Crear Vista**, donde introducimos la consulta SQL que normalmente haríamos para mostrar los datos que queremos ver:
 
+\imagen[width=0.7\textwidth]{fotos2/img10.png}
 
+## 2.2. Creación vista_sistemas_sin_ip
+
+Esta vista permitirá a analistas y soporte conocer qué sistemas existen y quién los gestiona, pero sin mostrar **direcciones IP internas**.
+
+La podemos crear por comandos:
+
+```sql
+CREATE VIEW vista_sistemas_sin_ip AS
+SELECT 
+    s.id_sistema, 
+    s.nombre_sistema, 
+    u.nombre AS responsable
+FROM sistemas s
+JOIN usuarios u ON s.Responsible = u.id_usuario;
+```
+
+O de forma gráfica, como ya hay una vista creada habrá una nueva sección, accediendo desde **Vistas** --> **Nueva** donde introducimos la consulta SQL que normalmente haríamos para mostrar los datos que queremos ver:
+
+\imagen[width=0.7\textwidth]{fotos2/img11.png}
 
 \newpage
 
