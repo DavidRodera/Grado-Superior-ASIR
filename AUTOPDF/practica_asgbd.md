@@ -296,12 +296,60 @@ JOIN usuarios u ON s.Responsible = u.id_usuario;
 
 O de forma gráfica, como ya hay una vista creada habrá una nueva sección, accediendo desde **Vistas** --> **Nueva** donde introducimos la consulta SQL que normalmente haríamos para mostrar los datos que queremos ver:
 
-\imagen[width=0.7\textwidth]{fotos2/img10.png}
+\imagen[width=0.3\textwidth]{fotos2/img11.png}
+\imagen[width=0.7\textwidth]{fotos2/img12.png}
+
+## 2.3. vista_incidencias_soporte
+
+Esta vista mostrará a los técnicos de soporte las incidencias en curso, solo de los sistemas que gestionan.
+
+La podemos crear por comandos:
+
+```sql
+CREATE VIEW vista_incidencias_soporte AS
+SELECT 
+    i.id_incidencia,
+    i.sistema_id,
+    s.nombre_sistema,
+    i.Descripcion,
+    i.nivel_gravedad,
+    i.Estado,
+    i.Fecha,
+    s.Responsible AS id_responsable
+FROM incidencias i
+JOIN sistemas s ON i.sistema_id = s.id_sistema;
+```
+
+O de forma gráfica, como ya hay una vista creada, accederemos desde **Vistas** --> **Nueva** donde introducimos la consulta SQL que normalmente haríamos para mostrar los datos que queremos ver:
+
+\imagen[width=0.7\textwidth]{fotos2/img13.png}
 
 \newpage
 
 # 3. Creación de Usuarios y Modelo RBAC
 
-## 3.1. Creación de Usuarios
+## 3.1. Creación de Roles
+
+### Creación
+
+En phpMyAdmin no existe un botón o menú visual específico que te permita escribir o crear un objeto ROLE de SQL mediante clics de forma nativa. Por lo que se crearán los roles por comandos:
+
+```sql
+CREATE ROLE 'admin_seguridad', 'analista', 'soporte';
+```
+
+### Concesión de privilegios
+
+```sql
+GRANT ALL PRIVILEGES ON DataShield_DavidMarco.* TO 'admin_seguridad';
+
+GRANT SELECT ON DataShield_DavidMarco.vista_incidencias_analista TO 'analista';
+GRANT SELECT ON DataShield_DavidMarco.vista_sistemas_sin_ip TO 'analista';
+
+GRANT SELECT, UPDATE ON DataShield_DavidMarco.vista_incidencias_soporte TO 'soporte';
+GRANT SELECT ON DataShield_DavidMarco.vista_sistemas_sin_ip TO 'soporte';
+```
+
+## 3.2. Creación de Usuarios
 
 
