@@ -330,7 +330,7 @@ O de forma gráfica, como ya hay una vista creada, accederemos desde **Vistas** 
 
 ## 3.1. Creación de Roles
 
-En phpMyAdmin no existe un botón o menú visual específico que te permita escribir o crear un objeto ROLE de SQL mediante clics de forma nativa. Por lo que se crearán los roles por comandos:
+En phpMyAdmin no existe un botón o menú visual específico que nos permita escribir o crear un objeto ROLE de SQL mediante clics de forma nativa. Por lo que se crearán los roles por comandos:
 
 ```sql
 CREATE ROLE 'admin_seguridad', 'analista', 'soporte';
@@ -378,4 +378,16 @@ O de forma gráfica, accediendo desde **Servidor: localhost** --> **Cuentas de u
 
 ### Concesión de Roles
 
+En phpMyAdmin no existe un botón o menú visual específico que nos permita asignar roles a usuarios de forma nativa. Por lo que se asignarán los roles por comandos:
 
+```sql
+GRANT 'admin_seguridad' TO 'user_admin'@'localhost';
+GRANT 'analista' TO 'user_analista'@'localhost';
+GRANT 'soporte' TO 'user_soporte'@'localhost';
+
+FLUSH PRIVILEGES;
+```
+
+::: note
+Con el comando **SET DEFAULT ROLE ALL TO** se quedarán guardados los roles para los usuarios, teniendolo asignado siempre que inicie sesión.
+:::
