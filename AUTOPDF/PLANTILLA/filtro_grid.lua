@@ -30,6 +30,7 @@ function Div(el)
       for _, img in ipairs(images) do
         local span = img.attributes['span']
         local row_span = img.attributes['rowspan']
+        local border = img.attributes['border'] or img.attributes['sinborde']
         local options = {}
         
         if span then
@@ -44,7 +45,12 @@ function Div(el)
           opt_str = "[" .. table.concat(options, ", ") .. "]"
         end
         
-        table.insert(blocks, pandoc.RawBlock('latex', '\\gridimg' .. opt_str .. '{' .. img.src .. '}'))
+        local macro = "\\gridimg"
+        if border == "false" or border == "0" or border == "no" or img.attributes['sinborde'] then
+          macro = "\\gridimgSinBorde"
+        end
+        
+        table.insert(blocks, pandoc.RawBlock('latex', macro .. opt_str .. '{' .. img.src .. '}'))
       end
     end
     

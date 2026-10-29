@@ -338,6 +338,8 @@ En phpMyAdmin no existe un botón o menú visual específico que te permita escr
 CREATE ROLE 'admin_seguridad', 'analista', 'soporte';
 ```
 
+\imagen[width=0.7\textwidth]{fotos2/img14.png}
+
 ### Concesión de privilegios
 
 ```sql
@@ -350,6 +352,10 @@ GRANT SELECT, UPDATE ON DataShield_DavidMarco.vista_incidencias_soporte TO 'sopo
 GRANT SELECT ON DataShield_DavidMarco.vista_sistemas_sin_ip TO 'soporte';
 ```
 
+\imagen[width=0.7\textwidth]{fotos2/img15.png}
+
+\newpage
+
 ## 3.2. Creación de Usuarios
 
-
+Crearemos los usuarios de prueba: **user_admin**, **user_analista**, **user_soporte** y **user_test**
