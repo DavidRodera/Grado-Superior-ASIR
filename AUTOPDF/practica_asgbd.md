@@ -468,3 +468,14 @@ Como poseemos el rol **soporte** no podremos hacer **DELETE** en la vista **vist
 \imagen[width=0.75\textwidth]{fotos2/img26.png}
 
 Como poseemos el rol **soporte** no podremos hacer **UPDATE** en la tabla **sistemas**.
+
+## 4.2. Pruebas de separación de datos
+
+Accederemos con el usuario **user_soporte** haremos las siguientes consultas:
+
+```sql
+UPDATE vista_incidencias_soporte  SET estado = 'resuelta'  WHERE sistema_id = 2;
+SELECT * FROM vista_incidencias_soporte;
+```
+
+
