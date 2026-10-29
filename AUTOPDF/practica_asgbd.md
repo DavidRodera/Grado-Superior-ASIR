@@ -371,10 +371,7 @@ CREATE USER 'user_test'@'localhost' IDENTIFIED BY 'Test123*';
 
 O de forma gráfica, accediendo desde **Servidor: localhost** --> **Cuentas de usuarios** --> **Agregar cuenta de usuario**.
 
-\imagen[width=0.7\textwidth]{fotos2/img17.png}
-\imagen[width=0.7\textwidth]{fotos2/img18.png}
-\imagen[width=0.7\textwidth]{fotos2/img19.png}
-\imagen[width=0.7\textwidth]{fotos2/img20.png}
+\imagenSinBorde[width=1\textwidth]{fotos2/img17.png}
 
 ### Concesión de Roles
 
@@ -382,12 +379,92 @@ En phpMyAdmin no existe un botón o menú visual específico que nos permita asi
 
 ```sql
 GRANT 'admin_seguridad' TO 'user_admin'@'localhost';
+SET DEFAULT ROLE 'admin_seguridad' FOR 'user_admin'@'localhost';
+
 GRANT 'analista' TO 'user_analista'@'localhost';
+SET DEFAULT ROLE 'analista' FOR 'user_analista'@'localhost';
+
 GRANT 'soporte' TO 'user_soporte'@'localhost';
+SET DEFAULT ROLE 'soporte' FOR 'user_soporte'@'localhost';
 
 FLUSH PRIVILEGES;
 ```
 
+\imagen[width=0.8\textwidth]{fotos2/img18.png}
+
 ::: note
-Con el comando **SET DEFAULT ROLE ALL TO** se quedarán guardados los roles para los usuarios, teniendolo asignado siempre que inicie sesión.
-:::
+Con el comando **SET DEFAULT ROLE ALL TO** se quedarán guardados los roles para los usuarios, teniendolo asignado siempre que inicie sesión. Pero esto solo está en versiones posteriores a la 10.5.0 de MariaDB.
+::: 
+
+\newpage
+
+# 4. Verificación de la configuración asignada
+
+Para poder cambiar de usuario en phpMyAdmin habrá que hacer un cambio en sus archivos, primero de todo accediendo a él:
+
+```terminal
+sudo nano /opt/lampp/phpmyadmin/config.inc.php 
+```
+
+En este archivo que contiene la configuración de acceso, ubicaremos el apartado de **Authentication type** y la instrucción `$cfg['Servers'][$i]['auth_type'] = 'config';`, donde cambiaremos **config** por **cookie**.
+
+```nano
+$cfg['Servers'][$i]['auth_type'] = 'cookie';
+```
+
+De esta forma, al acceder a phpMyAdmin, no se accederá como root, sino que te pedirá los datos de usuario y contraseña para que inicies sesión con la cuenta que quieras.
+
+\imagenSinBorde[width=0.4\textwidth]{fotos2/img19.png}
+
+\newpage
+
+## 4.1. Pruebas funcionales básicas
+
+### Acceso como user_analista
+
+Iniciaremos como **user_analista** y haremos las siguientes consultas:
+
+```sql
+SELECT * FROM vista_incidencias_analista; 
+SELECT * FROM incidencias;
+SELECT ip FROM sistemas;
+```
+
+\imagen[width=0.75\textwidth]{fotos2/img20.png}
+
+Como poseemos el rol **analista** podremos ver la vista **vista_incidencias_analista**.
+
+\imagen[width=0.8\textwidth]{fotos2/img21.png}
+
+Como poseemos el rol **analista** no podremos ver la tabla **incidencias**.
+
+\imagen[width=0.8\textwidth]{fotos2/img22.png}
+
+Como poseemos el rol **analista** no podremos ver la tabla **sistemas**.
+
+### Acceso como user_soporte
+
+Iniciaremos como **user_soporte** y haremos las siguientes consultas:
+
+```sql
+SELECT * FROM vista_incidencias_soporte WHERE sistema_id IN (1);
+UPDATE vista_incidencias_soporte SET estado='resuelta' WHERE sistema_id=1;
+DELETE FROM vista_incidencias_soporte WHERE id_sistema=2;
+UPDATE sistemas SET ip='172.0.0.1' WHERE id_sistema=2;
+```
+
+\imagen[width=0.75\textwidth]{fotos2/img23.png}
+
+Como poseemos el rol **soporte** podremos ver la vista **vista_incidencias_soporte**.
+
+\imagen[width=0.7\textwidth]{fotos2/img24.png}
+
+Como poseemos el rol **soporte** podremos hacer **UPDATE** en la vista **vista_incidencias_soporte**.
+
+\imagen[width=0.75\textwidth]{fotos2/img25.png}
+
+Como poseemos el rol **soporte** no podremos hacer **DELETE** en la vista **vista_incidencias_soporte**.
+
+\imagen[width=0.75\textwidth]{fotos2/img26.png}
+
+Como poseemos el rol **soporte** no podremos hacer **UPDATE** en la tabla **sistemas**.
