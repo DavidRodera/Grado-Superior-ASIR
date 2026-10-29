@@ -299,7 +299,7 @@ O de forma gráfica, como ya hay una vista creada habrá una nueva sección, acc
 \imagen[width=0.3\textwidth]{fotos2/img11.png}
 \imagen[width=0.7\textwidth]{fotos2/img12.png}
 
-## 2.3. vista_incidencias_soporte
+## 2.3. Creación vista_incidencias_soporte
 
 Esta vista mostrará a los técnicos de soporte las incidencias en curso, solo de los sistemas que gestionan.
 
@@ -330,8 +330,6 @@ O de forma gráfica, como ya hay una vista creada, accederemos desde **Vistas** 
 
 ## 3.1. Creación de Roles
 
-### Creación
-
 En phpMyAdmin no existe un botón o menú visual específico que te permita escribir o crear un objeto ROLE de SQL mediante clics de forma nativa. Por lo que se crearán los roles por comandos:
 
 ```sql
@@ -340,7 +338,7 @@ CREATE ROLE 'admin_seguridad', 'analista', 'soporte';
 
 \imagen[width=0.7\textwidth]{fotos2/img14.png}
 
-### Concesión de privilegios
+### Concesión de Privilegios
 
 ```sql
 GRANT ALL PRIVILEGES ON DataShield_DavidMarco.* TO 'admin_seguridad';
@@ -358,4 +356,17 @@ GRANT SELECT ON DataShield_DavidMarco.vista_sistemas_sin_ip TO 'soporte';
 
 ## 3.2. Creación de Usuarios
 
-Crearemos los usuarios de prueba: **user_admin**, **user_analista**, **user_soporte** y **user_test**
+Los usuarios, con el fin de probar la seguridad que posee la base de datos, recibiran los siguientes nombres y roles:
+
+\imagenSinBorde[width=1\textwidth]{fotos2/img16.png}
+
+Podemos crearlos mediante comandos:
+
+```sql
+CREATE USER 'user_admin'@'localhost' IDENTIFIED BY 'Admin123*';
+CREATE USER 'user_analista'@'localhost' IDENTIFIED BY 'Analista123*';
+CREATE USER 'user_soporte'@'localhost' IDENTIFIED BY 'Soporte123*';
+CREATE USER 'user_test'@'localhost' IDENTIFIED BY 'Test123*';
+```
+
+### Concesión de Roles
