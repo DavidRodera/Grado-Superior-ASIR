@@ -369,4 +369,13 @@ CREATE USER 'user_soporte'@'localhost' IDENTIFIED BY 'Soporte123*';
 CREATE USER 'user_test'@'localhost' IDENTIFIED BY 'Test123*';
 ```
 
+O de forma gráfica, accediendo desde **Servidor: localhost** --> **Cuentas de usuarios** --> **Agregar cuenta de usuario**.
+
+\imagen[width=0.7\textwidth]{fotos2/img17.png}
+\imagen[width=0.7\textwidth]{fotos2/img18.png}
+\imagen[width=0.7\textwidth]{fotos2/img19.png}
+\imagen[width=0.7\textwidth]{fotos2/img20.png}
+
 ### Concesión de Roles
+
+
