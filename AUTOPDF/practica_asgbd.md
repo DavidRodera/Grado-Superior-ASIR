@@ -28,6 +28,8 @@ Este reto se llama **Operación DataShield** porque se refiere precisamente a co
 - **Técnicos de soporte**: modificación de registros de incidencias.
 - **Administradores**: gestión completa y auditoría.
 
+\imagenSinBorde[width=1\textwidth]{fotos2/img29.png}
+
 \newpage
 
 # 1. Diseño e Implementación de la Base de Datos
@@ -314,8 +316,7 @@ SELECT
     i.Descripcion,
     i.nivel_gravedad,
     i.Estado,
-    i.Fecha,
-    s.Responsible AS id_responsable
+    i.Fecha
 FROM incidencias i
 JOIN sistemas s ON i.sistema_id = s.id_sistema;
 ```
@@ -474,8 +475,16 @@ Como poseemos el rol **soporte** no podremos hacer **UPDATE** en la tabla **sist
 Accederemos con el usuario **user_soporte** haremos las siguientes consultas:
 
 ```sql
-UPDATE vista_incidencias_soporte  SET estado = 'resuelta'  WHERE sistema_id = 2;
+UPDATE vista_incidencias_soporte  SET estado = 'resuelta'  WHERE sistema_id = 99;
 SELECT * FROM vista_incidencias_soporte;
 ```
+
+\imagen[width=0.75\textwidth]{fotos2/img27.png}
+
+No se ve afectado ya que el sistema no existe. Si existiese se vería afectado ya que poseemos el rol de **soporte**, el cual tiene permisos de edición.
+
+\imagen[width=0.75\textwidth]{fotos2/img28.png}
+
+Como poseemos el rol **soporte** podremos ver la vista **vista_incidencias_soporte**.
 
 
