@@ -34,7 +34,7 @@ fi
 # Obtener nombre base sin extensión
 NOMBRE="${PDF_FILE%.pdf}"
 TXT_FILE="${NOMBRE}.txt"
-IMG_DIR="IMG"
+IMG_DIR="fotos"
 
 echo -e "${AZUL}📄 Procesando PDF: $PDF_FILE${NC}"
 
