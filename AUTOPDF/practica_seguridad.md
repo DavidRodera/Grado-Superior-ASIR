@@ -61,6 +61,8 @@ Localizamos la línea del módulo `pam_cracklib.so` dentro del bloque *Primary* 
 | `dcredit` | Dígitos requeridos. |
 | `ocredit` | Símbolos (otros caracteres) requeridos. |
 
+\newpage
+
 Aplicamos las siguientes restricciones:
 
 - Longitud mínima de 10 caracteres.
@@ -74,6 +76,8 @@ password requisite pam_cracklib.so retry=3 minlen=10 difok=3 ucredit=-2 lcredit=
 ```
 
 \imagen[width=\linewidth]{fotos/img1.png}
+
+\newpage
 
 ## 1.2. Creación de usuario
 
