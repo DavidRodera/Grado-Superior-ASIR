@@ -11,7 +11,7 @@ footer: "Guía de Configuración de Red · Guía ASIR"
 
 En este proyecto vamos a recrear y desplegar paso a paso la infraestructura de red corporativa que se muestra en el esquema, integrando de forma práctica los conceptos clave abordados en las cuatro unidades de la asignatura: **Interconexión y Enrutamiento**, **Acceso y Administración Remota (SSH)**, **Servicio de Direccionamiento Dinámico (DHCP)** e **Introducción a la Resolución de Nombres (DNS)**.
 
-\imagen[width=1\textwidth]{fotos/img1.jpeg}
+\imagen[width=1\textwidth]{fotos2/img1.jpeg}
 
 El objetivo principal es simular un entorno corporativo realista compuesto por tres sedes o departamentos independientes (**Departamento de Informática**, **Departamento de Física** y **Departamento de Biología**), interconectados mediante enrutadores Linux y aislados en subredes específicas (**192.168.100.0/24**, **10.0.200.0/24**, **10.0.100.0/24** y la red de tránsito **10.0.1.0/24**).
 
@@ -39,8 +39,8 @@ Proceso de clonación:
 Si mantuviéramos las direcciones MAC originales, todas las máquinas clonadas tendrían el mismo identificador físico de red. Esto provocaría conflictos severos a nivel de Enlace de Datos (Capa 2), ya que los switches virtuales no sabrían a qué máquina entregar las tramas, y el servicio DHCP no podría identificar ni asignar direcciones IP de forma única a cada equipo.
 :::
 
-\imagen[width=1\textwidth]{fotos/img2.png}
-\imagen[width=1\textwidth]{fotos/img3.png}
+\imagen[width=1\textwidth]{fotos2/img2.png}
+\imagen[width=1\textwidth]{fotos2/img3.png}
 
 ## 1.2. Configuración de los Adaptadores de Red
 
@@ -48,13 +48,13 @@ Para reproducir fielmente un escenario real con múltiples departamentos y redes
 
 Para mantener un criterio ordenado y coherente al configurar las máquinas virtuales de nuestro esquema (tanto en la línea de comandos como en los ficheros de red o en Netplan), aplicaremos una regla general basada en el **número de conexiones que tiene cada dispositivo en la topología**:
 
-\imagen[width=1\textwidth]{fotos/img4.png}
+\imagen[width=1\textwidth]{fotos2/img4.png}
 
 Usando el Router2 Servidor DHCP como ejemplo, observamos que cuenta con tres interfaces (nombrada como enp0s8 la que lleva a internet), al saber esto configuramos los adaptadores de la siguiente manera.
 
 ### Adaptador 1
 
-\imagen[width=0.7\textwidth]{fotos/img5.png}
+\imagen[width=0.7\textwidth]{fotos2/img5.png}
 
 Para el adaptador 1 (enp0s3) siempre ha de estar seleccionada la opción "**Adaptador sólo anfitrión**"
 
@@ -64,19 +64,19 @@ Para el adaptador 1 (enp0s3) siempre ha de estar seleccionada la opción "**Adap
 
 ### Adaptador 2
 
-\imagen[width=0.7\textwidth]{fotos/img6.png}
+\imagen[width=0.7\textwidth]{fotos2/img6.png}
 
 Para el adaptador 2 (enp0s8) siempre ha de estar seleccionada la opción "**Red Interna**", como la interfaz del Router2 pertenece a la *RedDMZ* pues le pondremos ese nombre.
 
 ### Adaptador 3
 
-\imagen[width=0.7\textwidth]{fotos/img7.png}
+\imagen[width=0.7\textwidth]{fotos2/img7.png}
 
 Para el adaptador 3 (enp0s9) seleccionamos la opción "**Red Interna**" al tener el dispositivo una segunda interfaz, como la interfaz del Router2 pertenece a la *RedBiologia* pues le pondremos ese nombre.
 
 ### Adaptador 4
 
-\imagen[width=0.7\textwidth]{fotos/img8.png}
+\imagen[width=0.7\textwidth]{fotos2/img8.png}
 
 Para el adaptador 4 (enp0s10) siempre ha de estar seleccionada la opción "**Red Interna**" al tener el dispositivo una tercera interfaz, como la interfaz del Router2 pertenece a la *RedFisica* pues le pondremos ese nombre.
 
@@ -87,3 +87,37 @@ Si el dispositivo solo tuviese dos interfaces, desmarcariamos la casilla "**Habi
 ::: warning
 **IMPORTANTE**: El router que este conectado directamente al internet debe de tener su adaptador 2 en **NAT**.
 :::
+
+## 1.3. Configuración del Nombre de Equipo y Resolución Local
+
+Antes de pasar a configurar las direcciones IP y el enrutamiento, es fundamental asignar a cada máquina virtual una identidad clara dentro de la red local. Esto facilitará la administración, la resolución rápida de nombres y el diagnóstico de problemas.
+
+### Fichero /etc/hostname
+
+Es el archivo de configuración que define el nombre único con el que la máquina virtual se identifica en el sistema operativo y en la red.
+
+```terminal
+sudo nano /etc/hostname
+```
+
+Escribimos únicamente el nombre asignado al equipo en el esquema.
+
+```terminal
+sudo hostnamectl set-hostname nombre
+```
+
+:::note
+Con el comando **sudo hostnamectl set-hostname** haremos que se aplique el cambio automáticamente, sino reiniciamos el equipo.
+:::
+
+### Fichero /etc/hosts
+
+Es una tabla de traducción local estática que asocia direcciones IP con nombres de dominio o nombres de host antes de recurrir a un servidor DNS externo.
+
+```terminal
+sudo nano /etc/hosts
+```
+
+Escribiremos el nombre en la segunda línea.
+
+\newpage
