@@ -406,137 +406,153 @@ Lógicos:
 # Autor: Guillermo Martín
 # Fecha: 2026-11-12
 #
+
 ### VALIDACIÓN ###
 # Exactamente 1 parámetro -> si no, mostrar el uso y salir
 if [ $# -ne 1 ]
 then
-echo "Uso: $0 <fichero_notas>"
-exit 1
+    echo "Uso: $0 <fichero_notas>"
+    exit 1
 fi
+
 fichero="$1"
+
 # -f = existe y es un fichero. Si NO existe, se crea vacío
 if [ ! -f "$fichero" ]
 then
-touch "$fichero"
-echo "Se ha creado el fichero $fichero"
+    touch "$fichero"
+    echo "Se ha creado el fichero $fichero"
 fi
+
 ### FUNCIONES ###
 mostrar_menu() {
-echo ""
-echo "===== GESTIÓN DE NOTAS ====="
-echo "1) Añadir alumno"
-echo "2) Listar alumnos"
-echo "3) Estadísticas"
-echo "4) Buscar alumno"
-echo "5) Salir"
+    echo ""
+    echo "===== GESTIÓN DE NOTAS ====="
+    echo "1) Añadir alumno"
+    echo "2) Listar alumnos"
+    echo "3) Estadísticas"
+    echo "4) Buscar alumno"
+    echo "5) Salir"
 }
+
 # --- Opción 1 ---
 anadir_alumno() {
-read -p "Nombre del alumno: " nombre
-# -z = vacío -> aviso y return (vuelve al menú, NO cierra el script)
-if [ -z "$nombre" ]
-then
-echo "ERROR: el nombre no puede estar vacío"
-return
-fi
-# Mientras NO sea un número O sea mayor que 10 -> volver a pedirla
-read -p "Nota (0-10): " nota
-while [[ ! "$nota" =~ ^[0-9]+$ ]] || [ "$nota" -gt 10 ]
-do
-echo "ERROR: la nota tiene que ser un número entre 0 y 10"
-read -p "Nota (0-10): " nota
-done
-# >> añade al final (con > se borraría todo)
-echo "$nombre:$nota" >> "$fichero"
-echo "Alumno $nombre añadido con un $nota"
-# Registro: fecha y hora - usuario - lo añadido
-echo "$(date '+%Y-%m-%d %H:%M:%S') - $(whoami) - añadido $nombre:$nota" >>
-registro.log
+    read -p "Nombre del alumno: " nombre
+    # -z = vacío -> aviso y return (vuelve al menú, NO cierra el script)
+    if [ -z "$nombre" ]
+    then
+        echo "ERROR: el nombre no puede estar vacío"
+        return
+    fi
+
+    # Mientras NO sea un número O sea mayor que 10 -> volver a pedirla
+    read -p "Nota (0-10): " nota
+    while [[ ! "$nota" =~ ^[0-9]+$ ]] || [ "$nota" -gt 10 ]
+    do
+        echo "ERROR: la nota tiene que ser un número entre 0 y 10"
+        read -p "Nota (0-10): " nota
+    done
+
+    # >> añade al final (con > se borraría todo)
+    echo "$nombre:$nota" >> "$fichero"
+    echo "Alumno $nombre añadido con un $nota"
+
+    # Registro: fecha y hora - usuario - lo añadido
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $(whoami) - añadido $nombre:$nota" >> registro.log
 }
+
 # --- Opción 2 ---
 listar_alumnos() {
-# wc -l < fichero -> solo el número de líneas
-total=$(wc -l < "$fichero")
-if [ "$total" -eq 0 ]
-then
-echo "No hay alumnos"
-return
-fi
-# Leer el fichero línea a línea con un contador delante
-i=1
-while read -r linea
-do
-echo "$i) $linea"
-i=$((i + 1))
-done < "$fichero"
+    # wc -l < fichero -> solo el número de líneas
+    total=$(wc -l < "$fichero")
+    if [ "$total" -eq 0 ]
+    then
+        echo "No hay alumnos"
+        return
+    fi
+
+    # Leer el fichero línea a línea con un contador delante
+    i=1
+    while read -r linea
+    do
+        echo "$i) $linea"
+        i=$((i + 1))
+    done < "$fichero"
 }
+
 # --- Opción 3 ---
 estadisticas() {
-total=$(wc -l < "$fichero")
-if [ "$total" -eq 0 ]
-then
-echo "No hay alumnos"
-return
-fi
-suma=0
-aprobados=0
-suspensos=0
-# cut -d: -f2 -> de "Ana:7" se queda con el 7
-for nota in $(cut -d: -f2 "$fichero")
-do
-suma=$((suma + nota))
-if [ "$nota" -ge 5 ]
-then
-aprobados=$((aprobados + 1))
-else
-suspensos=$((suspensos + 1))
-fi
-done
-media=$((suma / total))
-echo "Total de alumnos: $total"
-echo "Nota media: $media"
-echo "Aprobados: $aprobados"
-echo "Suspensos: $suspensos"
+    total=$(wc -l < "$fichero")
+    if [ "$total" -eq 0 ]
+    then
+        echo "No hay alumnos"
+        return
+    fi
+
+    suma=0
+    aprobados=0
+    suspensos=0
+
+    # cut -d: -f2 -> de "Ana:7" se queda con el 7
+    for nota in $(cut -d: -f2 "$fichero")
+    do
+        suma=$((suma + nota))
+        if [ "$nota" -ge 5 ]
+        then
+            aprobados=$((aprobados + 1))
+        else
+            suspensos=$((suspensos + 1))
+        fi
+    done
+
+    media=$((suma / total))
+    echo "Total de alumnos: $total"
+    echo "Nota media: $media"
+    echo "Aprobados: $aprobados"
+    echo "Suspensos: $suspensos"
 }
+
 # --- Opción 4 ---
 buscar_alumno() {
-read -p "Nombre a buscar: " nombre
-# ^nombre: -> la línea EMPIEZA por ese nombre seguido de :
-linea=$(grep "^$nombre:" "$fichero")
-if [ -z "$linea" ]
-then
-echo "Alumno no encontrado"
-else
-nota=$(echo "$linea" | cut -d: -f2)
-echo "$nombre tiene un $nota"
-fi
+    read -p "Nombre a buscar: " nombre
+    # ^nombre: -> la línea EMPIEZA por ese nombre seguido de :
+    linea=$(grep "^$nombre:" "$fichero")
+    if [ -z "$linea" ]
+    then
+        echo "Alumno no encontrado"
+    else
+        nota=$(echo "$linea" | cut -d: -f2)
+        echo "$nombre tiene un $nota"
+    fi
 }
+
 # --- Opción 5 ---
 salir() {
-read -p "¿Seguro que quieres salir? (s/n): " respuesta
-case "$respuesta" in
-s|S)
-echo "Saliendo..."
-exit 0
-;;
-*)
-echo "Volviendo al menú"
-;;
-esac
+    read -p "¿Seguro que quieres salir? (s/n): " respuesta
+    case "$respuesta" in
+        s|S)
+            echo "Saliendo..."
+            exit 0
+            ;;
+        *)
+            echo "Volviendo al menú"
+            ;;
+    esac
 }
+
 ### SCRIPT ###
 # Bucle infinito: menú -> leer opción -> el case llama a la función.
 # Solo se sale con la opción 5 (exit 0 dentro de salir)
 while true
 do
-mostrar_menu
-read -p "Elige una opción [1-5]: " opcion
-case "$opcion" in
-1) anadir_alumno ;;
-2) listar_alumnos ;;
-3) estadisticas ;;
-4) buscar_alumno ;;
-5) salir ;;
-*) echo "Opción no válida, elige del 1 al 5" ;;
-esac
+    mostrar_menu
+    read -p "Elige una opción [1-5]: " opcion
+    case "$opcion" in
+        1) anadir_alumno ;;
+        2) listar_alumnos ;;
+        3) estadisticas ;;
+        4) buscar_alumno ;;
+        5) salir ;;
+        *) echo "Opción no válida, elige del 1 al 5" ;;
+    esac
 done
