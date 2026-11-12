@@ -1,0 +1,542 @@
+================================================================================
+GUÍA COMPLETA DE COMANDOS, SINTAXIS BASH Y RESULTADOS (ASIR - ISO)
+================================================================================
+
+--------------------------------------------------------------------------------
+1. ELEMENTOS Y SINTAXIS DEL PROPIO SHELL (BASH)
+--------------------------------------------------------------------------------
+- #!/bin/bash (Shebang)
+  Qué hace: Indica al sistema operativo que el script debe ejecutarse usando el intérprete Bash.
+  Resultado: El script se interpreta correctamente con la sintaxis de Bash.
+
+- read -p 'texto' -r var
+  Qué hace: Muestra un mensaje (-p), lee una línea desde el teclado sin interpretar barras invertidas (-r) y la guarda en la variable 'var'.
+  Resultado: La variable almacena el texto introducido por el usuario.
+
+- echo [-n] [-e] "texto"
+  Qué hace: Imprime texto en pantalla. '-n' evita el salto de línea final; '-e' habilita la interpretación de caracteres especiales (como tabulaciones \t o colores ANSI).
+  Resultado: Muestra el texto formateado en la terminal.
+
+- clear
+  Qué hace: Limpia todo el contenido visible de la ventana de la terminal actual.
+  Resultado: Pantalla en blanco con el cursor en la parte superior izquierda.
+
+- sleep n
+  Qué hace: Pausa la ejecución del script durante 'n' segundos (admite decimales como 0.2 o 0.5).
+  Resultado: Detiene temporalmente el flujo del programa el tiempo indicado.
+
+- exit [código]
+  Qué hace: Finaliza inmediatamente la ejecución de todo el script devolviendo un código de estado (0 = éxito, distinto de 0 = error).
+  Resultado: Cierra el script y devuelve el control al shell que lo invocó.
+
+- return
+  Qué hace: Sale únicamente de la función actual en la que se encuentra.
+  Resultado: El script continúa ejecutándose justo después de donde se llamó a la función.
+
+- if [ condición ]; then ... elif ... else ... fi
+  Qué hace: Evalúa condiciones lógicas para ejecutar diferentes bloques de código según si son verdaderas o falsas.
+  Resultado: Ejecuta únicamente la rama cuya condición se cumpla.
+
+- case $var in patrón) ... ;; *) ... ;; esac
+  Qué hace: Estructura de selección múltiple (ideal para menús) que compara el valor de una variable contra varios patrones. '*)' actúa como caso por defecto.
+  Resultado: Ejecuta las instrucciones del patrón coincidente.
+
+- [ condición ] (comando test)
+  Qué hace: Evalúa expresiones de comparación numérica, de texto o comprobación de ficheros.
+  Resultado: Devuelve código de salida 0 (verdadero) o 1 (falso).
+
+- $(( expresión ))
+  Qué hace: Realiza operaciones matemáticas con números enteros (suma, resta, multiplicación, módulo %, etc.).
+  Resultado: Devuelve el valor numérico calculado (ej. $((5 + 2)) -> 7).
+
+- $(comando)
+  Qué hace: Sustitución de comandos; ejecuta el comando interior y captura su salida.
+  Resultado: Devuelve el texto producido por el comando para guardarlo en una variable o usarlo como argumento.
+
+- function nombre() { ... }
+  Qué hace: Define un bloque de código reutilizable bajo un nombre.
+  Resultado: Permite invocar todo ese bloque escribiendo simplemente 'nombre'.
+
+- 2>/dev/null
+  Qué hace: Redirige la salida de error estándar (descriptor 2) al "agujero negro" del sistema.
+  Resultado: Oculta todos los mensajes de error en pantalla.
+
+- && y ||
+  Qué hace: Operadores de control. 'A && B' ejecuta B solo si A tuvo éxito (exit 0). 'A || B' ejecuta B solo si A falló.
+  Resultado: Ejecución encadenada condicional de comandos.
+
+- | (Pipe / Tubería)
+  Qué hace: Conecta la salida estándar de un comando con la entrada estándar del siguiente.
+  Resultado: Permite filtrar o transformar datos paso a paso sin crear archivos intermedios.
+
+- > y >>
+  Qué hace: Redirigen la salida estándar a un fichero. '>' sobrescribe el archivo; '>>' añade al final sin borrar lo anterior.
+  Resultado: Crea o actualiza el archivo de destino con la salida del comando.
+
+- <
+  Qué hace: Redirige el contenido de un archivo hacia la entrada estándar de un comando o bucle (ej. done < fichero.csv).
+  Resultado: Alimenta al comando o bucle con los datos del fichero.
+
+--------------------------------------------------------------------------------
+2. VARIABLES ESPECIALES DEL SHELL
+--------------------------------------------------------------------------------
+- $0 -> Nombre con el que se ejecutó el propio script.
+- $1, $2... -> Primer, segundo... parámetro posicional pasado al ejecutar el script.
+- $# -> Número total de parámetros recibidos por el script (ej. 1).
+- $* / $@ -> Lista con todos los parámetros recibidos.
+- $? -> Código de salida del último comando ejecutado (0 = éxito, >0 = error).
+- $$ -> PID (identificador de proceso) del propio shell o script actual.
+- $! -> PID del último proceso lanzado en segundo plano (con &).
+- $UID -> Identificador numérico del usuario que ejecuta el script (0 = root).
+
+--------------------------------------------------------------------------------
+3. OPERADORES DE CONDICIÓN DENTRO DE [ ]
+--------------------------------------------------------------------------------
+Números:
+- -eq / -ne -> Igual a / Distinto de (ej. [ $a -eq 0 ] -> verdadero si $a es 0).
+- -lt / -le -> Menor que / Menor o igual que.
+- -gt / -ge -> Mayor que / Mayor o igual que.
+
+Texto:
+- == / != -> Cadenas de texto iguales / distintas.
+- -z / -n -> Cadena vacía (longitud 0) / Cadena no vacía.
+
+Ficheros y directorios:
+- -f ruta -> Verdadero si existe y es un fichero regular.
+- -d ruta -> Verdadero si existe y es un directorio.
+- -e ruta -> Verdadero si existe (sea fichero, directorio, enlace, etc.).
+
+Lógicos:
+- -a / && -> Y lógico (ambas condiciones deben cumplirse).
+- -o / || -> O lógico (basta con que una condición se cumpla).
+
+--------------------------------------------------------------------------------
+4. GESTIÓN DE FICHEROS, DIRECTORIOS Y PERMISOS
+--------------------------------------------------------------------------------
+- ls [-l] [-d] [-R] [-1]
+  Qué hace: Lista el contenido de directorios. '-l' formato largo con permisos/propietarios; '-d' info del propio directorio; '-R' recursivo; '-1' un elemento por línea.
+  Resultado: Muestra en pantalla los nombres o detalles de archivos y carpetas.
+
+- cat fichero
+  Qué hace: Lee y muestra el contenido completo de uno o varios ficheros de texto.
+  Resultado: Imprime el texto del archivo en la salida estándar.
+
+- touch fichero
+  Qué hace: Crea un archivo vacío si no existe, o actualiza su fecha de modificación si ya existe.
+  Resultado: Nuevo fichero de 0 bytes en el sistema.
+
+- mkdir directorio
+  Qué hace: Crea una nueva carpeta.
+  Resultado: Directorio creado (devuelve $? = 0 si tuvo éxito, o error si ya existía).
+
+- cd ruta
+  Qué hace: Cambia el directorio de trabajo actual del shell.
+  Resultado: El prompt/script pasa a operar dentro de la carpeta especificada.
+
+- chmod modo fichero
+  Qué hace: Modifica los permisos de lectura (r=4), escritura (w=2) y ejecución (x=1). Admite modo octal (ej. 754 -> rwxr-xr--) o simbólico (ej. u+x, g=rw, o-r).
+  Resultado: Actualiza los permisos de acceso del archivo o directorio.
+
+- chown usuario[:grupo] fichero
+  Qué hace: Cambia el usuario propietario (y opcionalmente el grupo) de un archivo o directorio.
+  Resultado: El fichero pasa a pertenecer al nuevo propietario indicado.
+
+- chgrp grupo fichero
+  Qué hace: Cambia exclusivamente el grupo propietario de un fichero o directorio.
+  Resultado: El fichero queda asociado al nuevo grupo.
+
+- whereis programa
+  Qué hace: Localiza la ruta del binario, el código fuente y las páginas del manual de un comando.
+  Resultado: Imprime las rutas encontradas (ej. bash: /usr/bin/bash /usr/share/man/...).
+
+--------------------------------------------------------------------------------
+5. PROCESADO Y FILTRADO DE TEXTO
+--------------------------------------------------------------------------------
+- cut -d"," -f1,2,5,6 fichero
+  Qué hace: Extrae columnas específicas (-f) de cada línea usando un delimitador concreto (-d).
+  Resultado: Devuelve únicamente los campos seleccionados separados por el delimitador.
+
+- column -t -s","
+  Qué hace: Formatea el texto de entrada en columnas alineadas automáticamente (-t) usando el separador indicado (-s).
+  Resultado: Muestra los datos tabulados de forma limpia y legible.
+
+- wc -l / wc -w
+  Qué hace: Cuenta líneas (-l) o palabras (-w) de un archivo o entrada estándar.
+  Resultado: Devuelve un número entero con el total contado.
+
+- grep [-q] [-w] [-v] "patrón" [fichero]
+  Qué hace: Filtra líneas que coinciden con un patrón. '-q' modo silencioso (solo devuelve $?); '-w' palabra completa; '-v' invierte (muestra las que NO coinciden).
+  Resultado: Imprime las líneas que cumplen el filtro (o código 0/1 con -q).
+
+- sed -n '1p;2p' / sed 's/patrón/reemplazo/'
+  Qué hace: Editor de flujo. '-n ...p' imprime solo las líneas indicadas; 's/.../.../' sustituye texto mediante expresiones regulares.
+  Resultado: Devuelve el texto modificado o las líneas seleccionadas sin alterar el archivo original.
+
+- sort [-r] [-k3]
+  Qué hace: Ordena líneas de texto. '-r' orden inverso (descendente); '-k3' ordena según la tercera columna.
+  Resultado: Listado ordenado según el criterio elegido.
+
+- tail -n fichero (ej. tail -3 /etc/passwd)
+  Qué hace: Muestra las últimas 'n' líneas de un archivo.
+  Resultado: Imprime el final del fichero (muy útil para ver los últimos usuarios/grupos creados).
+
+--------------------------------------------------------------------------------
+6. USUARIOS, GRUPOS Y AUDITORÍA (UD5)
+--------------------------------------------------------------------------------
+- sudo comando
+  Qué hace: Ejecuta un comando con privilegios de superusuario (root).
+  Resultado: Permite realizar tareas administrativas restringidas.
+
+- useradd [opciones] usuario
+  Qué hace: Crea una cuenta de usuario nueva.
+    -c "texto": Comentario o nombre completo.
+    -d /ruta: Define el directorio personal (home).
+    -m / -M: Crea el directorio home (-m) / No lo crea (-M).
+    -s /bin/bash: Asigna el shell de inicio (o /usr/sbin/nologin para bloquear acceso).
+    -g grupo: Asigna el grupo principal.
+    -G g1,g2: Asigna grupos suplementarios (secundarios).
+    -u UID: Fija un identificador numérico específico.
+    -e AAAA-MM-DD: Fecha de caducidad de la cuenta.
+    -f días: Días de gracia tras caducar contraseña antes de bloquear (0 = bloqueo inmediato).
+  Resultado: Registra el usuario en /etc/passwd y /etc/shadow.
+
+- usermod [opciones] usuario
+  Qué hace: Modifica una cuenta existente.
+    -aG grupo: Añade a grupo suplementario sin borrar los anteriores (-a es vital).
+    -g grupo: Cambia el grupo principal.
+    -d /nueva/ruta -m: Cambia el home y mueve su contenido.
+    -s /bin/sh: Cambia el shell.
+    -u UID: Cambia el UID.
+    -l nuevo_nombre: Renombra el login del usuario.
+    -L / -U: Bloquea (-L) o desbloquea (-U) la cuenta.
+  Resultado: Actualiza los datos del usuario en el sistema.
+
+- userdel -r usuario
+  Qué hace: Elimina la cuenta del usuario. '-r' borra también su carpeta home y su buzón de correo.
+  Resultado: El usuario desaparece del sistema y sus archivos personales se eliminan.
+
+- groupadd [-g GID] grupo
+  Qué hace: Crea un nuevo grupo en el sistema (con GID específico si se usa -g).
+  Resultado: Añade el grupo a /etc/group.
+
+- groupmod -g GID grupo
+  Qué hace: Modifica el GID (identificador numérico) de un grupo existente.
+  Resultado: Actualiza el GID del grupo.
+
+- groupdel grupo
+  Qué hace: Elimina un grupo (falla si es el grupo principal de algún usuario activo).
+  Resultado: Borra el grupo de /etc/group.
+
+- passwd [-S] usuario
+  Qué hace: Sin opciones, cambia la contraseña de forma interactiva. Con '-S', muestra el estado de la clave.
+  Resultado: Actualiza contraseña o devuelve estado (P = tiene clave, L = bloqueada, NP = sin clave).
+
+- echo "usuario:clave" | sudo chpasswd
+  Qué hace: Asigna contraseñas en lote leyendo pares usuario:contraseña desde la entrada estándar.
+  Resultado: Establece la contraseña de forma no interactiva (ideal en scripts).
+
+- chage -E AAAA-MM-DD usuario / chage -l usuario
+  Qué hace: '-E' establece la fecha de expiración de la cuenta; '-l' lista toda la información de caducidad de cuenta y contraseña.
+  Resultado: Modifica o muestra las políticas de expiración del usuario.
+
+- getent passwd usuario / getent group grupo
+  Qué hace: Consulta las bases de datos del sistema (como /etc/passwd o /etc/group) buscando coincidencia exacta.
+  Resultado: Devuelve la línea exacta del registro si existe (exit 0) o nada si no existe (exit 2).
+
+- id usuario / groups usuario
+  Qué hace: Muestra el UID, GID principal y todos los grupos a los que pertenece un usuario.
+  Resultado: Información detallada de identidad y pertenencia a grupos.
+
+- whoami
+  Qué hace: Muestra el nombre del usuario efectivo de la sesión actual.
+  Resultado: Imprime el nombre de usuario (ej. root o alumno).
+
+- who / w
+  Qué hace: 'who' lista los usuarios conectados actualmente; 'w' muestra además qué proceso/comando está ejecutando cada uno.
+  Resultado: Listado de sesiones activas en la máquina.
+
+- last [usuario]
+  Qué hace: Consulta /var/log/wtmp para mostrar el historial de inicios y cierres de sesión.
+  Resultado: Tabla cronológica con fechas, horas, duración e IP de conexión.
+
+- su usuario
+  Qué hace: Cambia a la sesión de otro usuario en la terminal actual ('exit' para volver).
+  Resultado: Abre un subshell bajo la identidad del usuario indicado.
+
+--------------------------------------------------------------------------------
+7. GESTIÓN DE PAQUETES Y SOFTWARE (UD4)
+--------------------------------------------------------------------------------
+- apt update
+  Qué hace: Descarga la información actualizada de los paquetes disponibles desde los repositorios (/etc/apt/sources.list).
+  Resultado: Actualiza la caché local de índices de paquetes.
+
+- apt show paquete
+  Qué hace: Muestra metadatos del paquete (versión, dependencias, descripción).
+  Resultado: Información del paquete (devuelve $? = 0 si existe en repositorios).
+
+- apt install paquete
+  Qué hace: Descarga e instala un paquete junto con todas sus dependencias automáticamente.
+  Resultado: Programa instalado y listo para usarse.
+
+- apt list --installed
+  Qué hace: Enumera todos los paquetes instalados actualmente en el sistema.
+  Resultado: Listado completo de paquetes con su versión y arquitectura.
+
+- apt remove paquete / apt purge paquete
+  Qué hace: 'remove' desinstala el programa conservando archivos de configuración; 'purge' borra programa y configuración.
+  Resultado: Software eliminado del sistema.
+
+- apt autoremove
+  Qué hace: Elimina paquetes que se instalaron como dependencias y ya no son necesarios.
+  Resultado: Libera espacio eliminando paquetes huérfanos.
+
+- dpkg -i archivo.deb
+  Qué hace: Instala un paquete local en formato .deb (no descarga dependencias automáticamente).
+  Resultado: Desempaqueta y configura el software local.
+
+- dpkg -l
+  Qué hace: Lista todos los paquetes gestionados por dpkg y su estado (ii = instalado).
+  Resultado: Tabla con estado, nombre, versión y descripción.
+
+- dpkg -r paquete / dpkg -P paquete
+  Qué hace: '-r' desinstala manteniendo configuración; '-P' purga completamente el paquete.
+  Resultado: Paquete desinstalado a bajo nivel.
+
+- dpkg-reconfigure paquete
+  Qué hace: Vuelve a ejecutar el asistente de configuración inicial de un paquete ya instalado.
+  Resultado: Abre los diálogos de configuración del paquete.
+
+- synaptic
+  Qué hace: Lanza la interfaz gráfica de gestión de paquetes (frontend de apt).
+  Resultado: Abre la ventana visual de Synaptic.
+
+--------------------------------------------------------------------------------
+8. PROCESOS, SEÑALES Y SYSTEMD TIMERS (UD6)
+--------------------------------------------------------------------------------
+- ps -aux / ps -U usuario / ps ux
+  Qué hace: Muestra una instantánea de los procesos activos. '-aux' todos los del sistema; '-U' los de un usuario; 'ux' los del usuario actual con detalle de CPU/RAM.
+  Resultado: Tabla con USER, PID, %CPU, %MEM, COMMAND, etc.
+
+- pstree -up [PID]
+  Qué hace: Muestra los procesos en formato de árbol jerárquico indicando usuario (-u) y PID (-p).
+  Resultado: Árbol visual de procesos padres e hijos.
+
+- pidof [-c] programa
+  Qué hace: Busca los identificadores de proceso (PID) de un programa en ejecución.
+  Resultado: Devuelve los números de PID separados por espacios.
+
+- comando &
+  Qué hace: El símbolo '&' al final lanza el comando directamente en segundo plano.
+  Resultado: Devuelve el control de la terminal inmediatamente y guarda el PID en $!.
+
+- kill [-SEÑAL] PID
+  Qué hace: Envía una señal a un proceso por su PID. Sin opción envía SIGTERM (terminar ordenadamente); '-STOP' pausa; '-CONT' reanuda; '-9' (SIGKILL) mata a la fuerza.
+  Resultado: Detiene, pausa, reanuda o finaliza el proceso indicado.
+
+- killall [-SEÑAL] nombre_proceso
+  Qué hace: Envía una señal a todos los procesos que coincidan con ese nombre.
+  Resultado: Afecta simultáneamente a todas las instancias del programa.
+
+- nice -n prioridad comando
+  Qué hace: Inicia un programa con una prioridad de planificación (niceness) de -20 (máxima) a 19 (mínima).
+  Resultado: El proceso arranca con la prioridad asignada.
+
+- renice -n prioridad PID
+  Qué hace: Modifica la prioridad de un proceso que ya está en ejecución (bajar el número requiere sudo).
+  Resultado: Cambia la prioridad en caliente del PID indicado.
+
+- jobs / fg %n / bg %n
+  Qué hace: 'jobs' lista los trabajos detenidos o en segundo plano en la sesión actual; 'fg' pasa el trabajo 'n' a primer plano; 'bg' lo reanuda en segundo plano (Ctrl+Z detiene el actual).
+  Resultado: Controla el estado de ejecución de las tareas de la terminal.
+
+- nohup comando &
+  Qué hace: Ejecuta un comando inmune a la señal de cierre de terminal (SIGHUP) en segundo plano.
+  Resultado: El proceso sigue corriendo aunque cierres la sesión; su salida se guarda en 'nohup.out'.
+
+- systemctl daemon-reload
+  Qué hace: Recarga la configuración de systemd tras crear o editar archivos .service o .timer.
+  Resultado: Systemd reconoce las nuevas unidades o cambios.
+
+- systemctl enable --now unidad.timer
+  Qué hace: Habilita el temporizador para que arranque con el sistema y lo inicia inmediatamente (--now).
+  Resultado: Tarea programada activa y en marcha.
+
+- systemctl list-timers / systemctl status unidad.timer
+  Qué hace: 'list-timers' muestra todos los temporizadores activos y cuándo se ejecutarán; 'status' muestra el estado detallado de uno concreto.
+  Resultado: Información de programación, última ejecución y estado del servicio.
+
+- journalctl -u unidad.service
+  Qué hace: Consulta los registros (logs) generados por un servicio específico de systemd.
+  Resultado: Muestra la salida estándar y errores de las ejecuciones del servicio.
+
+--------------------------------------------------------------------------------
+9. BUCLES Y COLORES ANSI EN BASH
+--------------------------------------------------------------------------------
+- while [ condición ]; do ... done
+  Qué hace: Repite un bloque mientras la condición sea verdadera (ideal para menús o validar entradas).
+  Resultado: Ejecuta las instrucciones repetidamente hasta que la condición deje de cumplirse.
+
+- while IFS=, read -r col1 col2 ...; do ... done < archivo.csv
+  Qué hace: Lee un fichero línea a línea separando los campos por el delimitador IFS (coma) y asignándolos a variables.
+  Resultado: Procesa cada fila del CSV en el shell actual (conservando variables como contadores).
+
+- for var in lista / {1..3} / *.deb / $(comando); do ... done
+  Qué hace: Itera sobre una lista explícita, un rango numérico, comodines de archivos o la salida de un comando.
+  Resultado: Ejecuta el bloque una vez por cada elemento de la lista.
+
+- break / continue
+  Qué hace: 'break' aborta y sale del bucle inmediatamente; 'continue' salta directamente a la siguiente iteración.
+  Resultado: Altera el flujo normal de repetición del bucle.
+
+- Secuencias de color ANSI (usadas con echo -e):
+  \e[92m -> Verde
+  \e[91m -> Rojo
+  \e[94m -> Azul
+  \e[93m -> Amarillo
+  \e[0m  -> Normal (restaura el color por defecto de la terminal)
+  Resultado: Colorea el texto de salida en los menús y mensajes de estado.
+  
+  ## SCRIPT GUIA
+  
+#!/bin/bash
+#
+# Nombre: notas.sh
+# Descripción: Gestiona las notas de los alumnos de una clase mediante un menú
+# Uso: ./notas.sh <fichero_notas>
+# Autor: Guillermo Martín
+# Fecha: 2026-11-12
+#
+### VALIDACIÓN ###
+# Exactamente 1 parámetro -> si no, mostrar el uso y salir
+if [ $# -ne 1 ]
+then
+echo "Uso: $0 <fichero_notas>"
+exit 1
+fi
+fichero="$1"
+# -f = existe y es un fichero. Si NO existe, se crea vacío
+if [ ! -f "$fichero" ]
+then
+touch "$fichero"
+echo "Se ha creado el fichero $fichero"
+fi
+### FUNCIONES ###
+mostrar_menu() {
+echo ""
+echo "===== GESTIÓN DE NOTAS ====="
+echo "1) Añadir alumno"
+echo "2) Listar alumnos"
+echo "3) Estadísticas"
+echo "4) Buscar alumno"
+echo "5) Salir"
+}
+# --- Opción 1 ---
+anadir_alumno() {
+read -p "Nombre del alumno: " nombre
+# -z = vacío -> aviso y return (vuelve al menú, NO cierra el script)
+if [ -z "$nombre" ]
+then
+echo "ERROR: el nombre no puede estar vacío"
+return
+fi
+# Mientras NO sea un número O sea mayor que 10 -> volver a pedirla
+read -p "Nota (0-10): " nota
+while [[ ! "$nota" =~ ^[0-9]+$ ]] || [ "$nota" -gt 10 ]
+do
+echo "ERROR: la nota tiene que ser un número entre 0 y 10"
+read -p "Nota (0-10): " nota
+done
+# >> añade al final (con > se borraría todo)
+echo "$nombre:$nota" >> "$fichero"
+echo "Alumno $nombre añadido con un $nota"
+# Registro: fecha y hora - usuario - lo añadido
+echo "$(date '+%Y-%m-%d %H:%M:%S') - $(whoami) - añadido $nombre:$nota" >>
+registro.log
+}
+# --- Opción 2 ---
+listar_alumnos() {
+# wc -l < fichero -> solo el número de líneas
+total=$(wc -l < "$fichero")
+if [ "$total" -eq 0 ]
+then
+echo "No hay alumnos"
+return
+fi
+# Leer el fichero línea a línea con un contador delante
+i=1
+while read -r linea
+do
+echo "$i) $linea"
+i=$((i + 1))
+done < "$fichero"
+}
+# --- Opción 3 ---
+estadisticas() {
+total=$(wc -l < "$fichero")
+if [ "$total" -eq 0 ]
+then
+echo "No hay alumnos"
+return
+fi
+suma=0
+aprobados=0
+suspensos=0
+# cut -d: -f2 -> de "Ana:7" se queda con el 7
+for nota in $(cut -d: -f2 "$fichero")
+do
+suma=$((suma + nota))
+if [ "$nota" -ge 5 ]
+then
+aprobados=$((aprobados + 1))
+else
+suspensos=$((suspensos + 1))
+fi
+done
+media=$((suma / total))
+echo "Total de alumnos: $total"
+echo "Nota media: $media"
+echo "Aprobados: $aprobados"
+echo "Suspensos: $suspensos"
+}
+# --- Opción 4 ---
+buscar_alumno() {
+read -p "Nombre a buscar: " nombre
+# ^nombre: -> la línea EMPIEZA por ese nombre seguido de :
+linea=$(grep "^$nombre:" "$fichero")
+if [ -z "$linea" ]
+then
+echo "Alumno no encontrado"
+else
+nota=$(echo "$linea" | cut -d: -f2)
+echo "$nombre tiene un $nota"
+fi
+}
+# --- Opción 5 ---
+salir() {
+read -p "¿Seguro que quieres salir? (s/n): " respuesta
+case "$respuesta" in
+s|S)
+echo "Saliendo..."
+exit 0
+;;
+*)
+echo "Volviendo al menú"
+;;
+esac
+}
+### SCRIPT ###
+# Bucle infinito: menú -> leer opción -> el case llama a la función.
+# Solo se sale con la opción 5 (exit 0 dentro de salir)
+while true
+do
+mostrar_menu
+read -p "Elige una opción [1-5]: " opcion
+case "$opcion" in
+1) anadir_alumno ;;
+2) listar_alumnos ;;
+3) estadisticas ;;
+4) buscar_alumno ;;
+5) salir ;;
+*) echo "Opción no válida, elige del 1 al 5" ;;
+esac
+done
