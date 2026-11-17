@@ -23,3 +23,21 @@ El objetivo principal de esta práctica es implementar y analizar diversos méto
 \newpage
 
 # Práctica 1: Creación y Verificación de un Hash con SHA-256
+
+La verificación de integridad mediante funciones hash permite garantizar que un archivo no ha sufrido alteraciones durante su almacenamiento o transferencia. En este primer apartado se empleará el algoritmo **SHA-256** para comprobar cómo se genera la huella digital de un fichero y cómo varía ante cualquier mínima modificación.
+
+## Parte 1: Generación y comprobación de integridad
+
+### 1. Creación del archivo de texto
+
+En primer lugar, crearemos un fichero de prueba y verificaremos su contenido:
+
+```terminal
+echo "archivo de prueba practica 2" > prueba_integridad.txt
+cat prueba_integridad.txt
+```
+\imagen[width=1\textwidth]{fotos/img1.png}
+
+### 2. Generación del hash SHA-256 original
+
+A continuación, obtendremos la huella digital SHA-256 del archivo mediante el comando `sha256sum`, obteniendo una cadena hexadecimal única de 64 caracteres. Este valor lo almacenaremos en un fichero para tomarlo como referencia:
