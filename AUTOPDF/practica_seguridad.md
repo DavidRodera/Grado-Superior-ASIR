@@ -41,3 +41,8 @@ cat prueba_integridad.txt
 ### 2. Generación del hash SHA-256 original
 
 A continuación, obtendremos la huella digital SHA-256 del archivo mediante el comando `sha256sum`, obteniendo una cadena hexadecimal única de 64 caracteres. Este valor lo almacenaremos en un fichero para tomarlo como referencia:
+
+```terminal
+sha256sum prueba_integridad.txt > original.txt
+cat original.txt
+```
