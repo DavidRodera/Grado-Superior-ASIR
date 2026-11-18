@@ -127,3 +127,43 @@ cat mensaje_cifrado
 ```
 
 \imagen[width=1\textwidth]{fotos/img5.png}
+
+Al emplear la clave correcta y los mismos parámetros criptográficos, la terminal devuelve exactamente el mensaje original sin alteraciones.
+
+\newpage
+
+## Parte 3: Reflexión
+
+::: warning
+**1. ¿Ǫué ocurre si intentas descifrar el mensaje con una clave incorrecta?**
+
+Claramente no te va a dejar descifrarlo, ya que funciona solo usando la clave correcta con la se cifró, devuelviendo el comando un error de descifrado (bad decrypt). 
+:::
+
+::: note
+**2. ¿Por qué es importante mantener la clave en secreto en el cifrado simétrico?**
+
+Porque en cifrado simétrico hay una sola clave para cifrar y descifrar. Con lo cual si alguien consigue la clave podrá acceder.
+:::
+
+::: tip
+**3. Aplicaciones del Cifrado Simétrico en la Vida Real**
+
+Se aplica dentro de la fase de transferencia de datos en conexiones HTTPS/TLS.
+:::
+
+\newpage
+
+# Práctica 3: Cifrado Asimétrico (RSA)
+
+El cifrado asimétrico utiliza un par de claves matemáticamente vinculadas: una **clave pública** (que puede distribuirse libremente para cifrar mensajes) y una **clave privada** (que debe custodiarse en secreto para descifrarlos). En este apartado se implementa el algoritmo **RSA** mediante `openssl` para generar el par de claves y proteger la confidencialidad de un mensaje.
+
+## Parte 1: Generación de Claves RSA
+
+### 3.1.1. Generar la clave privada
+
+En primer lugar, se genera una clave privada RSA con una longitud de 2048 bits mediante el subcomando `genpkey`, almacenándola en el fichero `clave_privada.pem`:
+
+```terminal
+openssl genpkey -algorithm RSA -out clave_privada.pem -pkeyopt rsa_keygen_bits:2048
+```
