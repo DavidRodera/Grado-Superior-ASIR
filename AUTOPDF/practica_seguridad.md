@@ -93,7 +93,7 @@ En primer lugar, se comprobará si el paquete `openssl` se encuentra instalado e
 openssl version
 ```
 
-\imagen[width=0.5\textwidth]{fotos/img3.png}
+\imagen[width=0.7\textwidth]{fotos/img3.png}
 
 En caso de no disponer de la herramienta, se actualizan los repositorios e instala el paquete correspondiente:
 
@@ -101,3 +101,16 @@ En caso de no disponer de la herramienta, se actualizan los repositorios e insta
 sudo apt-get update
 sudo apt-get install openssl
 ```
+
+\newpage
+
+### 1.2. Cifrado de un mensaje con AES-256
+
+A continuación, cifraremos una cadena de texto utilizando el algoritmo AES con clave de 256 bits en modo CBC (-aes-256-cbc), codificando el resultado en Base64 (-a), añadiendo aleatoriedad (-salt) y derivando la clave mediante PBKDF2 (-pbkdf2). La salida cifrada se redirige al fichero mensaje_cifrado:
+
+```terminal
+echo "Este es un mensaje secreto de David y Marco" | openssl enc -aes-256-cbc -a -salt -pass pass:clave -pbkdf2 > mensaje_cifrado
+cat mensaje_cifrado
+```
+
+\imagen[width=1\textwidth]{fotos/img4.png}
