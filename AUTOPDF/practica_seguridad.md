@@ -232,4 +232,17 @@ En este apartado implementaremos una infraestructura de clave pública (**PKI**)
 
 ## 1. Diseño del Esquema Técnico
 
-\imagen[width=0.8\textwidth]{fotos/img21.png}
+\imagen[width=0.9\textwidth]{fotos/img21.png}
+
+## 2. Justificación Teórica Razonada
+
+Primero creamos la CA en la propia máquina virtual. Generamos su clave privada ca.key y con ella un certificado autofirmado, ca.crt. Como nadie avala a la CA, tenemos que decirle al sistema que se fíe de ella.
+
+Después creamos las claves del servidor. servidor.key es privada y no sale de la máquina. A partir de ella hicimos servidor.csr, una petición con la clave pública y el nombre servidor.local. La CA la firmó con ca.key y nos devolvió servidor.crt. Esa firma garantiza que la clave pública pertenece a ese nombre. Con esos archivos configuramos Apache para que sirviera HTTPS.
+
+La primera prueba la hicimos sin instalar la CA y curl falló con el error 60, porque el cliente no reconocía a quien firmó el certificado. Al importar ca.crt al almacén de confianza, el cliente pudo comprobar la firma y la conexión funcionó.
+
+Con la firma no basta, porque el certificado es público y cualquiera podría copiarlo. Por eso, durante el handshake, el servidor firma datos de la conexión con servidor.key y el cliente lo verifica con la clave pública del certificado. Solo quien tiene la clave privada puede hacerlo, así que el servidor demuestra que es el auténtico. Luego ambos acuerdan una clave de sesión y el tráfico se cifra con AES.
+
+Por último, cambiamos servidor.key por una clave falsa. Apache dio key values mismatch y no arrancó: sin la clave privada auténtica no hay handshake posible.
+
