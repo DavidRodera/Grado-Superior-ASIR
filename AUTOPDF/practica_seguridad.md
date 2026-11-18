@@ -246,3 +246,74 @@ Con la firma no basta, porque el certificado es público y cualquiera podría co
 
 Por último, cambiamos servidor.key por una clave falsa. Apache dio key values mismatch y no arrancó: sin la clave privada auténtica no hay handshake posible.
 
+## 3. Despliegue de Comandos en Linux (Paso a Paso)
+
+### Paso 1 y 2. Creación de la Autoridad Certificadora (CA)
+
+Dentro del directorio de trabajo ~/ca-practica, se genera la clave privada de la CA (ca.key de 4096 bits) y su certificado raíz autofirmado (ca.crt) con una validez de 10 años (3650 días):
+
+\imagen[width=1\textwidth]{fotos/img9.png}
+
+### Paso 3. Generación de clave privada y CSR del servidor
+
+Se crea la clave privada del servidor (servidor.key de 2048 bits) y se genera la solicitud de firma de certificado (servidor.csr) indicando el Common Name servidor.local:
+
+\imagen[width=1\textwidth]{fotos/img10.png}
+
+### Paso 4. Definición de la extensión SAN (Subject Alternative Name)
+
+Dado que los clientes modernos y curl validan la identidad del servidor frente al campo SAN y no únicamente frente al CN, se crea el archivo de configuración ext.cnf:
+
+\imagen[width=1\textwidth]{fotos/img11.png}
+
+### Paso 5. Firma del certificado del servidor por parte de la CA
+
+La CA firma la solicitud servidor.csr utilizando ca.key y ca.crt, incorporando las extensiones de ext.cnf para emitir el certificado final servidor.crt, y se verifica su validez con openssl verify:
+
+\imagen[width=1\textwidth]{fotos/img12.png}
+
+### Paso 6, 7 y 8. Instalación en Apache2, resolución local y activación de SSL
+
+Se copian el certificado y la clave privada a las rutas del sistema (/etc/ssl/certs/ y /etc/ssl/private/), se añade la entrada 127.0.0.1 servidor.local en /etc/hosts, se configuran las directivas SSLCertificateFile y SSLCertificateKeyFile en /etc/apache2/sites-available/default-ssl.conf y se reinicia el servicio web:
+
+\imagen[width=1\textwidth]{fotos/img13.png}
+
+\newpage
+
+Configuración aplicada en /etc/apache2/sites-available/default-ssl.conf:
+
+\imagen[width=1\textwidth]{fotos/img14.png}
+
+Comprobación de sintaxis y reinicio del servicio Apache2:
+
+\imagen[width=1\textwidth]{fotos/img15.png}
+
+\newpage
+
+## 4. Puesta a Prueba y Verificación
+
+### Paso 9. Prueba inicial sin CA de confianza (Fallo esperado)
+
+Al realizar una petición HTTPS antes de instalar la CA raíz en el sistema, curl devuelve el error curl: (60) SSL certificate problem: self signed certificate y openssl s_client muestra Verify return code: 18 (self signed certificate) al no reconocer al emisor:
+
+\imagen[width=1\textwidth]{fotos/img16.png}
+
+### Paso 10. Importación de la CA en el Trust Store local
+
+Se copia el certificado raíz ca.crt al directorio /usr/local/share/ca-certificates/ y se actualiza el almacén de certificados del sistema operativo:
+
+\imagen[width=1\textwidth]{fotos/img17.png}
+
+### Paso 11. Verificación del Handshake y cadena de confianza
+
+Tras actualizar el Trust Store, se comprueba la conexión TLS con openssl s_client, obteniendo Verify return code: 0 (ok), lo que acredita que la firma y el handshake se validan correctamente:
+
+\imagen[width=1\textwidth]{fotos/img18.png}
+
+### Paso 12 y 13. Comprobación de pareja clave-certificado y simulación de fallo con clave falsa
+
+En primer lugar, se verifica mediante el módulo MD5 que servidor.crt y servidor.key pertenecen al mismo par criptográfico (ambos hashes coinciden en 4c1db5fe6291c53b37e55669b8769810). A continuación, se genera una clave privada falsa (falsa.key) y se sobrescribe /etc/ssl/private/servidor.key para simular un servidor que intenta presentar un certificado sin poseer su clave privada auténtica. Al intentar reiniciar Apache2, el servicio falla al detectar la incoherencia entre el certificado y la clave:
+
+\imagen[width=1\textwidth]{fotos/img19.png}
+
+\imagen[width=1\textwidth]{fotos/img20.png}
