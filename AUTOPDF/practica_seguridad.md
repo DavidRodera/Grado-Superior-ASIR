@@ -162,8 +162,34 @@ El cifrado asimétrico utiliza un par de claves matemáticamente vinculadas: una
 
 ### 3.1.1. Generar la clave privada
 
-En primer lugar, se genera una clave privada RSA con una longitud de 2048 bits mediante el subcomando `genpkey`, almacenándola en el fichero `clave_privada.pem`:
+En primer lugar, generaremos una clave privada RSA con una longitud de 2048 bits mediante el subcomando `genpkey`, almacenándola en el fichero `clave_privada.pem`:
 
 ```terminal
 openssl genpkey -algorithm RSA -out clave_privada.pem -pkeyopt rsa_keygen_bits:2048
 ```
+
+\imagen[width=1\textwidth]{fotos/img6.png}
+
+### 3.1.2. Generar la clave pública
+
+A partir de la clave privada generada previamente, extraeremos su correspondiente clave pública en formato PEM (clave_publica.pem) para poder compartirla con terceros:
+
+```terminal
+openssl rsa -in clave_privada.pem -pubout -out clave_publica.pem
+```
+
+\imagen[width=1\textwidth]{fotos/img7.png}
+
+## Parte 2: Cifrar un Mensaje con la Clave Pública
+
+### 3.2.1. Cifrado y almacenamiento del mensaje
+
+A continuación, se cifra una cadena de texto en claro utilizando la clave pública del destinatario (-inkey clave_publica.pem -pubin) mediante openssl pkeyutl, guardando la salida binaria resultante en el archivo mensaje_cifrado.bin:
+
+```terminal
+echo "Mensaje secreto para ti" | openssl pkeyutl -encrypt -inkey clave_publica.pem -pubin -out mensaje_cifrado.bin
+```
+
+El fichero mensaje_cifrado.bin contiene los datos protegidos y únicamente podrá ser revertido empleando la clave privada asociada.
+
+\imagen[width=1\textwidth]{fotos/img8.png}
