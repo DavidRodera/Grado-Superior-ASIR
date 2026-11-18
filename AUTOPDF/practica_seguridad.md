@@ -62,3 +62,21 @@ cat original.txt
 ```
 
 \imagen[width=1\textwidth]{fotos/img2.png}
+
+## Parte 2: Reflexión y Análisis
+
+::: note
+**1. ¿Por qué cambia el hash al modificar el contenido?**
+
+Porque el primer hash que hemos creado es de exactamente los carácteres que estaban escritos previamente. Si modificamos algo, aunque sea una letra o un espacio, el hash cambia completamente.
+:::
+
+::: tip
+**2. Aplicación en la Vida Real**
+
+Se puede usar para comprobar o certificar que, por ejemplo, unos datos de una empresa no han sido manipulados absolutamente nada.
+:::
+
+\newpage
+
+
