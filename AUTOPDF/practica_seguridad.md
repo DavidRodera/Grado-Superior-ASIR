@@ -36,7 +36,6 @@ En primer lugar, crearemos un fichero de prueba y verificaremos su contenido:
 echo "archivo de prueba practica 2" > prueba_integridad.txt
 cat prueba_integridad.txt
 ```
-\imagen[width=1\textwidth]{fotos/img1.png}
 
 ### 2. Generación del hash SHA-256 original
 
@@ -46,3 +45,17 @@ A continuación, obtendremos la huella digital SHA-256 del archivo mediante el c
 sha256sum prueba_integridad.txt > original.txt
 cat original.txt
 ```
+
+\imagen[width=1\textwidth]{fotos/img1.png}
+
+### 3. Modificación del archivo y nuevo cálculo del hash
+
+Posteriormente, editaremos el contenido del archivo, generaremos de nuevo el hash SHA-256 y lo compararemos con el del fichero donde guardamos el anterior hash.
+
+```terminal
+echo "archivo cambiado de prueba practica 2" > prueba_integridad.txt
+sha256sum prueba_integridad.txt
+cat original.txt
+```
+
+\imagen[width=1\textwidth]{fotos/img2.png}
