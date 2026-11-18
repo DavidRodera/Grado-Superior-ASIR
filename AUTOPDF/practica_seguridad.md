@@ -223,3 +223,13 @@ La más clara es que no se usa la misma clave para cifrar que para descifrar, co
 
 El emisor cifra la clave de sesión con la clave pública del receptor, que puede circular libremente por un canal inseguro, y solo el receptor puede descifrarla con su clave privada. Así se evita el problema del cifrado simétrico, que exige compartir previamente un secreto.
 :::
+
+\newpage
+
+# Práctica 4: Despliegue de CA y Certificados SSL/TLS mediante máquinas virtuales en Linux
+
+En este apartado implementaremos una infraestructura de clave pública (**PKI**) local dentro de una máquina virtual Linux. El objetivo es crear una Autoridad Certificadora (**CA**) propia, emitir un certificado digital para un servidor web seguro (**HTTPS**) y verificar cómo un cliente local valida tanto la cadena de confianza como la autenticidad del servidor mediante el protocolo **TLS Handshake**.
+
+## 1. Diseño del Esquema Técnico
+
+\imagen[width=0.8\textwidth]{fotos/img21.png}
