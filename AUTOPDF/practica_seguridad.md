@@ -114,3 +114,16 @@ cat mensaje_cifrado
 ```
 
 \imagen[width=1\textwidth]{fotos/img4.png}
+
+## Parte 2: Descifrado del Mensaje
+
+### 2.1. Descifrado y verificación del mensaje original
+
+Para recuperar el texto en claro, leeremos el contenido del archivo mensaje_cifrado y enviaremos mediante tubería a openssl enc incorporando el parámetro -d (decrypt) junto con la misma contraseña y opciones utilizadas durante el cifrado:
+
+```terminal
+echo mensaje_cifrado | openssl enc -aes-256-cbc -d -a -salt -pass pass:clave -pbkdf2
+cat mensaje_cifrado
+```
+
+\imagen[width=1\textwidth]{fotos/img5.png}
