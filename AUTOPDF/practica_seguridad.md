@@ -79,4 +79,25 @@ Se puede usar para comprobar o certificar que, por ejemplo, unos datos de una em
 
 \newpage
 
+# Práctica 2: Cifrado Simétrico (AES)
 
+El cifrado simétrico es un método criptográfico en el que se emplea una única clave compartida tanto para cifrar como para descifrar la información. En este apartado se utiliza el estándar **AES (Advanced Encryption Standard)** mediante la herramienta `openssl` para proteger mensajes y comprobar su funcionamiento.
+
+## Parte 1: Cifrado del Mensaje
+
+### 1.1. Verificación e instalación de OpenSSL
+
+En primer lugar, se comprobará si el paquete `openssl` se encuentra instalado en el sistema consultando su versión actual:
+
+```terminal
+openssl version
+```
+
+\imagen[width=0.5\textwidth]{fotos/img3.png}
+
+En caso de no disponer de la herramienta, se actualizan los repositorios e instala el paquete correspondiente:
+
+```terminal
+sudo apt-get update
+sudo apt-get install openssl
+```
