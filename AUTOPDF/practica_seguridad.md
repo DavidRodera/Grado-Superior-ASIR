@@ -193,3 +193,5 @@ echo "Mensaje secreto para ti" | openssl pkeyutl -encrypt -inkey clave_publica.p
 El fichero mensaje_cifrado.bin contiene los datos protegidos y únicamente podrá ser revertido empleando la clave privada asociada.
 
 \imagen[width=1\textwidth]{fotos/img8.png}
+
+
