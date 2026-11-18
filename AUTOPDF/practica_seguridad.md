@@ -190,8 +190,36 @@ A continuación, se cifra una cadena de texto en claro utilizando la clave públ
 echo "Mensaje secreto para ti" | openssl pkeyutl -encrypt -inkey clave_publica.pem -pubin -out mensaje_cifrado.bin
 ```
 
-El fichero mensaje_cifrado.bin contiene los datos protegidos y únicamente podrá ser revertido empleando la clave privada asociada.
+El fichero mensaje_cifrado.bin contendrá los datos protegidos y únicamente podrá ser revertido empleando la clave privada asociada.
 
 \imagen[width=1\textwidth]{fotos/img8.png}
 
+## Parte 3: Descifrar el Mensaje con la Clave Privada
 
+### 3.3.1. Descifrado y verificación
+
+Para recuperar el contenido original, ejecutaremos la operación inversa (-decrypt) pasando como parámetro la clave privada (clave_privada.pem) y el fichero cifrado de entrada:
+
+```terminal
+openssl pkeyutl -decrypt -inkey clave_privada.pem -in mensaje_cifrado.bin
+```
+
+Tras ejecutar el comando, la salida estándar devolverá el texto original en claro (Mensaje secreto para ti), confirmando que el proceso de cifrado y descifrado asimétrico se ha completado con éxito.
+
+\imagen[width=1\textwidth]{fotos/img8.1.png}
+
+\newpage
+
+## Parte 4: Reflexión y preguntas
+
+::: tip
+**1. ¿Qué diferencia encuentras entre el cifrado simétrico y el asimétrico?**
+
+La más clara es que no se usa la misma clave para cifrar que para descifrar, con lo cual, es más seguro.
+:::
+
+::: warning
+**2. ¿Por qué es más seguro usar RSA en el intercambio de claves?**
+
+El emisor cifra la clave de sesión con la clave pública del receptor, que puede circular libremente por un canal inseguro, y solo el receptor puede descifrarla con su clave privada. Así se evita el problema del cifrado simétrico, que exige compartir previamente un secreto.
+:::
