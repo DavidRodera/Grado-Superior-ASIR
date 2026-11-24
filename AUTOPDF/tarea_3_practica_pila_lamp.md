@@ -64,7 +64,7 @@ ip -br a
 
 Tras confirmar que nuestra máquina responde en la dirección `10.0.2.15`, abrimos el navegador web y accedemos a `http://10.0.2.15`, verificando que Apache sirve correctamente su página predeterminada de bienvenida:
 
-\imagen[width=0.85\textwidth]{fotos/img3.jpg}
+\imagen[width=0.85\textwidth]{fotos/img3.png}
 
 \newpage
 
@@ -121,7 +121,7 @@ echo "<?php phpinfo(); ?>" | sudo tee /var/www/html/info.php
 
 Al abrir `http://10.0.2.15/info.php` en el navegador, el servidor interpreta el código y nos devuelve la ficha completa con la configuración activa de PHP 7.4 y el módulo `apache2handler`:
 
-\imagen[width=0.85\textwidth]{fotos/img8.jpg}
+\imagen[width=0.85\textwidth]{fotos/img8.png}
 
 ### 2. Retirada del archivo de prueba por seguridad
 
