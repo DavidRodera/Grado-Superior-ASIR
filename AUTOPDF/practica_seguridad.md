@@ -45,7 +45,7 @@ sudo snap install john-the-ripper
 Usaremos `snap` de Snap Store para instalar la herramienta **john-the-ripper** en vez de `apt` debido a que esta no se encuentra en el repositorio oficial de Ubuntu.
 :::
 
-## Preparación del hash
+### 1.2. Preparación del hash
 
 A continuación, guardaremos en el archivo `pwdavidjose.txt` el hash **snefru-128** interceptado:
 
@@ -54,5 +54,15 @@ echo "416c46988325682c379a0998412f39ea" > pwdavidjose.txt
 cat pwdavidjose.txt
 ```
 
+\newpage
 
+## Parte 2: Descarga del diccionario y ejecución del ataque
 
+### 2.1. Obtención y descompresión del diccionario
+
+Para realizar el ataque del diccionario, descargaremos el listado de contraseñas filtradas rockyou.txt.gz desde el repositorio indicado y lo descomprimiremos:
+
+```terminal
+curl -L https://
+gunzip rockyou.txt.gz
+```
