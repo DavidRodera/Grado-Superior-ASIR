@@ -1,7 +1,7 @@
 ---
 tipo: "PRÁCTICA"
 title: "Práctica del RA3: Seguridad Perimetral"
-author: "David Rodera"
+author: "David Rodera - José Santos - 08/12/2026"
 subject: "Seguridad y Alta Disponibilidad (SAD)"
 curso: "2º Administración de Sistemas Informáticos en Red (2ºASIR)"
 footer: "Práctica RA3. Seguridad y Alta Disponibilidad. ASIR"
