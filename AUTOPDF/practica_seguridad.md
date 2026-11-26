@@ -39,3 +39,5 @@ En primer lugar, actualizaremos los repositorios del sistema e instalaremos la v
 sudo apt update
 sudo snap install john-the-ripper
 ```
+
+
