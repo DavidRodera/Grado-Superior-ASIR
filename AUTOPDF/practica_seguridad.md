@@ -29,7 +29,7 @@ La auditoría de contraseñas permite evaluar la robustez de las credenciales al
 Los ejercicios y conocimientos contenidos en esta práctica tienen un propósito exclusivamente formativo dentro de un entorno de laboratorio controlado, por lo que nunca deberán emplearse con fines maliciosos ni fuera de sistemas autorizados.
 :::
 
-## Parte 1: Preparación del entorno e instalación
+## Parte 1: Preparación del hash e instalación
 
 ### 1.1. Instalación de John the Ripper (Versión Jumbo)
 
@@ -39,5 +39,20 @@ En primer lugar, actualizaremos los repositorios del sistema e instalaremos la v
 sudo apt update
 sudo snap install john-the-ripper
 ```
+\imagen[width=1\textwidth]{fotos/img1.png}
+
+::: note
+Usaremos `snap` de Snap Store para instalar la herramienta **john-the-ripper** en vez de `apt` debido a que esta no se encuentra en el repositorio oficial de Ubuntu.
+:::
+
+## Preparación del hash
+
+A continuación, guardaremos en el archivo `pwdavidjose.txt` el hash **snefru-128** interceptado:
+
+```terminal
+echo "416c46988325682c379a0998412f39ea" > pwdavidjose.txt
+cat pwdavidjose.txt
+```
+
 
 
