@@ -66,3 +66,5 @@ Para realizar el ataque del diccionario, descargaremos el listado de contraseña
 curl -L https://
 gunzip rockyou.txt.gz
 ```
+
+\imagen[width=1\textwidth]{fotos/img3.png}
